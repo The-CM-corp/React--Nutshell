@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import APIManager from '../modules/APIManager'
 import Login from './authentication/Login'
 import NewsList from './news/NewsList'
+import EventList from './event/EventList'
+import EventDetail from './event/EventDetail'
 import './Nutshell.css'
 
 
@@ -22,13 +24,19 @@ export default class ApplicationViews extends Component {
   componentDidMount() {
     const newState = {}
 
-    APIManager.getAllEntries("users").then(users => newState.users = users)
-    APIManager.getAllEntries("events").then(events => newState.events = events)
-    APIManager.getAllEntries("todos").then(todos => newState.todos = todos)
-    APIManager.getAllEntries("news").then(news => newState.news = news)
-    APIManager.getAllEntries("messages").then(messages => newState.messages = messages)
-    APIManager.getAllEntries("friends").then(friends => newState.friends = friends)
-
+    APIManager.getAllEntries("users")
+      .then(users => newState.users = users)
+      .then(() => APIManager.getAllEntries("events"))
+      .then(events => newState.events = events)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => newState.todos = todos)
+      .then(() => APIManager.getAllEntries("news"))
+      .then(news => newState.news = news)
+      .then(() => APIManager.getAllEntries("messages"))
+      .then(messages => newState.messages = messages)
+      .then(() => APIManager.getAllEntries("friends"))
+      .then(friends => newState.friends = friends)
+      .then(() => this.setState(newState))
   }
 
 
@@ -38,6 +46,13 @@ export default class ApplicationViews extends Component {
           <Route exact path="/news" render={(props) => {
             if (this.isAuthenticated()) {
               return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
+            } else {
+              return <Redirect to="/login" />
+            }
+          }} />
+          <Route exact path="/events" render={(props) => {
+            if (this.isAuthenticated()) {
+              return <EventList events={this.state.events} deleteEntry={this.deleteEntry} />
             } else {
               return <Redirect to="/login" />
             }

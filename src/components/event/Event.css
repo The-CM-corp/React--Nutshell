@@ -1,0 +1,53 @@
+.events {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+
+.eventButton {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+}
+
+.card {
+  background-color: salmon;
+  margin: auto;
+  height: 300px;
+  width: 300px;
+  
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card-details {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+.card-link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7em;
+  color: purple;
+  }
