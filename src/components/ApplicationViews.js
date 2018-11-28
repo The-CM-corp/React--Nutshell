@@ -22,27 +22,33 @@ export default class ApplicationViews extends Component {
   componentDidMount() {
     const newState = {}
 
-    APIManager.getAllEntries("users").then(users => newState.users = users)
-    APIManager.getAllEntries("events").then(events => newState.events = events)
-    APIManager.getAllEntries("todos").then(todos => newState.todos = todos)
-    APIManager.getAllEntries("news").then(news => newState.news = news)
-    APIManager.getAllEntries("messages").then(messages => newState.messages = messages)
-    APIManager.getAllEntries("friends").then(friends => newState.friends = friends)
-
+    APIManager.getAllEntries("users")
+      .then(users => newState.users = users)
+      .then(() => APIManager.getAllEntries("events"))
+      .then(events => newState.events = events)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => newState.todos = todos)
+      .then(() => APIManager.getAllEntries("news"))
+      .then(news => newState.news = news)
+      .then(() => APIManager.getAllEntries("messages"))
+      .then(messages => newState.messages = messages)
+      .then(() => APIManager.getAllEntries("friends"))
+      .then(friends => newState.friends = friends)
+      .then(() => this.setState(newState))
   }
 
 
-    render() {
-      return (
-        <React.Fragment>
-          <Route exact path="/news" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }} />
-          {/* <Route exact path="/animals" render={(props) => {
+render() {
+  return (
+    <React.Fragment>
+      <Route exact path="/news" render={(props) => {
+        if (this.isAuthenticated()) {
+          return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
+        } else {
+          return <Redirect to="/login" />
+        }
+      }} />
+      {/* <Route exact path="/animals" render={(props) => {
             if (this.isAuthenticated()) {
               return <AnimalList {...props}
                 animals={this.state.animals}
@@ -100,9 +106,9 @@ export default class ApplicationViews extends Component {
               addAnimal={this.addAnimal}
               employees={this.state.employees} />
           }} />*/}
-          <Route path="/login" component={Login} />
+      <Route path="/login" component={Login} />
 
-        </React.Fragment>
-      )
-    }
+    </React.Fragment>
+  )
+}
   }
