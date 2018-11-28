@@ -1,6 +1,8 @@
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react'
 import APIManager from '../modules/APIManager'
+import Login from './authentication/Login'
+import NewsList from './news/NewsList'
 import './Nutshell.css'
 
 
@@ -33,14 +35,14 @@ export default class ApplicationViews extends Component {
     render() {
       return (
         <React.Fragment>
-          {/* <Route exact path="/locations" render={(props) => {
+          <Route exact path="/news" render={(props) => {
             if (this.isAuthenticated()) {
-              return <LocationList locations={this.state.locations} deleteLocation={this.deleteLocation} />
+              return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
             } else {
               return <Redirect to="/login" />
             }
           }} />
-          <Route exact path="/animals" render={(props) => {
+          {/* <Route exact path="/animals" render={(props) => {
             if (this.isAuthenticated()) {
               return <AnimalList {...props}
                 animals={this.state.animals}
@@ -97,8 +99,8 @@ export default class ApplicationViews extends Component {
             return <AnimalForm {...props}
               addAnimal={this.addAnimal}
               employees={this.state.employees} />
-          }} />
-          <Route path="/login" component={Login} /> */}
+          }} />*/}
+          <Route path="/login" component={Login} />
 
         </React.Fragment>
       )
