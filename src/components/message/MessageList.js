@@ -1,12 +1,28 @@
-// import React, { Component } from "react"
-// import "./Owners.css"
-// import { Link } from "react-router-dom";
+import React, { Component } from "react"
+import "./Message.css"
+import { Link } from "react-router-dom";
 
-// class OwnerList extends Component {
+class MessageList extends Component {
 
-//   render() {
-//     return (
+  render() {
+    return (
+      <React.Fragment>
+        <div className="new__message">
+          <button type="button"
+          className="btn new__button"
+          >
+          New Message
+          </button>
+        </div>
+        <section className="message__list">
+          <h2 className="page__title">Messages</h2>
+        
+        </section>
+
+      </React.Fragment>
+      
 //       <React.Fragment>
+
 //         <div className="ownersButton">
 //           <button type="button"
 //             className="btn btn-success"
@@ -39,8 +55,8 @@
 //           </div>
 //         </section>
 //       </React.Fragment>
-//     )
-//   }
-// }
+    )
+  }
+}
 
-// export default OwnerList
+export default MessageList

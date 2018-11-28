@@ -4,6 +4,7 @@ import APIManager from '../modules/APIManager'
 import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import './Nutshell.css'
+import MessageList from './message/MessageList';
 
 
 export default class ApplicationViews extends Component {
@@ -32,29 +33,26 @@ export default class ApplicationViews extends Component {
   }
 
 
-    render() {
-      return (
-        <React.Fragment>
-          <Route exact path="/news" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }} />
-          {/* <Route exact path="/animals" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <AnimalList {...props}
-                animals={this.state.animals}
-                owners={this.state.owners}
-                animalOwners={this.state.animalOwners}
-                deleteAnimal={this.deleteAnimal}
-              />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }} />
-          <Route exact path="/employees" render={(props) => {
+  render() {
+    return (
+      <React.Fragment>
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
+          } else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        <Route exact path="/messages" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <MessageList {...props}
+              messages={this.state.messages}
+            />
+          } else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        {/* <Route exact path="/employees" render={(props) => {
             if (this.isAuthenticated()) {
               return <EmployeeList
                 deleteEmployee={this.deleteEmployee}
@@ -99,10 +97,10 @@ export default class ApplicationViews extends Component {
             return <AnimalForm {...props}
               addAnimal={this.addAnimal}
               employees={this.state.employees} />
-          }} />*/}
-          <Route path="/login" component={Login} />
+          }} /> */}
+        <Route path="/login" component={Login} />
 
-        </React.Fragment>
-      )
-    }
+      </React.Fragment>
+    )
   }
+}
