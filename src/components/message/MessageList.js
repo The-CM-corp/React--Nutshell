@@ -7,15 +7,27 @@ class MessageList extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="new__message">
+        <div className="new__message bryans__class">
           <button type="button"
           className="btn new__button"
+          onClick = { () => {
+            console.log("new message")
+          }}
           >
           New Message
           </button>
         </div>
-        <section className="message__list">
+        <section className="message__list bryans__class">
           <h2 className="page__title">Messages</h2>
+          <div className="card__holder">
+            {
+              this.props.messages.map(message => 
+                <div key={message.id} className="card message__card">
+                <h4 className="username">{message.user.name}</h4>
+                <p className="message__text">{message.message}</p>
+                 </div> )
+            }
+          </div>
         
         </section>
 

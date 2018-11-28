@@ -20,16 +20,23 @@ export default class ApplicationViews extends Component {
     friends: []
   }
 
+
   componentDidMount() {
     const newState = {}
 
-    APIManager.getAllEntries("users").then(users => newState.users = users)
-    APIManager.getAllEntries("events").then(events => newState.events = events)
-    APIManager.getAllEntries("todos").then(todos => newState.todos = todos)
-    APIManager.getAllEntries("news").then(news => newState.news = news)
-    APIManager.getAllEntries("messages").then(messages => newState.messages = messages)
-    APIManager.getAllEntries("friends").then(friends => newState.friends = friends)
-
+    APIManager.getAllEntries("users")
+      .then(users => newState.users = users)
+      .then(() => APIManager.getAllEntries("events"))
+      .then(events => newState.events = events)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => newState.todos = todos)
+      .then(() => APIManager.getAllEntries("news"))
+      .then(news => newState.news = news)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time&_order=desc&_limit=10&_expand=user"))
+      .then(messages => newState.messages = messages)
+      .then(() => APIManager.getAllEntries("friends"))
+      .then(friends => newState.friends = friends)
+      .then(() => this.setState(newState))
   }
 
 
