@@ -1,0 +1,14 @@
+.news_card {
+  background: whitesmoke;
+  margin: 5px 5px 10px 0px;
+  padding: 5px;
+}
+
+.btn_mod {
+  background: cornflowerblue;
+  margin-right: 10px;
+}
+
+.btn_mod:hover {
+  background: red;
+}
