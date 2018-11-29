@@ -38,6 +38,7 @@ export default class ApplicationViews extends Component {
       .then(() => this.setState(newState))
   }
 
+  // Todo Functions
   deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)
       .then(() => APIManager.getAllEntries("todos"))
