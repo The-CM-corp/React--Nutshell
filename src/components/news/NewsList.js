@@ -29,11 +29,12 @@ deleteNews = (id) => APIManager.deleteEntry("news", id)
 
 render() {
     return (
-        <section className="news list_title">
+        <section className="bryans__class">
             {
                 <article className="list_title">
                     <h1>News</h1>
-                    <section className="locations">
+                    <p>Add News</p>
+                    <section className="news">
                         {
                             this.state.news.map(newsArticle =>
                                 <div key={newsArticle.id}>
