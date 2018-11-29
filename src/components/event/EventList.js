@@ -21,7 +21,7 @@ export default class EventList extends Component {
       });
     });
 
-    APIManager.getAllEntries("events")
+    APIManager.getAllEntries("events", "?_sort=date&_order=asc")
       .then(events => {
         this.setState({
           events: events
@@ -33,7 +33,7 @@ export default class EventList extends Component {
 
   addEvent = event =>
     APIManager.addEntry("events", event)
-      .then(() => APIManager.getAllEntries("events"))
+      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
       .then(events =>
         this.setState({
           events: events
@@ -42,7 +42,7 @@ export default class EventList extends Component {
 
   deleteEvent = id =>
     APIManager.deleteEntry("events", id)
-      .then(() => APIManager.getAllEntries("events"))
+      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
       .then(events =>
         this.setState({
           events: events
