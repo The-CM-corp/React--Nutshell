@@ -5,7 +5,6 @@ import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import EventForm from './event/EventForm'
-import EventEdit from './event/EventEdit'
 import './Nutshell.css'
 
 
@@ -58,17 +57,7 @@ export default class ApplicationViews extends Component {
           events: events
         })
       );
-
-    editEvent = (id, newEvent) =>
-    APIManager.editEntry("events", id, newEvent)
-    .then(()=> APIManager.getAllEntries("events"))
-    .then(events =>
-      this.setState({
-        events: events
-      })
-    );
-
-
+    
 
     render() {
       return (
@@ -164,18 +153,7 @@ export default class ApplicationViews extends Component {
             );
           }}
         />
-        <Route
-          path="/events/edit/:eventId(\d+)"
-          render={props => {
-            return (
-              <EventEdit
-                {...props}
-                events={this.state.events}
-                editEvent={this.editEvent}
-              />
-            );
-          }}
-        />
+        
           <Route path="/login" component={Login} />
           
         </React.Fragment>
