@@ -4,7 +4,6 @@ import APIManager from '../modules/APIManager'
 import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
-import EventForm from './event/EventForm'
 import TodoList from './todo/TodoList'
 import './Nutshell.css'
 import MessageList from './message/MessageList';
@@ -59,16 +58,6 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }} />
-        <Route path="/events/new"
-          render={props => {
-            return (
-              <EventForm
-                {...props}
-                addEvent={this.props.addEvent}
-              />
-            );
-          }}
-        />
         <Route path="/login" component={Login} />
 
       </React.Fragment>
