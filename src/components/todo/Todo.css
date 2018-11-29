@@ -1,3 +1,13 @@
-.navclear {
+.todos {
   margin-top: 50px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo__card {
+  flex-basis: 1;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid gray;
 }

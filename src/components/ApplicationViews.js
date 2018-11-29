@@ -11,51 +11,37 @@ export default class ApplicationViews extends Component {
 
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
-  state = {
-    users: [],
-    events: [],
-    todos: [],
-    news: [],
-    messages: [],
-    friends: []
-  }
+  // state = {
+  //   users: [],
+  //   events: [],
+  //   todos: [],
+  //   news: [],
+  //   messages: [],
+  //   friends: []
+  // }
 
-  componentDidMount() {
-    const newState = {}
+  getAllUsers = () => APIManager.getAllEntries("users")
 
-    APIManager.getAllEntries("users")
-      .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("events"))
-      .then(events => newState.events = events)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => newState.todos = todos)
-      .then(() => APIManager.getAllEntries("news"))
-      .then(news => newState.news = news)
-      .then(() => APIManager.getAllEntries("messages"))
-      .then(messages => newState.messages = messages)
-      .then(() => APIManager.getAllEntries("friends"))
-      .then(friends => newState.friends = friends)
-      .then(() => this.setState(newState))
-  }
+  // componentDidMount() {
+  //   const newState = {}
 
-  // Todo Functions
-  deleteTodo = (id) => {
-    APIManager.deleteEntry("todos", id)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
-  }
+  //   APIManager.getAllEntries("users")
+  //     .then(users => newState.users = users)
+  //     .then(() => APIManager.getAllEntries("events"))
+  //     .then(events => newState.events = events)
+  //     .then(() => APIManager.getAllEntries("todos"))
+  //     .then(todos => newState.todos = todos)
+  //     .then(() => APIManager.getAllEntries("news"))
+  //     .then(news => newState.news = news)
+  //     .then(() => APIManager.getAllEntries("messages"))
+  //     .then(messages => newState.messages = messages)
+  //     .then(() => APIManager.getAllEntries("friends"))
+  //     .then(friends => newState.friends = friends)
+  //     .then(() => this.setState(newState))
+  // }
 
-  editTodo = (id, editedTodo) => {
-    APIManager.editEntry("todos", id, editedTodo)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
-  }
+  // // Todo Functions
 
-  addTodo = (newTodo) => {
-    APIManager.addEntry("todos", newTodo)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
-  }
 
   render() {
     return (
@@ -69,7 +55,7 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/todos" render={(props) => {
           if (this.isAuthenticated()) {
-            return <TodoList todos={this.state.todos} editTodo={this.editTodo} deleteTodo={this.deleteTodo} addTodo={this.addTodo}/>
+            return <TodoList getAllUsers={this.getAllUsers}/>
           } else {
             return <Redirect to="/login" />
           }
