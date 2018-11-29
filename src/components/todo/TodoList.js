@@ -68,7 +68,7 @@ class TodoList extends Component {
               <input type="text" id="task" placeholder="Task Name" onChange={(event) => {
                 this.handleFieldChange(event)
               }} />
-              <input type="text" id="date" placeholder="Expected Completion" onChange={(event) => {
+              <input type="date" id="date" placeholder="Expected Completion" onChange={(event) => {
                 this.handleFieldChange(event)
               }}/>
               <button type="submit" onClick={(evt) => {
