@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import "./Todo.css"
 import APIManager from "../../modules/APIManager"
-// import { Link } from "react-router-dom";
 
 class TodoList extends Component {
 
-  state ={
+  state = {
     users: [],
     todos: []
   }
 
-componentDidMount() {
-  const newState = {}
+  componentDidMount() {
+    const newState = {}
 
-  this.props.getAllUsers()
-  .then(users => newState.users = users)
-  .then(() => APIManager.getAllEntries("todos"))
-  .then(todos => newState.todos = todos)
-  .then(() => this.setState(newState))
-}
+    this.props.getAllUsers()
+      .then(users => newState.users = users)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => newState.todos = todos)
+      .then(() => this.setState(newState))
+  }
 
-deleteTodo = (id) => {
+  deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)
       .then(() => APIManager.getAllEntries("todos"))
       .then(todos => this.setState({ todos: todos }))
@@ -37,7 +36,6 @@ deleteTodo = (id) => {
       .then(() => APIManager.getAllEntries("todos"))
       .then(todos => this.setState({ todos: todos }))
   }
-
 
   render() {
     return (

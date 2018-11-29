@@ -11,37 +11,7 @@ export default class ApplicationViews extends Component {
 
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
-  // state = {
-  //   users: [],
-  //   events: [],
-  //   todos: [],
-  //   news: [],
-  //   messages: [],
-  //   friends: []
-  // }
-
   getAllUsers = () => APIManager.getAllEntries("users")
-
-  // componentDidMount() {
-  //   const newState = {}
-
-  //   APIManager.getAllEntries("users")
-  //     .then(users => newState.users = users)
-  //     .then(() => APIManager.getAllEntries("events"))
-  //     .then(events => newState.events = events)
-  //     .then(() => APIManager.getAllEntries("todos"))
-  //     .then(todos => newState.todos = todos)
-  //     .then(() => APIManager.getAllEntries("news"))
-  //     .then(news => newState.news = news)
-  //     .then(() => APIManager.getAllEntries("messages"))
-  //     .then(messages => newState.messages = messages)
-  //     .then(() => APIManager.getAllEntries("friends"))
-  //     .then(friends => newState.friends = friends)
-  //     .then(() => this.setState(newState))
-  // }
-
-  // // Todo Functions
-
 
   render() {
     return (
@@ -55,7 +25,7 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/todos" render={(props) => {
           if (this.isAuthenticated()) {
-            return <TodoList getAllUsers={this.getAllUsers}/>
+            return <TodoList getAllUsers={this.getAllUsers} />
           } else {
             return <Redirect to="/login" />
           }
