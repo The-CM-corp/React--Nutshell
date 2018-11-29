@@ -8,21 +8,23 @@ class MessageList extends Component {
   state = {
     users: [],
     messages: [],
-    hideNewForm: true
+    hideNewForm: true,
+    time: "",
+    message: ""
   }
   // load page 
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -31,7 +33,7 @@ class MessageList extends Component {
 
   editMessages = (id, message) => {
     return APIManager.editEntry("message", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -40,7 +42,7 @@ class MessageList extends Component {
 
   addNewMessage = newMessage => {
     return APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -51,7 +53,32 @@ class MessageList extends Component {
     this.setState({ hideNewForm: !currentState });
   };
 
+  handleFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+    console.log(stateToChange)
+  }
 
+  timestamp = () => {
+    let currentDate = new Date()
+    let date = currentDate.getDate()
+    let month = currentDate.getMonth()
+    let year = currentDate.getFullYear()
+    let hour = currentDate.getHours()
+    let min = ('0' + currentDate.getMinutes()).slice(-2)
+    console.log(currentDate)
+    return `${month + 1}-${date}-${year} ${hour}:${min}`
+  }
+
+  constructNewMessage = () => {
+    const message = {
+      time: this.timestamp(),
+      message: this.state.message,
+      // userId: sessionStorage.getItem("userId")
+    }
+    this.addNewMessage(message)
+  }
 
   render() {
     return (
@@ -72,7 +99,7 @@ class MessageList extends Component {
               <div className="input-group-prepend">
                 <span className="input-group-text" id="basic-addon1">Message</span>
               </div>
-              <input type="text" className="form-control" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" />
+              <input type="text" className="form-control" id="message" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" onChange={this.handleFieldChange} />
             </div>
             <div className="button__holder">
               <button
@@ -85,6 +112,7 @@ class MessageList extends Component {
               <button
                 className="btn"
                 onClick={() => {
+                  this.constructNewMessage()
                   this.handleNewClick()
                 }}>
                 Submit
@@ -98,7 +126,7 @@ class MessageList extends Component {
             {
               this.state.messages.map(message =>
                 <div key={message.id} className="card message__card">
-                  <h4 className="username">{message.user.name}</h4>
+                  <h4 className="username">message.user.name</h4>
                   <p className="message__text">{message.message}</p>
                   <p className="message__time">{message.time}</p>
                   <div className="button__holder">
