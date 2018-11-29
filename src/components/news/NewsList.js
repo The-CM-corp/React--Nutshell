@@ -77,7 +77,7 @@ export default class NewsList extends Component {
                     <article className="list_title">
                         <h1>News</h1>
                         <div id="addNews">
-                            <p>Add News</p>
+                            <p>Add News Article</p>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Title</span>
