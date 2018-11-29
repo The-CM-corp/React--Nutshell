@@ -58,7 +58,12 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }} />
-        <Route path="/login" component={Login} />
+        <Route path="/login" render={ (props) => {
+          return (
+            <Login getAllUsers={this.getAllUsers}
+              {...props} />
+          )
+        }} />
 
       </React.Fragment>
     )

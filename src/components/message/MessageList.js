@@ -17,14 +17,14 @@ class MessageList extends Component {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -33,7 +33,7 @@ class MessageList extends Component {
 
   editMessages = (id, message) => {
     return APIManager.editEntry("message", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -42,7 +42,7 @@ class MessageList extends Component {
 
   addNewMessage = newMessage => {
     return APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
       .then(messages => this.setState({
         messages: messages
       })
