@@ -29,8 +29,7 @@ import "./Event.css";
       // Create the event and redirect user to event list
       this.props
         .addEvent(event)
-        .then(() => this.props.history.push("/events"));
-    }
+      }
   
 
   render() {
@@ -85,9 +84,9 @@ import "./Event.css";
           <button
             type="submit"
             onClick={this.constructNewEvent}
-            className="btn btn-primary"
+            className="btn"
           >
-            Submit
+            Add Event
           </button>
         </form>
       </React.Fragment>

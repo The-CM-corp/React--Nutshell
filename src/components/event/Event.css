@@ -2,17 +2,14 @@
   margin-top: 50px;
 }
 
+.event__title {
+  text-align: center;
+}
+
 .events {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-}
-
-
-.eventButton {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 50px;
 }
 
 .card {
