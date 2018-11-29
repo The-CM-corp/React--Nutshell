@@ -11,60 +11,11 @@ export default class ApplicationViews extends Component {
 
   isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
-  state = {
-    users: [],
-    events: [],
-    todos: [],
-    news: [],
-    messages: [],
-    friends: []
-  }
+
+  getAllUsers = () => APIManager.getAllEntries("users")
 
 
-  componentDidMount() {
-    const newState = {}
 
-    APIManager.getAllEntries("users")
-      .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("events"))
-      .then(events => newState.events = events)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => newState.todos = todos)
-      .then(() => APIManager.getAllEntries("news"))
-      .then(news => newState.news = news)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => newState.messages = messages)
-      .then(() => APIManager.getAllEntries("friends"))
-      .then(friends => newState.friends = friends)
-      .then(() => this.setState(newState))
-  }
-
-  deleteAndAddMessage = id => {
-    return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => this.setState({
-        messages: messages
-      })
-      )
-  }
-
-  editMessages = (id, message) => {
-    return APIManager.editEntry("message", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => this.setState({
-        messages: messages
-      })
-      )
-  }
-
-  addNewMessage = newMessage => {
-    return APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => this.setState({
-        messages: messages
-      })
-      )
-  }
 
   render() {
     return (
@@ -79,10 +30,7 @@ export default class ApplicationViews extends Component {
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
-              messages={this.state.messages}
-              deleteAndAddMessage={this.deleteAndAddMessage}
-              editMessages={this.editMessages}
-              addNewMessage ={this.addNewMessage}
+              getAllUsers={this.getAllUsers}
             />
           } else {
             return <Redirect to="/login" />
