@@ -61,7 +61,9 @@ export default class ApplicationViews extends Component {
       );
 
     editEvent = (id, newEvent) =>
-    APIManager.editEntry("events", id, newEvent).then(events =>
+    APIManager.editEntry("events", id, newEvent)
+    .then(()=> APIManager.getAllEntries("events"))
+    .then(events =>
       this.setState({
         events: events
       })
