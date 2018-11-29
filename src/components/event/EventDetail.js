@@ -15,7 +15,7 @@ export default class EventDetail extends Component {
       ) || {};
 
     return (
-      <section className="event list">
+      <section className="event bryan">
         <div key={event.id} className="card">
           <div className="card-body details">
             <h4 className="card-title">
@@ -23,19 +23,22 @@ export default class EventDetail extends Component {
             </h4>
             <h6 className="card-title">{event.date}</h6>
             <h6 className="card-title">{event.location}</h6>
-            <p className="card-summary">{event.synopsis}</p>
+            <p className="card-details">{event.synopsis}</p>
+            <div className="card-button">
+            <button type="button" className="btn">
             <Link className="nav-link" to={`/events/edit/${event.id}`}>edit</Link>
-            <a
-              href="#"
+            </button>
+            <button type="button"
               onClick={() =>
                 this.props
-                  .deleteevent(event.id)
+                  .deleteEvent(event.id)
                   .then(() => this.props.history.push("/events"))
               }
-              className="card-link"
+              className="card-button btn"
             >
               Delete
-            </a>
+            </button>
+            </div>
           </div>
         </div>
       </section>

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import "./event.css";
+import "./Event.css";
 
-export default class eventEdit extends Component {
+export default class EventEdit extends Component {
   componentDidMount() {
     const event = this.props.events.find(
-      a => a.id === parseInt(this.props.match.params.eventId)
+      e => e.id === parseInt(this.props.match.params.eventId)
     );
     this.setState(event);
   }
@@ -32,7 +32,7 @@ export default class eventEdit extends Component {
         id: this.state.id
     };
     this.props
-      .editevent(this.state.id, newEvent)
+      .editEvent(this.state.id, newEvent)
       .then(() => this.props.history.push("/events"));
   };
 
@@ -40,12 +40,11 @@ export default class eventEdit extends Component {
     
     return (
       <React.Fragment>
-        <form className="eventForm newForm">
+        <form className="eventForm bryan">
           <div className="form-group">
             <label htmlFor="eventTitle">Event Title</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="title"
@@ -57,7 +56,6 @@ export default class eventEdit extends Component {
             <label htmlFor="date">Date</label>
             <input
               type="date"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
@@ -69,7 +67,6 @@ export default class eventEdit extends Component {
             <label htmlFor="eventSynopsis">Event Synopsis</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="synopsis"
@@ -81,7 +78,6 @@ export default class eventEdit extends Component {
             <label htmlFor="eventLocation">Event Location</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="location"

@@ -22,17 +22,20 @@ export default class EventCard extends Component {
           Location: <br></br>
           {this.props.event.location}
           </p>
-
-          <Link className="nav-link" 
+          <div className="card-button">
+          <button type="button" className="btn">
+          <Link
           to={`/events/${this.props.event.id}`}>
             Details
           </Link>
-          <a href="#"
-            onClick={() => this.props.deleteevent(this.props.event.id)}
-            className="card-link"
-          >
+          </button>
+          
+          <button type="button"
+            onClick={() => this.props.deleteEvent(this.props.event.id)}
+            className="btn">
             Delete
-          </a>
+          </button>
+          </div>
         </div>
       </div>
       <br></br>

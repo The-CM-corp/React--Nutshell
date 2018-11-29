@@ -5,6 +5,8 @@ import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import EventDetail from './event/EventDetail'
+import EventForm from './event/EventForm'
+import EventEdit from './event/EventEdit'
 import './Nutshell.css'
 
 
@@ -40,6 +42,33 @@ export default class ApplicationViews extends Component {
   }
 
 
+    addEvent = event =>
+      APIManager.addEntry("events", event)
+        .then(() => APIManager.getAllEntries("events"))
+        .then(events =>
+          this.setState({
+            events: events
+          })
+        );
+
+    deleteEvent = id =>
+      APIManager.deleteEntry("events", id)
+      .then(() => APIManager.getAllEntries("events"))
+      .then(events =>
+        this.setState({
+          events: events
+        })
+      );
+
+    editEvent = (id, newEvent) =>
+    APIManager.editEntry("events", id, newEvent).then(events =>
+      this.setState({
+        events: events
+      })
+    );
+
+
+
     render() {
       return (
         <React.Fragment>
@@ -50,13 +79,7 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }} />
-          <Route exact path="/events" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <EventList events={this.state.events} deleteEntry={this.deleteEntry} />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }} />
+         
           {/* <Route exact path="/animals" render={(props) => {
             if (this.isAuthenticated()) {
               return <AnimalList {...props}
@@ -115,8 +138,56 @@ export default class ApplicationViews extends Component {
               addAnimal={this.addAnimal}
               employees={this.state.employees} />
           }} />*/}
-          <Route path="/login" component={Login} />
 
+           <Route exact path="/events" 
+           render={props => {
+            if (this.isAuthenticated()) {
+              return (
+              <EventList 
+              {...props}
+              deleteEvent={this.deleteEvent}
+              events={this.state.events} 
+              />
+              );
+            } else {
+              return <Redirect to="/login" />
+            }
+          }} />
+          <Route path="/events/:eventId(\d+)"
+          render={props => {
+            return (
+              <EventDetail
+                {...props}
+                deleteEvent={this.deleteEvent}
+                events={this.state.events}
+              />
+            );
+          }}
+        />
+        <Route path="/events/new"
+          render={props => {
+            return (
+              <EventForm
+                {...props}
+                addEvent={this.addEvent}
+              />
+            );
+          }}
+        />
+        <Route
+          path="/events/edit/:eventId(\d+)"
+          render={props => {
+            return (
+              <EventEdit
+                {...props}
+                events={this.state.events}
+                editEvent={this.editEvent}
+              />
+            );
+          }}
+        />
+          <Route path="/login" component={Login} />
+          
         </React.Fragment>
       )
     }

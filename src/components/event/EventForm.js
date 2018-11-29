@@ -17,11 +17,8 @@ import "./Event.css";
     this.setState(stateToChange);
   };
 
-  /*
-        Local method for validation, creating event object, and
-        invoking the function reference passed from parent component
-     */
   constructNewEvent = evt => {
+    evt.preventDefault();
       const event = {
         title: this.state.title,
         date: this.state.date,
@@ -31,7 +28,7 @@ import "./Event.css";
 
       // Create the event and redirect user to event list
       this.props
-        .addevent(event)
+        .addEvent(event)
         .then(() => this.props.history.push("/events"));
     }
   
@@ -40,12 +37,11 @@ import "./Event.css";
     return (
       <React.Fragment>
         
-          <form className="eventForm newForm">
+          <form className="eventForm bryan">
           <div className="form-group">
             <label htmlFor="eventTitle">Event Title</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="title"
@@ -57,7 +53,6 @@ import "./Event.css";
             <label htmlFor="date">Date</label>
             <input
               type="date"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
@@ -69,7 +64,6 @@ import "./Event.css";
             <label htmlFor="eventSynopsis">Event Synopsis</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="synopsis"
@@ -81,7 +75,6 @@ import "./Event.css";
             <label htmlFor="eventLocation">Event Location</label>
             <input
               type="text"
-              required="true"
               className="form-control"
               onChange={this.handleFieldChange}
               id="location"
