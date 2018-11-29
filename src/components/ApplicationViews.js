@@ -39,6 +39,14 @@ export default class ApplicationViews extends Component {
       .then(() => this.setState(newState))
   }
 
+  deleteAndAddMessage = id => {
+    APIManager.deleteEntry("messages", id)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time&_order=desc&_limit=10&_expand=user"))
+      .then(messages => this.setState({
+        messages: messages
+      })
+      )
+  }
 
   render() {
     return (
@@ -54,6 +62,7 @@ export default class ApplicationViews extends Component {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               messages={this.state.messages}
+              deleteAndAddMessage = {this.deleteAndAddMessage}
             />
           } else {
             return <Redirect to="/login" />

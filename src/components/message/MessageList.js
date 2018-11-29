@@ -25,6 +25,15 @@ class MessageList extends Component {
                 <div key={message.id} className="card message__card">
                 <h4 className="username">{message.user.name}</h4>
                 <p className="message__text">{message.message}</p>
+                <p className="message__time">{message.time}</p>
+                <div className="button__holder">
+                <button className="edit__button btn">Edit</button> 
+                <button className="delete__button btn"
+                      onClick={() => this.props.deleteAndAddMessage(`${message.id}`)}
+                >
+                Delete
+                </button>
+                </div>
                  </div> )
             }
           </div>
