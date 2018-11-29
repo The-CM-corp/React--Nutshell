@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 import APIManager from '../../modules/APIManager'
 import "./News.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export default class NewsList extends Component {
 
@@ -39,8 +40,7 @@ render() {
                                     <h2>{newsArticle.title}</h2>
                                     <p>{newsArticle.synopsis}</p>
                                     <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
-                                    <a href="#" onClick={() => this.deleteNews(newsArticle.id)}
-                                        className="card-link">Delete</a>
+                                    <button className="btn" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
                                     <Link className="nav-link" to={`/news/${newsArticle.id}`}>Details</Link>
                                 </div>
                             )
