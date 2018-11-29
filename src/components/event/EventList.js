@@ -17,7 +17,7 @@ export default class EventList extends Component {
   componentDidMount() {
   const newState = {};
 
-  APIManager.getAllEntries("users")
+  this.props.getAllUsers()
   .then(allUsers => {
     this.setState({
       users: allUsers
