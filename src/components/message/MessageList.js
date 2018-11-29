@@ -7,9 +7,10 @@ class MessageList extends Component {
 
   state = {
     users: [],
-    messages: []
+    messages: [],
+    hideNewForm: true
   }
-// load page 
+  // load page 
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
@@ -45,6 +46,12 @@ class MessageList extends Component {
       })
       )
   }
+  handleNewClick = () => {
+    const currentState = this.state.hideNewForm;
+    this.setState({ hideNewForm: !currentState });
+  };
+
+
 
   render() {
     return (
@@ -52,12 +59,22 @@ class MessageList extends Component {
         <div className="new__message bryans__class">
           <button type="button"
             className="btn new__button"
+            id="new__button"
             onClick={() => {
               console.log("new message")
+              this.handleNewClick()
             }}
           >
             New Message
           </button>
+          <div className={this.state.hideNewForm ? 'hide' : null} id="new__message__form">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="basic-addon1">Message</span>
+              </div>
+              <input type="text" className="form-control" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" />
+            </div>
+          </div>
         </div>
         <section className="message__list bryans__class">
           <h2 className="page__title">Messages</h2>
