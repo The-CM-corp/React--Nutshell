@@ -6,13 +6,19 @@ class TodoList extends Component {
   render() {
     return (
       <React.Fragment>
-        <ul className="todos navclear">
+        <section className="todos navclear">
           {
             this.props.todos.map( todo =>
-              <li key={todo.id}>{todo.task}</li>
+              <div key={todo.id}>
+              <h3>{todo.task}</h3>
+              <p>Expected Completion: {todo.date}</p>
+              <button type="button" onClick={() =>{
+                this.props.deleteTodo(todo.id)
+              }}>DELETE</button>
+              </div>
             )
           }
-        </ul>
+        </section>
       </React.Fragment>
     )
   }

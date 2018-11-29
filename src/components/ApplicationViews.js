@@ -38,26 +38,44 @@ export default class ApplicationViews extends Component {
       .then(() => this.setState(newState))
   }
 
-    render() {
-      return (
-        <React.Fragment>
-          <Route exact path="/news" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }} />
-          <Route exact path="/todos" render={(props) => {
-            if (this.isAuthenticated()) {
-              return <TodoList todos={this.state.todos} />
-            } else {
-              return <Redirect to="/login" />
-            }
-          }}/>
-          <Route path="/login" component={Login} />
-
-        </React.Fragment>
-      )
-    }
+  deleteTodo = (id) => {
+    APIManager.deleteEntry("todos", id)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => this.setState({ todos: todos }))
   }
+
+  editTodo = (id, editedTodo) => {
+    APIManager.editEntry("todos", id, editedTodo)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => this.setState({ todos: todos }))
+  }
+
+  addTodo = (newTodo) => {
+    APIManager.addEntry("todos", newTodo)
+      .then(() => APIManager.getAllEntries("todos"))
+      .then(todos => this.setState({ todos: todos }))
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <Route exact path="/news" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
+          } else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        <Route exact path="/todos" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <TodoList todos={this.state.todos} editTodo={this.editTodo} deleteTodo={this.deleteTodo} addTodo={this.addTodo}/>
+          } else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        <Route path="/login" component={Login} />
+
+      </React.Fragment>
+    )
+  }
+}
