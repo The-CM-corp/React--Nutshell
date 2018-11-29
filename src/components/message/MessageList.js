@@ -58,7 +58,7 @@ class MessageList extends Component {
       <React.Fragment>
         <div className="new__message bryans__class">
           <button type="button"
-            className="btn new__button"
+            className={this.state.hideNewForm ? "btn new__button" : 'hide'}
             id="new__button"
             onClick={() => {
               console.log("new message")
@@ -73,6 +73,22 @@ class MessageList extends Component {
                 <span className="input-group-text" id="basic-addon1">Message</span>
               </div>
               <input type="text" className="form-control" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" />
+            </div>
+            <div className="button__holder">
+              <button
+                className="btn"
+                onClick={() => {
+                  this.handleNewClick()
+                }}>
+                Cancel
+            </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  this.handleNewClick()
+                }}>
+                Submit
+            </button>
             </div>
           </div>
         </div>
