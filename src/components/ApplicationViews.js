@@ -4,7 +4,6 @@ import APIManager from '../modules/APIManager'
 import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
-import EventDetail from './event/EventDetail'
 import EventForm from './event/EventForm'
 import EventEdit from './event/EventEdit'
 import './Nutshell.css'
@@ -155,17 +154,6 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }} />
-          <Route path="/events/:eventId(\d+)"
-          render={props => {
-            return (
-              <EventDetail
-                {...props}
-                deleteEvent={this.deleteEvent}
-                events={this.state.events}
-              />
-            );
-          }}
-        />
         <Route path="/events/new"
           render={props => {
             return (

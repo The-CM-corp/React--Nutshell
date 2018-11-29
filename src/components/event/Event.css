@@ -4,7 +4,7 @@
 
 .events {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-direction: column;
 }
 
@@ -16,8 +16,9 @@
 }
 
 .card {
-  background-color: salmon;
+  background-color: turquoise;
   margin: auto;
+  margin-bottom: 10px;
   height: 25%;
   width: 75%;
   
