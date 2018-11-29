@@ -33,7 +33,7 @@ export default class EventEdit extends Component {
     };
     this.props
       .editEvent(this.state.id, newEvent)
-      .then(() => this.props.history.push("/events"));
+      .then(() => this.props.history.push("/events"))
   };
 
   render() {
