@@ -34,6 +34,8 @@ export default class EventEdit extends Component {
     this.props
       .editEvent(this.state.id, newEvent)
       .then(() => this.props.history.push("/events"))
+      console.log(newEvent)
+      console.log(this.state.id)
   };
 
   render() {
