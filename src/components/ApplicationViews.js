@@ -16,21 +16,26 @@ export default class ApplicationViews extends Component {
 
   getAllUsers = () => APIManager.getAllEntries("users")
 
+
+
+
   render() {
     return (
       <React.Fragment>
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
-            return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
+            return <NewsList getAllUsers={this.getAllUsers} />
           } else {
             return <Redirect to="/login" />
           }
         }} />
+
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               getAllUsers={this.getAllUsers}
-          />} else {
+            />
+          } else {
             return <Redirect to="/login" />
           }
         }} />
@@ -41,14 +46,14 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/login" />
           }
         }} />
-        <Route exact path="/events" 
-           render={props => {
+        <Route exact path="/events"
+          render={props => {
             if (this.isAuthenticated()) {
               return (
-              <EventList getAllUsers={this.getAllUsers}
-              {...props}
-              
-              />
+                <EventList getAllUsers={this.getAllUsers}
+                  {...props}
+
+                />
               );
             } else {
               return <Redirect to="/login" />
