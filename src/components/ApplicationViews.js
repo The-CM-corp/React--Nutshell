@@ -5,6 +5,7 @@ import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import TodoList from './todo/TodoList'
 import './Nutshell.css'
+import MessageList from './message/MessageList';
 
 
 export default class ApplicationViews extends Component {
@@ -20,6 +21,14 @@ export default class ApplicationViews extends Component {
           if (this.isAuthenticated()) {
             return <NewsList news={this.state.news} deleteEntry={this.deleteEntry} />
           } else {
+            return <Redirect to="/login" />
+          }
+        }} />
+        <Route exact path="/messages" render={(props) => {
+          if (this.isAuthenticated()) {
+            return <MessageList {...props}
+              getAllUsers={this.getAllUsers}
+          />} else {
             return <Redirect to="/login" />
           }
         }} />
