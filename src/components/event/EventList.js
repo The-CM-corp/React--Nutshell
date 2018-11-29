@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager";
 import "./Event.css";
-// import EventCard from "./EventCard";
+
 
 // this is the HTML representation of the event list
 
@@ -66,8 +66,17 @@ export default class EventList extends Component {
     };
 
     // Create the event
-    this.addEvent(event);
-  };
+    this.addEvent(event)
+    .then(()=> {
+    this.setState({
+    title: "",
+    date: "",
+    synopsis: "",
+    location: ""
+    })
+  })
+  }
+    
 
   render() {
     return (
@@ -78,6 +87,7 @@ export default class EventList extends Component {
           <div className="form-group">
             <label htmlFor="eventTitle">Event Title</label>
             <input
+              value={this.state.title}
               type="text"
               className="form-control"
               onChange={this.handleFieldChange}
@@ -88,6 +98,7 @@ export default class EventList extends Component {
           <div className="form-group">
             <label htmlFor="date">Date</label>
             <input
+              value={this.state.date}
               type="date"
               className="form-control"
               onChange={this.handleFieldChange}
@@ -98,6 +109,7 @@ export default class EventList extends Component {
           <div className="form-group">
             <label htmlFor="eventSynopsis">Event Synopsis</label>
             <input
+              value={this.state.synopsis}
               type="text"
               className="form-control"
               onChange={this.handleFieldChange}
@@ -108,6 +120,7 @@ export default class EventList extends Component {
           <div className="form-group">
             <label htmlFor="eventLocation">Event Location</label>
             <input
+              value={this.state.location}
               type="text"
               className="form-control"
               onChange={this.handleFieldChange}
@@ -123,6 +136,7 @@ export default class EventList extends Component {
             Add Event
           </button>
         </form>
+        <br></br>
 
         <section className="events">
           {this.state.events.map(event => (
@@ -149,9 +163,7 @@ export default class EventList extends Component {
                   <button
                     type="button"
                     onClick={() =>
-                      this.deleteEvent(event.id).then(() =>
-                        this.props.history.push("/events")
-                      )
+                      this.deleteEvent(event.id)
                     }
                     className="card-button btn"
                   >
