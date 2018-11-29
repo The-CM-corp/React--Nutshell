@@ -11,7 +11,7 @@ import MessageList from './message/MessageList';
 
 export default class ApplicationViews extends Component {
 
-  isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+  isAuthenticated = () => (sessionStorage.getItem("userId") !== null || localStorage.getItem("userId") !== null)
 
   getAllUsers = () => APIManager.getAllEntries("users")
 
@@ -58,11 +58,9 @@ export default class ApplicationViews extends Component {
               return <Redirect to="/login" />
             }
           }} />
-        <Route path="/login" render={ (props) => {
+        <Route path="/login" render={props => {
           return (
-            <Login getAllUsers={this.getAllUsers}
-              {...props} />
-          )
+            <Login getAllUsers={this.getAllUsers} />)
         }} />
 
       </React.Fragment>
