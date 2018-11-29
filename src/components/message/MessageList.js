@@ -27,7 +27,9 @@ class MessageList extends Component {
                 <p className="message__text">{message.message}</p>
                 <p className="message__time">{message.time}</p>
                 <div className="button__holder">
-                <button className="edit__button btn">Edit</button> 
+                <button className="edit__button btn"
+                      // onClick={() => this.props.editMessages(`${message.id}, ${}`)}
+                >Edit</button> 
                 <button className="delete__button btn"
                       onClick={() => this.props.deleteAndAddMessage(`${message.id}`)}
                 >

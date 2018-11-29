@@ -32,7 +32,7 @@ export default class ApplicationViews extends Component {
       .then(todos => newState.todos = todos)
       .then(() => APIManager.getAllEntries("news"))
       .then(news => newState.news = news)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time&_order=desc&_limit=10&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => APIManager.getAllEntries("friends"))
       .then(friends => newState.friends = friends)
@@ -40,8 +40,26 @@ export default class ApplicationViews extends Component {
   }
 
   deleteAndAddMessage = id => {
-    APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time&_order=desc&_limit=10&_expand=user"))
+    return APIManager.deleteEntry("messages", id)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => this.setState({
+        messages: messages
+      })
+      )
+  }
+
+  editMessages = (id, message) => {
+    return APIManager.editEntry("message", id, message)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => this.setState({
+        messages: messages
+      })
+      )
+  }
+
+  addNewMessage = newMessage => {
+    return APIManager.addEntry("messages", newMessage)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -62,7 +80,9 @@ export default class ApplicationViews extends Component {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               messages={this.state.messages}
-              deleteAndAddMessage = {this.deleteAndAddMessage}
+              deleteAndAddMessage={this.deleteAndAddMessage}
+              editMessages={this.editMessages}
+              addNewMessage ={this.addNewMessage}
             />
           } else {
             return <Redirect to="/login" />
