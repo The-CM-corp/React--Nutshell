@@ -12,7 +12,7 @@ class MessageList extends Component {
     time: "",
     message: ""
   }
-  // load page 
+  // load page
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
