@@ -5,7 +5,8 @@ Nutshell is a new app that provides everything a user could need, all in one nic
 To run Nutshell locally, create an empty directory and clone the project by running the following command in your terminal: ```git@github.com:The-CM-corp/React--Nutshell.git```
 
 Nutshell uses a database.json file to store all data. To create the database, run:
-```mkdir api
+```
+mkdir api
 cd api
 touch nutshell.json
 ```
