@@ -1,3 +1,7 @@
 .button__holder button {
   margin: 5px;
 }
+
+.card__holder div {
+  padding: 10px;
+}
