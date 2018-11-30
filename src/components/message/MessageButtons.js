@@ -1,7 +1,5 @@
 import React, { Component } from "react"
 
-
-
 export default class MessageButtons extends Component {
 
   buttonsForUser = () => {

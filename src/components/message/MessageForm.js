@@ -1,46 +1,46 @@
-// import React, { Component } from "react"
-// import "./Owners.css"
-// import { Link } from "react-router-dom";
+import React, { Component } from "react"
 
-// class OwnerList extends Component {
 
-//   render() {
-//     return (
-//       <React.Fragment>
-//         <div className="ownersButton">
-//           <button type="button"
-//             className="btn btn-success"
-//             onClick={() => {
-//               this.props.history.push("/owners/new")
-//             }
-//             }>
-//             Add Owner
-//                     </button>
-//         </div>
-//         <section className="owners list">
-//           <h2 className="card-title">Owners</h2>
-//           <div className="card_holder">
-//             {
-//               this.props.owners.map(owner =>
-//                 <div key={owner.id} className="card">
-//                   <section className="ownerName">
-//                     {owner.name}
-//                   </section>
-//                   <section className="ownerNumber">
+export default class NewMessageForm extends Component {
 
-//                     <Link className="nav-link" to={`/owners/${owner.id}`}>Details</Link>
-//                     <a
-//                       href="#" onClick={() => this.props.deleteOwner(owner.id)}
-//                       className="card-link">Delete</a>
-//                   </section>
-//                 </div>
-//               )
-//             }
-//           </div>
-//         </section>
-//       </React.Fragment>
-//     )
-//   }
-// }
-
-// export default OwnerList
+  render() {
+    return(
+      <div className="new__message bryans__class">
+        <button type="button"
+          className={this.props.hideNewForm ? "btn new__button" : 'hide'}
+          id="new__button"
+          onClick={() => {
+            this.props.handleNewClick()
+          }}
+        >
+          New Message
+          </button>
+        <div className={this.props.hideNewForm ? 'hide' : null} id="new__message__form">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="basic-addon1">Message</span>
+            </div>
+            <input type="text" className="form-control" id="message" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" onChange={this.props.handleFieldChange} />
+          </div>
+          <div className="button__holder">
+            <button
+              className="btn"
+              onClick={() => {
+                this.props.handleNewClick()
+              }}>
+              Cancel
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                this.props.constructNewMessage()
+                this.props.handleNewClick()
+              }}>
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
