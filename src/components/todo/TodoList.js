@@ -9,9 +9,11 @@ class TodoList extends Component {
     todos: [],
     task: "",
     date: "",
-    completed: "",
+    completed: false,
     hideNewForm: true,
-    currentUserId: ""
+    currentUserId: "",
+    editTask: "",
+    editDate: ""
   }
 
   componentDidMount() {
@@ -49,13 +51,43 @@ class TodoList extends Component {
     this.setState(stateToChange)
   }
 
+  handleFieldChangeEdit = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id.split("-")[0]] = evt.target.value
+    this.setState(stateToChange)
+    console.log(this.state.editDate)
+  }
+
+  handleFieldChangeCheckbox = evt => {
+   this.setState({completed: evt.target.checked})
+  }
+
+  updateCompletion = evt => {
+    const completionId = evt.target.id.split("-")[1]
+    let updatedCompletion = {
+      completed: this.state.completed
+    }
+    this.editTodo(completionId, updatedCompletion)
+  }
+
+  constructEditedTodo = evt => {
+    let editedId = evt.target.id.split("-")[1]
+
+    let editedTodo = {
+      task: this.state.editTask,
+      date: this.state.editDate,
+      completed: this.state.completed
+    }
+    this.editTodo(editedId, editedTodo)
+  }
+
 
   constructNewTodo = evt => {
     evt.preventDefault()
     const todo = {
       task: this.state.task,
       date: this.state.date,
-      completed: false,
+      completed: this.state.completed,
       user_id: this.state.currentUserId
     }
     this.addTodo(todo)
@@ -85,19 +117,25 @@ class TodoList extends Component {
             this.state.todos.map(todo =>
               <div key={todo.id} className="todo__card">
                 <h3 id={`task-${todo.id}`}>{todo.task}</h3>
-                <h5>Expected Completion:</h5>
-                <p id={`date-${todo.id}`}>{todo.date}</p>
+                <p id={`editDate-${todo.id}`} onChange={(evt) => {this.handleFieldChange(evt).then(() => this.updateCompletion(evt))
+                }
+                }>Expected Completion Date: {todo.date}</p>
+                <label>Completed</label>
+                <input id={`completed-${todo.id}`}type="checkbox" onClick={(evt) => {
+                  this.handleFieldChangeCheckbox(evt)}}></input>
                 <button type="button" onClick={() => {
                   this.deleteTodo(todo.id)
                 }}>DELETE</button>
                 <button type="button" id={`edit-${todo.id}`} onClick={() => {
-                  const taskName = document.getElementById(`task-${todo.id}`)
-                  const taskDate = document.getElementById(`date-${todo.id}`)
-                  taskName.contentEditable = true;
-                  taskDate.contentEditable = true;
-
                 }}>EDIT</button>
-                <button type="button" id={`saveNew-${todo.id}`}>SAVE CHANGES</button>
+                <div id={`editForm-${todo.id}`}>
+                <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)}/>
+                <input type="date" id={`editDate-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)}/>
+
+                <button type="button" id={`saveNew-${todo.id}`} onClick={ (evt) =>
+                    this.constructEditedTodo(evt)
+                }>SAVE CHANGES</button>
+                </div>
               </div>
             )
           }
