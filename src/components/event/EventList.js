@@ -80,7 +80,7 @@ export default class EventList extends Component {
     editLocation,
     editId
   ) => {
-    const currentState = this.state.hideNewForm;
+    const currentState = this.state.hideEditForm;
     this.setState({
       hideEditForm: !currentState,
       editTitle: editTitle,
@@ -272,7 +272,7 @@ export default class EventList extends Component {
                   </button>
                 </div>
                 {/* <EventEdit/> */}
-                <form
+                <div
                   className={this.state.hideEditForm ? "hide" : null}
                   id="new__event__form"
                 >
@@ -341,7 +341,6 @@ export default class EventList extends Component {
                     </button>
 
                     <button
-                      type="submit"
                       // onClick={this.constructEditedEvent}
                       onClick={() => {
                         this.constructEditedEvent();
@@ -352,7 +351,7 @@ export default class EventList extends Component {
                       Submit
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           ))}
