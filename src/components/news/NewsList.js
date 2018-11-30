@@ -3,42 +3,29 @@ import APIManager from '../../modules/APIManager'
 import timestamp from './timestamp'
 import "./News.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Button, Collapse } from 'react-bootstrap'
 
 export default class NewsList extends Component {
 
     state = {
         users: [],
         news: [],
+        shownForm: null,
         hideNewForm: true,
         hideAddForm: true,
-        currentUserId: "",
+        currentUserId: this.props.getCurrentUser(),
         editTitle: "",
         editSynopsis: "",
         editUrl: "",
         editId: "",
     }
 
-    // getUserId() {
-    //     // const currentUser = localStorage.getItem("userId") || sessionStorage.getItem("userId")
-    //     const sesStor = sessionStorage.getItem("userId")
-    //     //  if(locStor !== "null"){
-    //     this.setState({ userId: sesStor })
-    //     //  } else if(sesStor !== "null"){
-    //     // this.setState({userId: sesStor})
-    //     //  }
-    //     console.log("sesStor: ", sesStor)
-    // }
 
 
     componentDidMount() {
-        const newState = {}
-
-        this.props.getAllUsers()
-            .then(users => newState.users = users)
-            .then(() => APIManager.getAllEntries("news", `?_user_id=${this.state.userId}`, "&_sort=timestamp", "&_order=asc"))
-            .then(news => newState.news = news)
-            .then(() => this.setState(newState))
+        APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=asc`)
+            .then((news) => {
+            this.setState({news: news})
+        })
     }
 
     deleteNews = (id) => APIManager.deleteEntry("news", id)
@@ -55,11 +42,18 @@ export default class NewsList extends Component {
         .then(news => this.setState({ news: news }))
 
 
-    toggleEditForm = () => {
-        const currentState = this.state.hideNewForm;
-        this.setState({
-            hideNewForm: !currentState,
-        });
+    toggleEditForm = (id) => {
+        // const currentState = this.state.hideNewForm;
+        if(this.state.shownForm === null ){
+            this.setState({
+                shownForm: id,
+            });
+        } else {
+            this.setState({
+                shownForm: null,
+            });
+        }
+
     }
 
     toggleAddForm = () => {
@@ -125,6 +119,7 @@ export default class NewsList extends Component {
         // console.log("SessionId: ", this.state.userId)
 
         this.editNews(editedNews.id, editedNews)
+        this.toggleEditForm()
     }
 
 
@@ -138,7 +133,7 @@ export default class NewsList extends Component {
                     <article className="list_title">
                         <h1>News</h1>
                         <button className="btn btn_mod" onClick={() => this.toggleAddForm()}>Add News Article</button>
-                        <div id="addNews" className={this.state.hideAddForm ? 'hide' : null}>
+                        <div id="addNews" className={this.state.hideAddForm ? null : 'hide'}>
                             <hr></hr>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
@@ -171,10 +166,10 @@ export default class NewsList extends Component {
                                         <p>{newsArticle.timestamp}</p>
                                         <button className="btn btn_mod" onClick={() => {
                                             this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
-                                            this.toggleEditForm()
+                                            this.toggleEditForm(newsArticle.id)
                                         }}>Edit</button>
                                         <button className="btn btn_mod" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
-                                        <div id="editForm" className={this.state.hideNewForm ? 'hide' : null}>edit form
+                                        <div id="editForm" className={`${this.state.shownForm === newsArticle.id  ? null : 'hide'}`}>edit form
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Title</span></div>
                                                 <input id="editTitle" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="" aria-label="editTitle" aria-describedby="basic-addon1" defaultValue={newsArticle.title} />
