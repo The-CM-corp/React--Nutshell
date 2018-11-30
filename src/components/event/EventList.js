@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager";
 // import EventEdit from "./EventEdit"
 import "./Event.css";
+
 
 // this is the HTML representation of the event list
 
@@ -14,11 +14,11 @@ export default class EventList extends Component {
     // date: "",
     // synopsis: "",
     // location: "",
-    editId:"",
     editTitle: "",
     editDate: "",
     editSynopsis: "",
     editLocation: "",
+    editId:"",
     hideNewForm: true,
     hideEditForm: true
   };
@@ -60,8 +60,8 @@ export default class EventList extends Component {
         })
       );
 
-  editEvent = (id, editEvent) =>
-    APIManager.editEntry("events", id, editEvent)
+  editEvent = (editId, editEvent) =>
+    APIManager.editEntry("events", editId, editEvent)
       .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
       .then(events =>
         this.setState({
@@ -119,14 +119,14 @@ export default class EventList extends Component {
       date: this.state.editDate,
       synopsis: this.state.editSynopsis,
       location: this.state.editLocation,
-      id: this.state.id
+      id: this.state.editId
     };
-    this.editEvent(this.state.id, editEvent).then(() => {
+    this.editEvent(editEvent.id, editEvent).then(() => {
       this.setState({
-        editTitle: "",
-        editDate: "",
-        editSynopsis: "",
-        editLocation: ""
+        title: "",
+        date: "",
+        synopsis: "",
+        location: ""
       });
     });
     console.log(editEvent)
@@ -256,7 +256,7 @@ export default class EventList extends Component {
                     type="button"
                     className="btn"
                     onClick={() => {
-                      this.handleEditClick();
+                      this.handleEditClick(event.title, event.date, event.synopsis, event.location, event.id);
                     }}
                   >
                     Edit
@@ -318,11 +318,21 @@ export default class EventList extends Component {
                       defaultValue={event.location}
                     />
                   </div>
+                  <div className="form-group">
+                  <input
+                      type="text"
+                      className="form-control hide"
+                      onChange={this.handleFieldChange}
+                      id="editId"
+                      placeholder="event id"
+                      defaultValue={event.id}
+                    />
+                  </div>
                   <div className="button__holder">
                     <button
                       className="btn"
                       onClick={() => {
-                        this.handleEditClick();
+                        this.handleEditClick()
                       }}
                     >
                       Cancel
