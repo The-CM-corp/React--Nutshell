@@ -15,7 +15,11 @@ export default class ApplicationViews extends Component {
 
   getAllUsers = () => APIManager.getAllEntries("users")
 
-
+  getCurrentUser = () => {
+    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    console.log(currentUser)
+    return currentUser
+}
 
 
   render() {
@@ -40,7 +44,7 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/todos" render={(props) => {
           if (this.isAuthenticated()) {
-            return <TodoList getAllUsers={this.getAllUsers} />
+            return <TodoList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
             return <Redirect to="/login" />
           }

@@ -8,18 +8,23 @@ class TodoList extends Component {
     users: [],
     todos: [],
     task: "",
-    date: ""
+    date: "",
+    completed: "",
+    user_id: "",
+    hideNewForm: true,
+    currentUserId: this.props.getCurrentUser()
   }
 
   componentDidMount() {
+
     const newState = {}
 
-    this.props.getAllUsers()
-      .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => newState.todos = todos)
-      .then(() => this.setState(newState))
+    APIManager.getAllEntries("todos", `/?user_id=${this.state.currentUserId}`)
+    .then(todos => newState.todos = todos)
+    .then((todos) => this.setState({todos: todos}))
+
   }
+
 
   deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)
@@ -47,11 +52,14 @@ class TodoList extends Component {
     this.setState(stateToChange)
   }
 
+
   constructNewTodo = evt => {
     evt.preventDefault()
     const todo = {
       task: this.state.task,
-      date: this.state.date
+      date: this.state.date,
+      completed: false,
+      user_id: this.state.currentUserId
     }
     this.addTodo(todo)
   }
@@ -70,7 +78,7 @@ class TodoList extends Component {
               }} />
               <input type="date" id="date" placeholder="Expected Completion" onChange={(event) => {
                 this.handleFieldChange(event)
-              }}/>
+              }} />
               <button type="submit" onClick={(evt) => {
                 this.constructNewTodo(evt)
               }}>Save</button>
@@ -79,11 +87,20 @@ class TodoList extends Component {
           {
             this.state.todos.map(todo =>
               <div key={todo.id} className="todo__card">
-                <h3>{todo.task}</h3>
-                <p>Expected Completion: {todo.date}</p>
+                <h3 id={`task-${todo.id}`}>{todo.task}</h3>
+                <h5>Expected Completion:</h5>
+                <p id={`date-${todo.id}`}>{todo.date}</p>
                 <button type="button" onClick={() => {
                   this.deleteTodo(todo.id)
                 }}>DELETE</button>
+                <button type="button" id={`edit-${todo.id}`} onClick={() => {
+                  const taskName = document.getElementById(`task-${todo.id}`)
+                  const taskDate = document.getElementById(`date-${todo.id}`)
+                  taskName.contentEditable = true;
+                  taskDate.contentEditable = true;
+
+                }}>EDIT</button>
+                <button type="button" id={`saveNew-${todo.id}`}>SAVE CHANGES</button>
               </div>
             )
           }
