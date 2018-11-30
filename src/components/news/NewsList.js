@@ -94,7 +94,7 @@ export default class NewsList extends Component {
      */
     constructNewNews = evt => {
         evt.preventDefault();
-        this.getUserId();
+        // this.getUserId();
         const newNews = {
             title: this.state.title,
             synopsis: this.state.synopsis,
