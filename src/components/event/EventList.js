@@ -106,7 +106,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.title}
+                value={this.state.title ||""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -121,7 +121,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.date}
+                value={this.state.date ||""}
                 type="date"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -136,7 +136,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.synopsis}
+                value={this.state.synopsis ||""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -151,7 +151,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.location}
+                value={this.state.location ||""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
