@@ -1,48 +1,52 @@
 import React, { Component } from "react"
 import "./Message.css"
-import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager"
+import NewMessageForm from "./NewMessageForm";
+import MessageCard from "./MessageCard";
 
 class MessageList extends Component {
 
+  //state will have all users, message, a form hidden statement, time and message
   state = {
     users: [],
     messages: [],
     hideNewForm: true,
     time: "",
-    message: ""
+    message: "",
+    editMessage: "",
+    editId: "",
   }
-  // load page 
+  // load page  with messages from database
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
       )
+
   }
 
   editMessages = (id, message) => {
-    return APIManager.editEntry("message", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
-      .then(messages => this.setState({
-        messages: messages
-      })
-      )
+    const newState = {}
+    return APIManager.editEntry("messages", id, message)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => newState.messages = messages)
+      .then(() => this.setState(newState))
   }
 
   addNewMessage = newMessage => {
     return APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -52,6 +56,13 @@ class MessageList extends Component {
     const currentState = this.state.hideNewForm;
     this.setState({ hideNewForm: !currentState });
   };
+
+  handleNewEdit = (editMessage, editId) => {
+    this.setState({
+      editMessage: editMessage,
+      editId: editId,
+    })
+  }
 
   handleFieldChange = evt => {
     const stateToChange = {}
@@ -73,74 +84,39 @@ class MessageList extends Component {
 
   constructNewMessage = () => {
     const message = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       time: this.timestamp(),
       message: this.state.message,
-      // userId: sessionStorage.getItem("userId")
     }
     this.addNewMessage(message)
+    console.log(message)
+  }
+
+  constructEditMessage = () => {
+
+    const editMessage = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      time: this.timestamp(),
+      message: this.state.editMessage,
+      id: this.state.editId,
+    }
+    console.log("my new message", editMessage.id)
+    this.editMessages(editMessage.id, editMessage)
   }
 
   render() {
     return (
       <React.Fragment>
-        <div className="new__message bryans__class">
-          <button type="button"
-            className={this.state.hideNewForm ? "btn new__button" : 'hide'}
-            id="new__button"
-            onClick={() => {
-              console.log("new message")
-              this.handleNewClick()
-            }}
-          >
-            New Message
-          </button>
-          <div className={this.state.hideNewForm ? 'hide' : null} id="new__message__form">
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="basic-addon1">Message</span>
-              </div>
-              <input type="text" className="form-control" id="message" placeholder="New Message" aria-label="Username" aria-describedby="basic-addon1" onChange={this.handleFieldChange} />
-            </div>
-            <div className="button__holder">
-              <button
-                className="btn"
-                onClick={() => {
-                  this.handleNewClick()
-                }}>
-                Cancel
-            </button>
-              <button
-                className="btn"
-                onClick={() => {
-                  this.constructNewMessage()
-                  this.handleNewClick()
-                }}>
-                Submit
-            </button>
-            </div>
-          </div>
-        </div>
+        <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
+          handleFieldChange={this.handleFieldChange} />
         <section className="message__list bryans__class">
           <h2 className="page__title">Messages</h2>
           <div className="card__holder">
             {
               this.state.messages.map(message =>
-                <div key={message.id} className="card message__card">
-                  <h4 className="username">message.user.name</h4>
-                  <p className="message__text">{message.message}</p>
-                  <p className="message__time">{message.time}</p>
-                  <div className="button__holder">
-                    <button className="edit__button btn"
-                    // onClick={() => this.editMessages(`${message.id}, ${}`)}
-                    >Edit</button>
-                    <button className="delete__button btn"
-                      onClick={() => this.deleteAndAddMessage(`${message.id}`)}
-                    >
-                      Delete
-                </button>
-                  </div>
-                </div>)
-            }
+                <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
+                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
+              )}
           </div>
 
         </section>
