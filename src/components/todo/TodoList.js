@@ -103,9 +103,6 @@ class TodoList extends Component {
       <React.Fragment>
         <section className="todos">
           <h1>To Do List</h1>
-          <button id="addNewTodoBtn" type="button" onClick={() => {
-            this.handleNewClick()
-          }}>Add New Task</button>
           <div id="todo__form__container" className={this.state.hideNewForm ? "hideForm" : null}>
             <form>
               <input type="text" id="task" placeholder="Task Name" onChange={(event) => {
@@ -116,10 +113,16 @@ class TodoList extends Component {
               }} />
               <button type="submit" onClick={(evt) => {
                 this.constructNewTodo(evt)
+                this.handleNewClick()
               }}>Save</button>
-
+              <button type="button" className={this.state.hideNewForm ? "hideForm" : null} onClick={() => {
+                this.handleNewClick()
+              }}>Cancel</button>
             </form>
           </div>
+          <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
+            this.handleNewClick()
+          }}>Add New Task</button>
           {
             this.state.todos.map(todo =>
               <div key={todo.id} className="todo__card">
@@ -136,8 +139,9 @@ class TodoList extends Component {
                   this.deleteTodo(todo.id)
                 }}>DELETE</button>
                 <button type="button" id={`edit-${todo.id}`} onClick={() => {
+                  this.handleNewClick()
                 }}>EDIT</button>
-                <div id={`editForm-${todo.id}`}>
+                <div id={`editForm-${todo.id}`} className={this.state.hideNewForm ? "hideForm" : null}>
                   <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
                   <input type="date" id={`editDate-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
 
