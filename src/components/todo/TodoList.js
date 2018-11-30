@@ -11,7 +11,7 @@ class TodoList extends Component {
     date: "",
     completed: false,
     hideNewForm: true,
-    currentUserId: sessionStorage.getItem("userId") || localStorage.getItem("userId"),
+    currentUserId: this.props.getCurrentUser(),
     editTask: "",
     editDate: ""
   }
