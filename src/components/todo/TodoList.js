@@ -10,21 +10,18 @@ class TodoList extends Component {
     task: "",
     date: "",
     completed: "",
-    user_id: "",
     hideNewForm: true,
-    currentUserId: this.props.getCurrentUser()
+    currentUserId: ""
   }
 
   componentDidMount() {
-
-    const newState = {}
-
-    APIManager.getAllEntries("todos", `/?user_id=${this.state.currentUserId}`)
-    .then(todos => newState.todos = todos)
-    .then((todos) => this.setState({todos: todos}))
-
+    this.setState({ currentUserId: this.props.getCurrentUser() })
   }
 
+  componentDidUpdate() {
+    APIManager.getAllEntries("todos", `?user_id=${this.state.currentUserId}`)
+      .then((todos) => this.setState({ todos: todos }))
+  }
 
   deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)

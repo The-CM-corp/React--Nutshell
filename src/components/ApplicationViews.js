@@ -17,7 +17,6 @@ export default class ApplicationViews extends Component {
 
   getCurrentUser = () => {
     const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-    console.log(currentUser)
     return currentUser
 }
 
