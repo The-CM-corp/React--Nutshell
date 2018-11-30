@@ -22,11 +22,7 @@ export default class EventList extends Component {
   componentDidMount() {
     const newState = {};
 
-    // this.props.getAllUsers().then(allUsers => {
-    //   this.setState({
-    //     users: allUsers
-    //   });
-    // });
+   
 
     APIManager.getAllEntries("events", "?_sort=date&_order=asc")
       .then(events => {
@@ -37,6 +33,16 @@ export default class EventList extends Component {
 
       .then(() => this.setState(newState));
   }
+
+ 
+
+  getCurrentUser = () => {
+    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    return currentUser 
+   
+  }
+
+  
 
   addEvent = event =>
     APIManager.addEntry("events", event)
@@ -118,6 +124,7 @@ export default class EventList extends Component {
       id: this.state.editId
     };
     this.editEvent(editEvent.id, editEvent)
+    
   };
 
   render() {
