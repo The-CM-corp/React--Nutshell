@@ -9,7 +9,7 @@ export default class MessageCard extends Component {
         <h4 className="username">{this.props.message.user.name}</h4>
         <p className="message__text">{this.props.message.message}</p>
         <p className="message__time">{this.props.message.time}</p>
-        <MessageButtons message={this.props.message} editMessages={this.props.editMessages} deleteAndAddMessage={this.props.deleteAndAddMessage} />
+        <MessageButtons message={this.props.message} editMessages={this.props.editMessages} deleteAndAddMessage={this.props.deleteAndAddMessage} handleFieldChange={this.props.handleFieldChange} constructNewMessage={this.props.constructNewMessage} constructEditMessage={this.props.constructEditMessage} handleNewEdit={this.props.handleNewEdit}/>
       </div>
 
     )

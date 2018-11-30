@@ -18,11 +18,15 @@ export default class MessageButtons extends Component {
             onClick={() => {
               // this.props.editMessages(`${this.props.message.id}, ${this.props.message}`)
               this.handleEditClick()
+              this.props.handleNewEdit(this.props.message.message, this.props.message.id)
       }}
           >Edit</button>
-          <MessageEditForm message ={this.props.message} hideEditForm={this.state.hideEditForm} />
+          <MessageEditForm message={this.props.message} hideEditForm={this.state.hideEditForm} handleFieldChange={this.props.handleFieldChange} constructNewMessage={this.props.constructNewMessage} constructEditMessage={this.props.constructEditMessage}/>
           <button className="delete__button btn"
-            onClick={() => this.props.deleteAndAddMessage(`${this.props.message.id}`)}
+            onClick={() => {
+               this.props.deleteAndAddMessage(`${this.props.message.id}`)
+              this.handleEditClick()
+              }}
           >
             Delete
                 </button>

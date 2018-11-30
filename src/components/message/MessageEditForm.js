@@ -1,21 +1,19 @@
 import React, { Component } from "react"
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import "../../index.css"
 
 export default class MessageEditForm extends Component {
- 
- 
+
 
   render() {
     return(
-      <Form className={this.props.hideEditForm ? 'hide' : null}>
-        <FormGroup>
-          <Label for="Message">Edit Your Message</Label>
-          <Input type="text" name="message" id="mesage" placeholder={this.props.message.message} value ={this.props.message.message}/>
-        </FormGroup>
-        <Button>Submit</Button>
-        </Form>
-
-    )
-  }
+      <div className={this.props.hideEditForm ? 'hide' : null}>
+        <div className="input-group mb-3">
+          <label for="Message">Edit Your Message</label>
+          <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" name="editMessage" id="editMessage" onChange={this.props.handleFieldChange} defaultValue ={this.props.message.message}/>
+          <input type="text" className="hide" name="editId" id="editId" onChange={this.props.handleFieldChange} value={this.props.message.id}/>
+        </div>
+        <button className="btn" onClick={this.props.constructEditMessage} >Save</button>
+        </div>
+    ) }
 }
+

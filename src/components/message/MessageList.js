@@ -3,7 +3,7 @@ import "./Message.css"
 import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager"
 import MessageButtons from "./MessageButtons";
-import NewMessageForm from "./MessageForm";
+import NewMessageForm from "./NewMessageForm";
 import MessageCard from "./MessageCard";
 
 class MessageList extends Component {
@@ -14,7 +14,9 @@ class MessageList extends Component {
     messages: [],
     hideNewForm: true,
     time: "",
-    message: ""
+    message: "",
+    editMessage: "",
+    editId: "",
   }
   // load page  with messages from database
   componentDidMount() {
@@ -37,12 +39,11 @@ class MessageList extends Component {
   }
 
   editMessages = (id, message) => {
-    return APIManager.editEntry("message", id, message)
+    const newState = {}
+    return APIManager.editEntry("messages", id, message)
       .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => this.setState({
-        messages: messages
-      })
-      )
+      .then(messages => newState.messages = messages)
+      .then(() => this.setState(newState))
   }
 
   addNewMessage = newMessage => {
@@ -58,6 +59,12 @@ class MessageList extends Component {
     this.setState({ hideNewForm: !currentState });
   };
 
+  handleNewEdit = (editMessage, editId) => {
+    this.setState({
+      editMessage: editMessage,
+      editId: editId,
+    })
+  }
 
   handleFieldChange = evt => {
     const stateToChange = {}
@@ -87,17 +94,38 @@ class MessageList extends Component {
     console.log(message)
   }
 
+  constructEditMessage = evt => {
+    evt.preventDefault()
+    const editMessage = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      time: this.timestamp(),
+      message: this.state.editMessage,
+      id: this.state.editId,
+    }
+    console.log("my new message", editMessage.id)
+    this.editMessages(editMessage.id, editMessage)
+      // .then(this.setState({
+      //   message: "",
+      //   userId:"",
+      //   time:"",
+      //   id:"",
+      // }
+      // )
+      // )
+  }
+
   render() {
     return (
       <React.Fragment>
-        <NewMessageForm handleNewClick ={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
-        handleFieldChange ={this.handleFieldChange}/>
+        <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
+          handleFieldChange={this.handleFieldChange} />
         <section className="message__list bryans__class">
           <h2 className="page__title">Messages</h2>
           <div className="card__holder">
             {
               this.state.messages.map(message =>
-                <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} />
+                <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
+                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit}/>
               )}
           </div>
 
