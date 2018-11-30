@@ -2,9 +2,11 @@ import React, { Component } from "react"
 import "./Message.css"
 import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager"
+import MessageButtons from "./MessageButton";
 
 class MessageList extends Component {
 
+  //state will have all users, message, a form hidden statement, time and message
   state = {
     users: [],
     messages: [],
@@ -12,28 +14,29 @@ class MessageList extends Component {
     time: "",
     message: ""
   }
-  // load page 
+  // load page  with messages from database
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
       )
+
   }
 
   editMessages = (id, message) => {
     return APIManager.editEntry("message", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -42,7 +45,7 @@ class MessageList extends Component {
 
   addNewMessage = newMessage => {
     return APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=asc", "&_limit=10"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -52,6 +55,7 @@ class MessageList extends Component {
     const currentState = this.state.hideNewForm;
     this.setState({ hideNewForm: !currentState });
   };
+
 
   handleFieldChange = evt => {
     const stateToChange = {}
@@ -73,11 +77,12 @@ class MessageList extends Component {
 
   constructNewMessage = () => {
     const message = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       time: this.timestamp(),
       message: this.state.message,
-      // userId: sessionStorage.getItem("userId")
     }
     this.addNewMessage(message)
+    console.log(message)
   }
 
   render() {
@@ -126,19 +131,10 @@ class MessageList extends Component {
             {
               this.state.messages.map(message =>
                 <div key={message.id} className="card message__card">
-                  <h4 className="username">message.user.name</h4>
+                  <h4 className="username">{message.user.name}</h4>
                   <p className="message__text">{message.message}</p>
                   <p className="message__time">{message.time}</p>
-                  <div className="button__holder">
-                    <button className="edit__button btn"
-                    // onClick={() => this.editMessages(`${message.id}, ${}`)}
-                    >Edit</button>
-                    <button className="delete__button btn"
-                      onClick={() => this.deleteAndAddMessage(`${message.id}`)}
-                    >
-                      Delete
-                </button>
-                  </div>
+                  <MessageButtons message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} />
                 </div>)
             }
           </div>
