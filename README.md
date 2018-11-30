@@ -17,9 +17,9 @@ Open **database.json** and copy the following into the file to create a database
   "users": [
     {
       "id": 1,
-      "name": "joeshep",
+      "name": "lesley",
       "password": "broccoli",
-      "email": "joe@joe.com"
+      "email": "lesley@lesley.com"
     },
     {
       "id": 2,
