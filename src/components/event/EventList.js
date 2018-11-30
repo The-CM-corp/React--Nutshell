@@ -10,10 +10,6 @@ export default class EventList extends Component {
   state = {
     users: [],
     events: [],
-    // title: "",
-    // date: "",
-    // synopsis: "",
-    // location: "",
     editTitle: "",
     editDate: "",
     editSynopsis: "",
@@ -26,11 +22,11 @@ export default class EventList extends Component {
   componentDidMount() {
     const newState = {};
 
-    this.props.getAllUsers().then(allUsers => {
-      this.setState({
-        users: allUsers
-      });
-    });
+    // this.props.getAllUsers().then(allUsers => {
+    //   this.setState({
+    //     users: allUsers
+    //   });
+    // });
 
     APIManager.getAllEntries("events", "?_sort=date&_order=asc")
       .then(events => {
@@ -75,7 +71,7 @@ export default class EventList extends Component {
   };
 
   handleEditClick = (editTitle, editDate, editSynopsis, editLocation, editId) => {
-    const currentState = this.state.hideNewForm;
+    const currentState = this.state.hideNewForm
     this.setState({
       hideEditForm: !currentState,
       editTitle: editTitle,
@@ -112,8 +108,8 @@ export default class EventList extends Component {
     });
   };
 
-  constructEditedEvent = evt => {
-    evt.preventDefault();
+  constructEditedEvent = () => {
+    // evt.preventDefault();
     const editEvent = {
       title: this.state.editTitle,
       date: this.state.editDate,
@@ -121,16 +117,7 @@ export default class EventList extends Component {
       location: this.state.editLocation,
       id: this.state.editId
     };
-    this.editEvent(editEvent.id, editEvent).then(() => {
-      this.setState({
-        title: "",
-        date: "",
-        synopsis: "",
-        location: ""
-      });
-    });
-    console.log(editEvent)
-    console.log(this.state.id)
+    this.editEvent(editEvent.id, editEvent)
   };
 
   render() {
@@ -340,7 +327,11 @@ export default class EventList extends Component {
 
                     <button
                       type="submit"
-                      onClick={this.constructEditedEvent}
+                      // onClick={this.constructEditedEvent}
+                      onClick={() => {
+                        this.constructEditedEvent();
+                        this.handleEditClick();
+                      }}
                       className="btn"
                     >
                       Submit
