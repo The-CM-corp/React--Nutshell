@@ -12,3 +12,7 @@
 .btn_mod:hover {
   background: red;
 }
+
+.hide {
+  display: none;
+}
