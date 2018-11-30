@@ -1,10 +1,8 @@
 import React, { Component } from "react"
-
-
 export default class NewMessageForm extends Component {
 
   render() {
-    return(
+    return (
       <div className="new__message bryans__class">
         <button type="button"
           className={this.props.hideNewForm ? "btn new__button" : 'hide'}

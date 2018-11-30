@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import "./Message.css"
-import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager"
-import MessageButtons from "./MessageButtons";
 import NewMessageForm from "./NewMessageForm";
 import MessageCard from "./MessageCard";
 
@@ -94,8 +92,8 @@ class MessageList extends Component {
     console.log(message)
   }
 
-  constructEditMessage = evt => {
-    evt.preventDefault()
+  constructEditMessage = () => {
+
     const editMessage = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       time: this.timestamp(),
@@ -104,14 +102,6 @@ class MessageList extends Component {
     }
     console.log("my new message", editMessage.id)
     this.editMessages(editMessage.id, editMessage)
-      // .then(this.setState({
-      //   message: "",
-      //   userId:"",
-      //   time:"",
-      //   id:"",
-      // }
-      // )
-      // )
   }
 
   render() {
@@ -125,7 +115,7 @@ class MessageList extends Component {
             {
               this.state.messages.map(message =>
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
-                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit}/>
+                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
               )}
           </div>
 
