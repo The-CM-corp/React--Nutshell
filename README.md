@@ -175,10 +175,10 @@ Open [http://localhost:3000]( http://localhost:3000) to view it in the browser.
 In another window of your terminal traverse into ```src/api``` and run: ```json-server -p 5002 -w nutshell.json```
 
 # Enjoy Nutshell
-This project was bootstrapped with [Create React App]( Create React App).
+This project was bootstrapped with [Create React App]( https://github.com/facebook/create-react-app).
 ### Contributors
-[Austin Zoradi] (https://github.com/amazoradi)
-[Bryan Nilsen]( https://github.com/BryanNilsen)
-[Jessica Barnett]( https://github.com/jessicabarnett8219)
-[Lesley Boyd]( https://github.com/laboyd001)
+* [Austin Zoradi] ( https://github.com/amazoradi)
+* [Bryan Nilsen]( https://github.com/BryanNilsen)
+* [Jessica Barnett]( https://github.com/jessicabarnett8219)
+* [Lesley Boyd]( https://github.com/laboyd001)
 
