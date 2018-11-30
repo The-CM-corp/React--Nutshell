@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import APIManager from "../../modules/APIManager";
+// import EventEdit from "./EventEdit"
 import "./Event.css";
 
 // this is the HTML representation of the event list
@@ -9,7 +10,17 @@ export default class EventList extends Component {
   state = {
     users: [],
     events: [],
-    hideNewForm: true
+    // title: "",
+    // date: "",
+    // synopsis: "",
+    // location: "",
+    editId:"",
+    editTitle: "",
+    editDate: "",
+    editSynopsis: "",
+    editLocation: "",
+    hideNewForm: true,
+    hideEditForm: true
   };
 
   componentDidMount() {
@@ -49,9 +60,30 @@ export default class EventList extends Component {
         })
       );
 
+  editEvent = (id, editEvent) =>
+    APIManager.editEntry("events", id, editEvent)
+      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
+      .then(events =>
+        this.setState({
+          events: events
+        })
+      );
+
   handleNewClick = () => {
     const currentState = this.state.hideNewForm;
     this.setState({ hideNewForm: !currentState });
+  };
+
+  handleEditClick = (editTitle, editDate, editSynopsis, editLocation, editId) => {
+    const currentState = this.state.hideNewForm;
+    this.setState({
+      hideEditForm: !currentState,
+      editTitle: editTitle,
+      editDate: editDate,
+      editSynopsis: editSynopsis,
+      editLocation: editLocation,
+      editId: editId
+    });
   };
 
   // Update state whenever an input field is edited
@@ -80,6 +112,27 @@ export default class EventList extends Component {
     });
   };
 
+  constructEditedEvent = evt => {
+    evt.preventDefault();
+    const editEvent = {
+      title: this.state.editTitle,
+      date: this.state.editDate,
+      synopsis: this.state.editSynopsis,
+      location: this.state.editLocation,
+      id: this.state.id
+    };
+    this.editEvent(this.state.id, editEvent).then(() => {
+      this.setState({
+        editTitle: "",
+        editDate: "",
+        editSynopsis: "",
+        editLocation: ""
+      });
+    });
+    console.log(editEvent)
+    console.log(this.state.id)
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -106,7 +159,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.title ||""}
+                value={this.state.title || ""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -121,7 +174,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.date ||""}
+                value={this.state.date || ""}
                 type="date"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -136,7 +189,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.synopsis ||""}
+                value={this.state.synopsis || ""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -151,7 +204,7 @@ export default class EventList extends Component {
                 </span>
               </div>
               <input
-                value={this.state.location ||""}
+                value={this.state.location || ""}
                 type="text"
                 className="form-control"
                 onChange={this.handleFieldChange}
@@ -199,10 +252,14 @@ export default class EventList extends Component {
                   {event.synopsis}
                 </p>
                 <div className="card-button">
-                  <button type="button" className="btn">
-                    <Link className="nav-link" to={`/events/edit/${event.id}`}>
-                      Edit
-                    </Link>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => {
+                      this.handleEditClick();
+                    }}
+                  >
+                    Edit
                   </button>
                   <button
                     type="button"
@@ -212,6 +269,74 @@ export default class EventList extends Component {
                     Delete
                   </button>
                 </div>
+                {/* <EventEdit/> */}
+                <form
+                  className={this.state.hideEditForm ? "hide" : null}
+                  id="new__event__form"
+                >
+                  <div className="form-group">
+                    <label htmlFor="eventTitle">Event Title</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={this.handleFieldChange}
+                      id="editTitle"
+                      placeholder="Event Name"
+                      defaultValue={event.title}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="date">Date</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      onChange={this.handleFieldChange}
+                      id="editDate"
+                      placeholder="Date"
+                      defaultValue={event.date}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="eventSynopsis">Event Synopsis</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={this.handleFieldChange}
+                      id="editSynopsis"
+                      placeholder="Event Synopsis"
+                      defaultValue={event.synopsis}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="eventLocation">Event Location</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={this.handleFieldChange}
+                      id="editLocation"
+                      placeholder="Event Location"
+                      defaultValue={event.location}
+                    />
+                  </div>
+                  <div className="button__holder">
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        this.handleEditClick();
+                      }}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      onClick={this.constructEditedEvent}
+                      className="btn"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           ))}
