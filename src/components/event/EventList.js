@@ -232,8 +232,8 @@ export default class EventList extends Component {
         </div>
 
         <section className="events">
-          {this.state.events.map(event, index => (
-            <div key={event.id}{index} className="card">
+          {this.state.events.map(event => (
+            <div key={event.id} className="card">
               <div className={`card-body details ${event.id}`}>
                 <h4 className="card-title">{event.title}</h4>
                 <h6 className="card-title">{event.date}</h6>
