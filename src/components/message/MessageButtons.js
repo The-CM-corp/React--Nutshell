@@ -22,7 +22,7 @@ export default class MessageButtons extends Component {
       }}
           >Edit</button>
           <MessageEditForm message={this.props.message} hideEditForm={this.state.hideEditForm} handleFieldChange={this.props.handleFieldChange} constructNewMessage={this.props.constructNewMessage} constructEditMessage={this.props.constructEditMessage}/>
-          <button className="delete__button btn"
+          <button className={this.state.hideEditForm ? "delete__button btn" : "hide"}
             onClick={() => {
                this.props.deleteAndAddMessage(`${this.props.message.id}`)
               this.handleEditClick()
