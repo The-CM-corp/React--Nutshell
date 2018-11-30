@@ -169,7 +169,7 @@ Open **database.json** and copy the following into the file to create a database
 }
 ```
 
-Traverse back the React—Nutshell folder and run: ```npm install```
+Traverse back to the React—Nutshell folder and run: ```npm install```
 This is will install all libraries and their dependencies used by Nutshell.
 Be sure to run the following in order to view Nutshell in your browser: ```npm start```
 Open [http://localhost:3000]( http://localhost:3000) to view it in the browser.
