@@ -3,10 +3,13 @@ import APIManager from "../../modules/APIManager";
 // import EventEdit from "./EventEdit"
 import "./Event.css";
 
-
 // this is the HTML representation of the event list
 
 export default class EventList extends Component {
+  constructor(props) {
+    super(props)
+    this.eventRefs = []
+  }
   state = {
     users: [],
     events: [],
@@ -14,32 +17,26 @@ export default class EventList extends Component {
     editDate: "",
     editSynopsis: "",
     editLocation: "",
-    editId:"",
+    editId: "",
     hideNewForm: true,
     hideEditForm: true
   };
 
   componentDidMount() {
-    const newState = {};
+    this.eventRefs[0] && this.eventRefs[0].focus()
 
-   
+    const newState = {};
 
     APIManager.getAllEntries("events", "?_sort=date&_order=asc")
       .then(events => {
         this.setState({
           events: events
+          
         });
       })
 
       .then(() => this.setState(newState));
-  }
-
- 
-
-  getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-    return currentUser 
-   
+      
   }
 
   
@@ -76,8 +73,14 @@ export default class EventList extends Component {
     this.setState({ hideNewForm: !currentState });
   };
 
-  handleEditClick = (editTitle, editDate, editSynopsis, editLocation, editId) => {
-    const currentState = this.state.hideNewForm
+  handleEditClick = (
+    editTitle,
+    editDate,
+    editSynopsis,
+    editLocation,
+    editId
+  ) => {
+    const currentState = this.state.hideNewForm;
     this.setState({
       hideEditForm: !currentState,
       editTitle: editTitle,
@@ -123,8 +126,7 @@ export default class EventList extends Component {
       location: this.state.editLocation,
       id: this.state.editId
     };
-    this.editEvent(editEvent.id, editEvent)
-    
+    this.editEvent(editEvent.id, editEvent);
   };
 
   render() {
@@ -230,8 +232,8 @@ export default class EventList extends Component {
         </div>
 
         <section className="events">
-          {this.state.events.map(event => (
-            <div key={event.id} className="card">
+          {this.state.events.map(event, index => (
+            <div key={event.id}{index} className="card">
               <div className={`card-body details ${event.id}`}>
                 <h4 className="card-title">{event.title}</h4>
                 <h6 className="card-title">{event.date}</h6>
@@ -250,7 +252,13 @@ export default class EventList extends Component {
                     type="button"
                     className="btn"
                     onClick={() => {
-                      this.handleEditClick(event.title, event.date, event.synopsis, event.location, event.id);
+                      this.handleEditClick(
+                        event.title,
+                        event.date,
+                        event.synopsis,
+                        event.location,
+                        event.id
+                      );
                     }}
                   >
                     Edit
@@ -313,7 +321,7 @@ export default class EventList extends Component {
                     />
                   </div>
                   <div className="form-group">
-                  <input
+                    <input
                       type="text"
                       className="form-control hide"
                       onChange={this.handleFieldChange}
@@ -326,7 +334,7 @@ export default class EventList extends Component {
                     <button
                       className="btn"
                       onClick={() => {
-                        this.handleEditClick()
+                        this.handleEditClick();
                       }}
                     >
                       Cancel
