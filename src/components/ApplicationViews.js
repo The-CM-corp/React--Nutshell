@@ -26,7 +26,7 @@ export default class ApplicationViews extends Component {
       <React.Fragment>
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
-            return <NewsList getAllUsers={this.getAllUsers} />
+            return <NewsList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
             return <Redirect to="/login" />
           }
