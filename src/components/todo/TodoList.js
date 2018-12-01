@@ -135,8 +135,9 @@ class TodoList extends Component {
                 <button type="button" onClick={() => {
                   this.deleteTodo(todo.id)
                 }}>DELETE</button>
-                <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => { this.handleFieldChangeEdit(evt) }} />
-                <input type="date" id={`editDate-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
+                <input type="text" id={`editTask-${todo.id}`} defaultValue={todo.task} onChange={(evt) => { this.handleFieldChangeEdit(evt) }} />
+
+                <input type="date" id={`editDate-${todo.id}`} defaultValue={todo.date}onChange={(evt) => this.handleFieldChangeEdit(evt)} />
                 <button type="button" id={`edit-${todo.id}`} onClick={() => {
                 }}>EDIT</button>
 
