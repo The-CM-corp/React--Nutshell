@@ -17,7 +17,7 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    APIManager.getAllEntries("todos", `?user_id=${this.state.currentUserId}`)
+    APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
       .then((todos) => this.setState({ todos: todos }))
   }
 
@@ -25,19 +25,19 @@ class TodoList extends Component {
 
   deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)
-      .then(() => APIManager.getAllEntries("todos"))
+      .then(() => APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`))
       .then(todos => this.setState({ todos: todos }))
   }
 
   editTodo = (id, editedTodo) => {
     APIManager.editEntry("todos", id, editedTodo)
-      .then(() => APIManager.getAllEntries("todos"))
+      .then(() => APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`))
       .then(todos => this.setState({ todos: todos }))
   }
 
   addTodo = (newTodo) => {
     APIManager.addEntry("todos", newTodo)
-      .then(() => APIManager.getAllEntries("todos"))
+      .then(() => APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`))
       .then(todos => this.setState({ todos: todos }))
   }
 
@@ -57,7 +57,6 @@ class TodoList extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id.split("-")[0]] = evt.target.value
     this.setState(stateToChange)
-    console.log(this.state.editDate)
   }
 
   handleFieldChangeCheckbox = (evt, id) => {
@@ -67,18 +66,14 @@ class TodoList extends Component {
     })
   }
 
-
-  getTargetId = evt => {
-    return evt.target.id.split("-")[1]
-  }
-
-  constructEditedTodo = () => {
-    return {
+  constructEditedTodo = (id) => {
+    let editedTodo = {
       task: this.state.editTask,
       date: this.state.editDate,
       completed: this.state.completed,
       user_id: this.state.currentUserId
     }
+    this.editTodo(id, editedTodo)
   }
 
   constructEditedCompletion = () => {
@@ -131,37 +126,25 @@ class TodoList extends Component {
               <div key={todo.id} className="todo__card">
 
                 <h3 id={`task-${todo.id}`}>{todo.task}</h3>
-
-                <p id={`editDate-${todo.id}`} onChange={(evt) => {
-                  this.getTargetCompletion(evt)
-                }
-                }>Expected Completion Date: {todo.date}</p>
-
+                Expected Completion Date:
+                <p id={`date-${todo.id}`}> {todo.date}</p>
                 <label>Completed</label>
                 <input id={`completed-${todo.id}`} type="checkbox" onClick={(evt) => {
-                  let targetTodoId = this.getTargetId(evt)
-                  this.handleFieldChangeCheckbox(evt, targetTodoId)
+                  this.handleFieldChangeCheckbox(evt, todo.id)
                 }} />
-
                 <button type="button" onClick={() => {
                   this.deleteTodo(todo.id)
                 }}>DELETE</button>
-              <button type="button" id={`edit-${todo.id}`} onClick={() => {
-                this.handleNewClick()
-              }}>EDIT</button>
-              <div id={`editForm-${todo.id}`} className={this.state.hideNewForm ? "hideForm" : null}>
-                <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
+                <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => { this.handleFieldChangeEdit(evt) }} />
                 <input type="date" id={`editDate-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
+                <button type="button" id={`edit-${todo.id}`} onClick={() => {
+                }}>EDIT</button>
 
-                <button type="button" id={`saveNew-${todo.id}`} onClick={(evt) => {
-                  let targetTodoId = this.getTargetId(evt)
-                  let editedTodo = this.constructEditedTodo()
-                  this.editTodo(targetTodoId, editedTodo)
-                }
+                <button type="button" id={`saveNew-${todo.id}`} onClick={(evt) =>
+                  this.constructEditedTodo(todo.id)
                 }>SAVE CHANGES</button>
               </div>
-              </div>
-        )
+            )
           }
         </section>
       </React.Fragment>
