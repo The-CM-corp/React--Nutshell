@@ -98,7 +98,8 @@ export default class EventList extends Component {
       title: this.state.title,
       date: this.state.date,
       synopsis: this.state.synopsis,
-      location: this.state.location
+      location: this.state.location,
+      user_id: this.state.currentUserId
     };
 
     // Create the event
