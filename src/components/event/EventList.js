@@ -6,6 +6,7 @@ import "./Event.css";
 // this is the HTML representation of the event list
 
 export default class EventList extends Component {
+  
  
   state = {
     users: [],
@@ -28,8 +29,6 @@ export default class EventList extends Component {
       })
       
   }
-
-   
 
   addEvent = event =>
     APIManager.addEntry("events", event)
@@ -63,6 +62,14 @@ export default class EventList extends Component {
     this.setState({ hideNewForm: !currentState });
   };
 
+  // addFirstClass =() => {
+  //   if(this.state.events === this.state.events[0]){
+  //   className = "card-body details"
+  //   }else{
+  //   className = "card-body details coral"
+  //   }
+  // }
+
   handleEditClick = (
     editTitle,
     editDate,
@@ -70,7 +77,6 @@ export default class EventList extends Component {
     editLocation,
     editId
   ) => {
-    // const currentState = this.state.hideEditForm;
     if(this.state.shownForm ===null){
     this.setState({
       shownForm:editId,
@@ -127,7 +133,7 @@ export default class EventList extends Component {
   };
 
   render() {
-    console.log("first", this.state.events[0])
+    console.log("first", this.state.events)
     return (
       <React.Fragment>
         <h1 className="event__title bryan">Events</h1>
@@ -231,15 +237,17 @@ export default class EventList extends Component {
 
         <section className="events">
           {this.state.events.map(event => (
-            <div key={event.id} className="card">
-              <div className={`card-body details ${event.id}`}>
-                <h4 className="card-title">{event.title}</h4>
-                <h6 className="card-title">{event.date}</h6>
-                <h6 className="card-title">
+            <div key={event.id} className="event__card">
+              <div 
+              className={this.state.events[0].id === event.id ? 'coral' : 'other'}
+              >
+                <p className="card-title">{event.title}</p>
+                <p className="card-date">{event.date}</p>
+                <p className="card-location">
                   Location:
                   <br />
                   {event.location}
-                </h6>
+                </p>
                 <p className="card-details">
                   Synopsis:
                   <br />
@@ -339,7 +347,6 @@ export default class EventList extends Component {
                     </button>
 
                     <button
-                      // onClick={this.constructEditedEvent}
                       onClick={() => {
                         this.constructEditedEvent();
                         this.handleEditClick();
