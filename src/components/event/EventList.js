@@ -6,13 +6,11 @@ import "./Event.css";
 // this is the HTML representation of the event list
 
 export default class EventList extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.eventRefs = []
-  // }
+ 
   state = {
     users: [],
     events: [],
+    shownForm: null,
     hideNewForm: true,
     hideEditForm: true,
     currentUserId: this.props.getCurrentUser(),
@@ -20,21 +18,18 @@ export default class EventList extends Component {
     editDate: "",
     editSynopsis: "",
     editLocation: "",
-    editId: "",
+    editId: ""
   }
 
   componentDidMount() {
-    // this.eventRefs[0] && this.eventRefs[0].focus()
-
-
     APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`)
       .then((events) => {
         this.setState({events: events})
       })
-      console.log(this.currentUserId)
+      
   }
 
-  
+   
 
   addEvent = event =>
     APIManager.addEntry("events", event)
@@ -75,16 +70,22 @@ export default class EventList extends Component {
     editLocation,
     editId
   ) => {
-    const currentState = this.state.hideEditForm;
+    // const currentState = this.state.hideEditForm;
+    if(this.state.shownForm ===null){
     this.setState({
-      hideEditForm: !currentState,
+      shownForm:editId,
       editTitle: editTitle,
       editDate: editDate,
       editSynopsis: editSynopsis,
       editLocation: editLocation,
       editId: editId
     });
-  };
+  } else {
+    this.setState({
+      shownForm:null
+    })
+  }
+}
 
   // Update state whenever an input field is edited
   handleFieldChange = evt => {
@@ -126,6 +127,7 @@ export default class EventList extends Component {
   };
 
   render() {
+    console.log("first", this.state.events[0])
     return (
       <React.Fragment>
         <h1 className="event__title bryan">Events</h1>
@@ -269,7 +271,7 @@ export default class EventList extends Component {
                 </div>
                 {/* <EventEdit/> */}
                 <div
-                  className={this.state.hideEditForm ? "hide" : null}
+                  className={`${this.state.shownForm === event.id?null: 'hide'}`}
                   id="new__event__form"
                 >
                   <div className="form-group">
