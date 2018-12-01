@@ -256,7 +256,7 @@ export default class EventList extends Component {
                 <div className="card-button">
                   <button
                     type="button"
-                    className="btn"
+                    className="card-button btn"
                     onClick={() => {
                       this.handleEditClick(
                         event.title,
