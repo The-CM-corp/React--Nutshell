@@ -3,7 +3,13 @@
 }
 
 .event__title {
-  text-align: center;
+  margin-left: 10px;
+}
+
+.new__button {
+  margin-bottom:10px;
+  margin-left:10px;
+  background-color: lightgray;
 }
 
 .events {

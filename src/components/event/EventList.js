@@ -6,44 +6,39 @@ import "./Event.css";
 // this is the HTML representation of the event list
 
 export default class EventList extends Component {
-  constructor(props) {
-    super(props)
-    this.eventRefs = []
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.eventRefs = []
+  // }
   state = {
     users: [],
     events: [],
+    hideNewForm: true,
+    hideEditForm: true,
+    currentUserId: this.props.getCurrentUser(),
     editTitle: "",
     editDate: "",
     editSynopsis: "",
     editLocation: "",
     editId: "",
-    hideNewForm: true,
-    hideEditForm: true
-  };
+  }
 
   componentDidMount() {
-    this.eventRefs[0] && this.eventRefs[0].focus()
+    // this.eventRefs[0] && this.eventRefs[0].focus()
 
-    const newState = {};
 
-    APIManager.getAllEntries("events", "?_sort=date&_order=asc")
-      .then(events => {
-        this.setState({
-          events: events
-          
-        });
+    APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`)
+      .then((events) => {
+        this.setState({events: events})
       })
-
-      .then(() => this.setState(newState));
-      
+      console.log(this.currentUserId)
   }
 
   
 
   addEvent = event =>
     APIManager.addEntry("events", event)
-      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
+      .then(() => APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`))
       .then(events =>
         this.setState({
           events: events
@@ -52,7 +47,7 @@ export default class EventList extends Component {
 
   deleteEvent = id =>
     APIManager.deleteEntry("events", id)
-      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
+      .then(() => APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`))
       .then(events =>
         this.setState({
           events: events
@@ -61,7 +56,7 @@ export default class EventList extends Component {
 
   editEvent = (editId, editEvent) =>
     APIManager.editEntry("events", editId, editEvent)
-      .then(() => APIManager.getAllEntries("events", "?_sort=date&_order=asc"))
+      .then(() => APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`))
       .then(events =>
         this.setState({
           events: events
@@ -133,7 +128,7 @@ export default class EventList extends Component {
     return (
       <React.Fragment>
         <h1 className="event__title bryan">Events</h1>
-        <div className="new__event bryans__class">
+        <div className="new__event">
           <button
             type="button"
             className={this.state.hideNewForm ? "btn new__button" : "hide"}

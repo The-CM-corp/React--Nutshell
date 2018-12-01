@@ -49,13 +49,12 @@ export default class ApplicationViews extends Component {
           }
         }} />
         <Route exact path="/events"
-          render={props => {
+          render={(props) => {
             if (this.isAuthenticated()) {
               return (
-                <EventList getAllUsers={this.getAllUsers}
-                  {...props}
-
-                />
+                <EventList 
+                getAllUsers={this.getAllUsers}
+                getCurrentUser={this.getCurrentUser}/>
               );
             } else {
               return <Redirect to="/login" />
