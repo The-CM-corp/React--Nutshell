@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import APIManager from "../../modules/APIManager"
 
 
 export default class Login extends Component {
@@ -51,12 +52,28 @@ export default class Login extends Component {
   handleRegister = (e) => {
     e.preventDefault()
     this.state.users.forEach(user => {
-      if(user.email === this.state.registerEmail) {
+      if (user.email === this.state.registerEmail) {
         alert("This email is already taken")
       }
     })
   }
 
+
+  // austin register
+
+  constructNewUser = () => {
+    const user = {
+      name: this.state.registerName,
+      password: this.state.registerPassword,
+      email: this.state.registerEmail,
+    }
+    this.registerNewUser(user)
+    console.log(user)
+  }
+
+  registerNewUser = user => {
+    return APIManager.addEntry("users", user)
+  }
 
   render() {
     return (
@@ -122,7 +139,7 @@ export default class Login extends Component {
             placeholder="Password"
             required="" />
           <br />
-          <button type="submit">
+          <button type="submit" onClick={()=> this.constructNewUser()}>
             Register
                 </button>
         </form>
