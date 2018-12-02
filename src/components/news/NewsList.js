@@ -155,7 +155,7 @@ export default class NewsList extends Component {
                                 </div>
                                 <input id="url" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Link URL" aria-label="url" aria-describedby="basic-addon1" value={this.state.url || ''} />
                             </div>
-                            <button className="btn btn_mod" onClick={this.constructNewNews}>Add News</button>
+                            <button className="btn btn_mod" onClick={this.constructNewNews}>Submit</button>
                         </div>
                         <hr></hr>
                         <section className="news">
