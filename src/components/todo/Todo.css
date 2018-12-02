@@ -3,6 +3,7 @@
   margin-left: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .todo__card {
@@ -10,4 +11,8 @@
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid gray;
+}
+
+.hideForm {
+  display: none;
 }
