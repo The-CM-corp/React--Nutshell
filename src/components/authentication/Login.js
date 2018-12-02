@@ -1,38 +1,42 @@
 import React, { Component } from "react"
+import { Link, Route, Redirect } from "react-router-dom"
+import Register from "./Register"
 
 export default class Login extends Component {
 
   render() {
     return (
       <React.Fragment>
-        <form className="bryans__class" onSubmit={this.props.handleLogin}>
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label htmlFor="inputEmail">
-            Email address
+        <div className={this.props.hideLoginForm ? "hide" : "bryans__class"}>
+          <form onSubmit={this.props.handleLogin}>
+            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label htmlFor="inputEmail">
+              Email address
                 </label>
-          <br />
-          <input onChange={this.props.handleFieldChange} type="email"
-            id="loginEmail"
-            placeholder="Email address"
-            required="" autoFocus="" />
-          <br />
-          <label htmlFor="inputPassword">
-            Password
+            <br />
+            <input onChange={this.props.handleFieldChange} type="email"
+              id="loginEmail"
+              placeholder="Email address"
+              required="" autoFocus="" />
+            <br />
+            <label htmlFor="inputPassword">
+              Password
                 </label>
-          <br />
-          <input onChange={this.props.handleFieldChange} type="password"
-            id="loginPassword"
-            placeholder="Password"
-            required="" />
-          <br />
-          Remember me <input onChange={this.props.handleFieldChange} type="checkbox"
-            id="remember" />
-          <br />
-          <button type="submit">
-            Sign in
+            <br />
+            <input onChange={this.props.handleFieldChange} type="password"
+              id="loginPassword"
+              placeholder="Password"
+              required="" />
+            <br />
+            Remember me <input onChange={this.props.handleFieldChange} type="checkbox"
+              id="remember" />
+            <br />
+            <button type="submit">
+              Sign in
                 </button>
-        </form>
-
+          </form>
+          <h2 className="nav-link" onClick={() => this.props.handleChangeForm()} >New here? Create an account</h2>
+        </div>
       </React.Fragment>
     )
   }

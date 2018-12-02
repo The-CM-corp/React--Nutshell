@@ -4,9 +4,9 @@ export default class Register extends Component {
   
   render() {
     return (
-      <form className="bryans__class" onSubmit={this.props.handleRegister}>
-        <h1 className="h3 mb-3 font-weight-normal">New here? Create an account</h1>
-
+      <div className={this.props.hideLoginForm ? "bryans__class" : "hide"}>
+      <h2>Register Here</h2>
+      <form className="register__form" onSubmit={this.props.handleRegister}>
         <label htmlFor="inputName">
           Name
                 </label>
@@ -40,6 +40,7 @@ export default class Register extends Component {
           Register
                 </button>
       </form >
+      </div>
     )
   }
 }

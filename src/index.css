@@ -20,3 +20,7 @@ code {
 .hide {
   display: none;
 }
+
+.register__form button {
+  margin: 10px 0;
+}
