@@ -5,6 +5,7 @@ import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import TodoList from './todo/TodoList'
+import Navbar from './nav/Navbar'
 import './Nutshell.css'
 import MessageList from './message/MessageList';
 
@@ -67,7 +68,6 @@ export default class ApplicationViews extends Component {
           return (
             <Login getAllUsers={this.getAllUsers} />)
         }} />
-
       </React.Fragment>
     )
   }

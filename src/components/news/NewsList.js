@@ -147,7 +147,7 @@ export default class NewsList extends Component {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">Synopsis</span>
                                 </div>
-                                <input id="synopsis" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Article Synopsis" aria-label="synopsis" aria-describedby="basic-addon1" value={this.state.synopsis || ''} />
+                                <textarea id="synopsis" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Article Synopsis" aria-label="synopsis" aria-describedby="basic-addon1" value={this.state.synopsis || ''} />
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
@@ -165,7 +165,7 @@ export default class NewsList extends Component {
                                         <h2>{newsArticle.title}</h2>
                                         <p>{newsArticle.synopsis}</p>
                                         <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
-                                        <p class="oblique">{newsArticle.timestamp}</p>
+                                        <p className="oblique">{newsArticle.timestamp}</p>
                                         <div id="editDeleteBtns">
                                             <button className="btn btn_mod btn_small" onClick={() => {
                                                 this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
@@ -181,7 +181,7 @@ export default class NewsList extends Component {
                                             </div>
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Synopsis</span></div>
-                                                <input id="editSynopsis" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Edit Synopsis" aria-label="editSynopsis" aria-describedby="basic-addon1" defaultValue={newsArticle.synopsis} />
+                                                <textarea id="editSynopsis" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Edit Synopsis" aria-label="editSynopsis" aria-describedby="basic-addon1" defaultValue={newsArticle.synopsis} />
                                             </div>
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Link URL</span></div>
