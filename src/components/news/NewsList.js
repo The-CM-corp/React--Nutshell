@@ -22,23 +22,23 @@ export default class NewsList extends Component {
 
 
     componentDidMount() {
-        APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=asc`)
+        APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`)
             .then((news) => {
             this.setState({news: news})
         })
     }
 
     deleteNews = (id) => APIManager.deleteEntry("news", id)
-        .then(() => APIManager.getAllEntries("news"))
+        .then(() => APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`))
         .then(news => this.setState({ news: news }))
 
     editNews = (id, editedNews) => APIManager.editEntry("news", id, editedNews)
-        .then(() => APIManager.getAllEntries("news"))
+        .then(() => APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`))
         .then(news => this.setState({ news: news }))
 
 
     addNews = (thing) => APIManager.addEntry("news", thing)
-        .then(() => APIManager.getAllEntries("news"))
+        .then(() => APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`))
         .then(news => this.setState({ news: news }))
 
 
@@ -93,7 +93,8 @@ export default class NewsList extends Component {
             title: this.state.title,
             synopsis: this.state.synopsis,
             url: this.state.url,
-            timestamp: timestamp()
+            timestamp: timestamp(),
+            user_id: this.state.currentUserId
         }
 
         this.addNews(newNews)
@@ -164,12 +165,15 @@ export default class NewsList extends Component {
                                         <p>{newsArticle.synopsis}</p>
                                         <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
                                         <p>{newsArticle.timestamp}</p>
-                                        <button className="btn btn_mod" onClick={() => {
-                                            this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
-                                            this.toggleEditForm(newsArticle.id)
-                                        }}>Edit</button>
-                                        <button className="btn btn_mod" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
-                                        <div id="editForm" className={`${this.state.shownForm === newsArticle.id  ? null : 'hide'}`}>edit form
+                                        <div id="editDeleteBtns">
+                                            <button className="btn btn_mod" onClick={() => {
+                                                this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
+                                                this.toggleEditForm(newsArticle.id)
+                                            }}>Edit</button>
+                                            <button className="btn btn_mod" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
+                                        </div>
+                                        <div id="editForm" className={`${this.state.shownForm === newsArticle.id  ? null : 'hide'}`}>
+                                            <hr></hr>
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Title</span></div>
                                                 <input id="editTitle" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="" aria-label="editTitle" aria-describedby="basic-addon1" defaultValue={newsArticle.title} />
@@ -184,6 +188,7 @@ export default class NewsList extends Component {
                                                 <input id="editId" type="text" className="form-control hide" onChange={this.handleFieldChange} placeholder="Edit Id" aria-label="url" aria-describedby="basic-addon1" value={newsArticle.id} />
                                             </div>
                                             <button className="btn btn_mod" onClick={this.constructEditedNews}>Save Edited News</button>
+                                            <button className="btn btn_mod" onClick={() => this.toggleEditForm(newsArticle.id)}>Cancel</button>
                                         </div>
                                     </div>
                                 )
