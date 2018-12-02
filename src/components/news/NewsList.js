@@ -11,7 +11,7 @@ export default class NewsList extends Component {
         news: [],
         shownForm: null,
         hideNewForm: true,
-        hideAddForm: true,
+        hideAddForm: false,
         currentUserId: this.props.getCurrentUser(),
         editTitle: "",
         editSynopsis: "",
@@ -20,12 +20,11 @@ export default class NewsList extends Component {
     }
 
 
-
     componentDidMount() {
         APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`)
             .then((news) => {
-            this.setState({news: news})
-        })
+                this.setState({ news: news })
+            })
     }
 
     deleteNews = (id) => APIManager.deleteEntry("news", id)
@@ -42,9 +41,9 @@ export default class NewsList extends Component {
         .then(news => this.setState({ news: news }))
 
 
+    // Show and Hide "Edit News" form
     toggleEditForm = (id) => {
-        // const currentState = this.state.hideNewForm;
-        if(this.state.shownForm === null ){
+        if (this.state.shownForm === null) {
             this.setState({
                 shownForm: id,
             });
@@ -53,9 +52,9 @@ export default class NewsList extends Component {
                 shownForm: null,
             });
         }
-
     }
 
+    // Show and Hide "Add News" form
     toggleAddForm = () => {
         const currentState = this.state.hideAddForm;
         this.setState({
@@ -63,7 +62,7 @@ export default class NewsList extends Component {
         });
     }
 
-
+    // Updates state in edit form
     handleNewClick = (editTitle, editSynopsis, editUrl, editId) => {
         this.setState({
             editTitle: editTitle,
@@ -80,15 +79,9 @@ export default class NewsList extends Component {
         this.setState(stateToChange)
     }
 
-
-
-    /*
-        Local method for validation, creating animal object, and
-        invoking the function reference passed from parent component
-     */
+    // Build new news article from "Add News" form inputs
     constructNewNews = evt => {
         evt.preventDefault();
-        // this.getUserId();
         const newNews = {
             title: this.state.title,
             synopsis: this.state.synopsis,
@@ -96,18 +89,24 @@ export default class NewsList extends Component {
             timestamp: timestamp(),
             user_id: this.state.currentUserId
         }
-
-        this.addNews(newNews)
-            .then(this.setState({
-                title: "",
-                synopsis: "",
-                url: ""
-            }))
+        // Basic form validation
+        if (this.state.title === undefined || this.state.title === " " ||
+            this.state.synopsis === undefined || this.state.synopsis === " " ||
+            this.state.url === undefined || this.state.url === " ") {
+            alert("You must complete all fields to add new article")
+        } else {
+        // if form is validated, then add new article and clear the state
+            this.addNews(newNews)
+                .then(this.setState({
+                    title: "",
+                    synopsis: "",
+                    url: ""
+                }))
+        }
     }
 
-
+    // Edit existing news article from "Edit News" form inputs
     constructEditedNews = evt => {
-        // this.getUserId();
         evt.preventDefault();
         const editedNews = {
             title: this.state.editTitle,
@@ -116,15 +115,17 @@ export default class NewsList extends Component {
             timestamp: timestamp(),
             id: this.state.editId
         }
-        // console.log("Edited News:", editedNews)
-        // console.log("SessionId: ", this.state.userId)
-
-        this.editNews(editedNews.id, editedNews)
-        this.toggleEditForm()
+        // Basic form validation
+        if (editedNews.title === undefined || editedNews.title === "" ||
+            editedNews.synopsis === undefined || editedNews.synopsis === "" ||
+            editedNews.url === undefined || editedNews.url === "") {
+            alert("You must complete all fields to edit article")
+        } else {
+        // if form is validated, then edit article and hide edit form
+            this.editNews(editedNews.id, editedNews)
+            this.toggleEditForm()
+        }
     }
-
-
-
 
 
     render() {
@@ -164,15 +165,15 @@ export default class NewsList extends Component {
                                         <h2>{newsArticle.title}</h2>
                                         <p>{newsArticle.synopsis}</p>
                                         <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
-                                        <p>{newsArticle.timestamp}</p>
+                                        <p class="oblique">{newsArticle.timestamp}</p>
                                         <div id="editDeleteBtns">
-                                            <button className="btn btn_mod" onClick={() => {
+                                            <button className="btn btn_mod btn_small" onClick={() => {
                                                 this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
                                                 this.toggleEditForm(newsArticle.id)
                                             }}>Edit</button>
-                                            <button className="btn btn_mod" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
+                                            <button className="btn btn_delete btn_small" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
                                         </div>
-                                        <div id="editForm" className={`${this.state.shownForm === newsArticle.id  ? null : 'hide'}`}>
+                                        <div id="editForm" className={`${this.state.shownForm === newsArticle.id ? null : 'hide'}`}>
                                             <hr></hr>
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Title</span></div>
@@ -187,8 +188,8 @@ export default class NewsList extends Component {
                                                 <input id="editUrl" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Edit Link URL" aria-label="url" aria-describedby="basic-addon1" defaultValue={newsArticle.url} />
                                                 <input id="editId" type="text" className="form-control hide" onChange={this.handleFieldChange} placeholder="Edit Id" aria-label="url" aria-describedby="basic-addon1" value={newsArticle.id} />
                                             </div>
-                                            <button className="btn btn_mod" onClick={this.constructEditedNews}>Save Edited News</button>
-                                            <button className="btn btn_mod" onClick={() => this.toggleEditForm(newsArticle.id)}>Cancel</button>
+                                            <button className="btn btn_mod btn_small" onClick={this.constructEditedNews}>Save Edited News</button>
+                                            <button className="btn btn_mod btn_small" onClick={() => this.toggleEditForm(newsArticle.id)}>Cancel</button>
                                         </div>
                                     </div>
                                 )
