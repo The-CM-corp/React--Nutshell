@@ -6,7 +6,7 @@ export default class EventEdit extends Component {
     return (
       <React.Fragment>
         <div
-          className={this.props.hideEditForm ? 'hide' : null}
+          className={`${this.props.shownForm === this.props.event.id?null: 'hide'}`}
           id="new__event__form"
         >
           <div className="form-group">

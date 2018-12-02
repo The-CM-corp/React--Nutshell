@@ -52,6 +52,7 @@ export default class EventCard extends Component {
             handleEditClick={this.props.handleEditClick}
             constructEditedEvent={this.props.constructEditedEvent}
             handleFieldChange={this.props.handleFieldChange}
+            shownForm={this.props.shownForm}
           />
         </div>
       </div>

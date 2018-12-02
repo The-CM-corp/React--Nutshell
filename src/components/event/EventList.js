@@ -89,16 +89,21 @@ export default class EventList extends Component {
     editLocation,
     editId
   ) => {
-    const currentState = this.state.hideEditForm;
+    if(this.state.shownForm ===null){
     this.setState({
-      hideEditForm: !currentState,
+      shownForm:editId,
       editTitle: editTitle,
       editDate: editDate,
       editSynopsis: editSynopsis,
       editLocation: editLocation,
       editId: editId
     });
-  };
+  }else{
+    this.setState({
+      shownForm:null
+    })
+  }
+  }
 
   // Update state whenever an input field is edited
   handleFieldChange = evt => {
@@ -164,6 +169,7 @@ export default class EventList extends Component {
                 hideNewForm={this.state.hideNewForm}
                 hideEditForm={this.state.hideEditForm}
                 handleEditClick={this.handleEditClick}
+                shownForm={this.state.shownForm}
               />
             ))}
           </div>
