@@ -25,7 +25,7 @@ render() {
         </span>
       </div>
         <input
-          defaultValue={this.props.title || ""}
+          value={this.props.title}
           type="text"
           className="form-control"
           onChange={this.props.handleFieldChange}
@@ -40,7 +40,7 @@ render() {
         </span>
       </div>
         <input
-          defaultValue={this.props.date || ""}
+          value={this.props.date}
           type="date"
           className="form-control"
           onChange={this.props.handleFieldChange}
@@ -55,7 +55,7 @@ render() {
         </span>
       </div>
       <input
-        defaultValue={this.props.synopsis || ""}
+        value={this.props.synopsis}
         type="text"
         className="form-control"
         onChange={this.props.handleFieldChange}
@@ -70,7 +70,7 @@ render() {
         </span>
       </div>
         <input
-          defaultValue={this.props.location || ""}
+          value={this.props.location}
           type="text"
           className="form-control"
           onChange={this.props.handleFieldChange}

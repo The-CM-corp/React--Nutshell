@@ -2,102 +2,89 @@ import React, { Component } from "react";
 import "./Event.css";
 
 export default class EventEdit extends Component {
- componentDidMount() {
-   const event = this.props.events.find(
-     e => e.id === parseInt(this.props.match.params.eventId)
-   );
-   this.setState(event);
- }
- state = {
-   title: "",
-   date: "",
-   synopsis: "",
-   location: "",
-   id: ""
- };
+  render() {
+    return (
+      <React.Fragment>
+        <div
+          className={this.props.hideEditForm ? 'hide' : null}
+          id="new__event__form"
+        >
+          <div className="form-group">
+            <label htmlFor="eventTitle">Event Title</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={this.props.handleFieldChange}
+              id="editTitle"
+              placeholder="Event Name"
+              defaultValue={this.props.event.title}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="date">Date</label>
+            <input
+              type="date"
+              className="form-control"
+              onChange={this.props.handleFieldChange}
+              id="editDate"
+              placeholder="Date"
+              defaultValue={this.props.event.date}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="eventSynopsis">Event Synopsis</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={this.props.handleFieldChange}
+              id="editSynopsis"
+              placeholder="Event Synopsis"
+              defaultValue={this.props.event.synopsis}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="eventLocation">Event Location</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={this.props.handleFieldChange}
+              id="editLocation"
+              placeholder="Event Location"
+              defaultValue={this.props.event.location}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control hide"
+              onChange={this.props.handleFieldChange}
+              id="editId"
+              placeholder="event id"
+              defaultValue={this.props.event.id}
+            />
+          </div>
+          <div className="button__holder">
+            <button
+              className="btn"
+              onClick={() => {
+                this.props.handleEditClick();
+              }}
+            >
+              Cancel
+            </button>
 
- handleFieldChange = evt => {
-   const stateToChange = {};
-   stateToChange[evt.target.id] = evt.target.value;
-   this.setState(stateToChange);
- };
-
- constructNewEvent = evt => {
-   evt.preventDefault();
-       const newEvent = {
-       title: this.state.title,
-       date: this.state.date,
-       synopsis: this.state.synopsis,
-       location: this.state.location,
-       id: this.state.id
-   };
-   this.props
-     .editEvent(this.state.id, newEvent)
-     .then(() => this.props.history.push("/events"))
-     console.log(newEvent)
-     console.log(this.state.id)
- };
-
- render() {
-  
-   return (
-     <React.Fragment>
-       <form className="eventForm bryan">
-         <div className="form-group">
-           <label htmlFor="eventTitle">Event Title</label>
-           <input
-             type="text"
-             className="form-control"
-             onChange={this.handleFieldChange}
-             id="title"
-             placeholder="Event Name"
-             defaultValue={this.state.title}
-           />
-         </div>
-         <div className="form-group">
-           <label htmlFor="date">Date</label>
-           <input
-             type="date"
-             className="form-control"
-             onChange={this.handleFieldChange}
-             id="date"
-             placeholder="Date"
-             defaultValue={this.state.date}
-           />
-         </div>
-         <div className="form-group">
-           <label htmlFor="eventSynopsis">Event Synopsis</label>
-           <input
-             type="text"
-             className="form-control"
-             onChange={this.handleFieldChange}
-             id="synopsis"
-             placeholder="Event Synopsis"
-             defaultValue={this.state.synopsis}
-           />
-         </div>
-         <div className="form-group">
-           <label htmlFor="eventLocation">Event Location</label>
-           <input
-             type="text"
-             className="form-control"
-             onChange={this.handleFieldChange}
-             id="location"
-             placeholder="Event Location"
-             defaultValue={this.state.location}
-           />
-         </div>
-        
-         <button
-           type="submit"
-           onClick={this.constructNewEvent}
-           className="btn btn-primary"
-         >
-           Submit
-         </button>
-       </form>
-     </React.Fragment>
-   );
- }
+            <button
+              onClick={() => {
+                this.props.constructEditedEvent();
+                this.props.handleEditClick();
+              }}
+              className="btn"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
-
