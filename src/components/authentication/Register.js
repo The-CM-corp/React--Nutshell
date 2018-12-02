@@ -1,43 +1,45 @@
-// import APIManager from "../../modules/APIManager"
-// import React, { Component } from "react"
+import React, { Component } from "react"
 
-// export default class Register extends Component{
-//   state ={
-//     name: "",
-//     password: "",
-//     email:"",
-//   }
+export default class Register extends Component {
+  
+  render() {
+    return (
+      <form className="bryans__class" onSubmit={this.props.handleRegister}>
+        <h1 className="h3 mb-3 font-weight-normal">New here? Create an account</h1>
 
-//   registerNewUser = user => {
-//     return APIManager.addEntry("users", user)
-//   }
+        <label htmlFor="inputName">
+          Name
+                </label>
+        <br />
+        <input onChange={this.props.handleFieldChange} type="text"
+          id="registerName"
+          placeholder="Display Name"
+          required="" autoFocus="" />
+        <br />
 
-//   constructNewUser = () => {
-//     const user = {
-//       name: this.state.name,
-//       password: this.state.password,
-//       email: this.state.email,
-//     }
-//     this.addNewMessage(user)
-//     console.log(user)
-//   }
+        <label htmlFor="inputEmail">
+          Email address
+                </label>
+        <br />
+        <input onChange={this.props.handleFieldChange} type="email"
+          id="registerEmail"
+          placeholder="Email address"
+          required="" autoFocus="" />
+        <br />
 
-//   handleFieldChange = evt => {
-//     const stateToChange = {}
-//     stateToChange[evt.target.id] = evt.target.value
-//     this.setState(stateToChange)
-//     console.log(stateToChange)
-//   }
-//   render() {
-//     return(
-//       <div></div>
-//     )
-//   }
-// }
-
-
-
-// "id": 1,
-//   "name": "joeshep",
-//     "password": "broccoli",
-//       "email"
+        <label htmlFor="inputPassword">
+          Password
+                </label>
+        <br />
+        <input onChange={this.props.handleFieldChange} type="password"
+          id="registerPassword"
+          placeholder="Password"
+          required="" />
+        <br />
+        <button type="submit" onClick={() => this.props.constructNewUser()}>
+          Register
+                </button>
+      </form >
+    )
+  }
+}
