@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import APIManager from "../../modules/APIManager";
+import EventForm from "./EventForm"
 // import EventEdit from "./EventEdit"
 import "./Event.css";
 
@@ -11,6 +12,10 @@ export default class EventList extends Component {
   state = {
     users: [],
     events: [],
+    title: "",
+    date: "",
+    synopsis: "",
+    location: "",
     shownForm: null,
     hideNewForm: true,
     hideEditForm: true,
@@ -23,21 +28,25 @@ export default class EventList extends Component {
   }
 
   componentDidMount() {
+    const newState = {}
     APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`)
       .then((events) => {
         this.setState({events: events})
       })
+
+      .then(() => this.setState(newState))
       
   }
 
-  addEvent = event =>
-    APIManager.addEntry("events", event)
+  addEvent = event => {
+    return APIManager.addEntry("events", event)
       .then(() => APIManager.getAllEntries("events", `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`))
       .then(events =>
         this.setState({
           events: events
         })
       );
+    } 
 
   deleteEvent = id =>
     APIManager.deleteEntry("events", id)
@@ -62,13 +71,6 @@ export default class EventList extends Component {
     this.setState({ hideNewForm: !currentState });
   };
 
-  // addFirstClass =() => {
-  //   if(this.state.events === this.state.events[0]){
-  //   className = "card-body details"
-  //   }else{
-  //   className = "card-body details coral"
-  //   }
-  // }
 
   handleEditClick = (
     editTitle,
@@ -133,108 +135,15 @@ export default class EventList extends Component {
   };
 
   render() {
-    console.log("first", this.state.events)
     return (
       <React.Fragment>
-        <h1 className="event__title bryan">Events</h1>
-        <div className="new__event">
-          <button
-            type="button"
-            className={this.state.hideNewForm ? "btn new__button" : "hide"}
-            id="new__button"
-            onClick={() => {
-              this.handleNewClick();
-            }}
-          >
-            Add Event
-          </button>
-          <div
-            className={this.state.hideNewForm ? "hide" : null}
-            id="new__event__form"
-          >
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="basic-addon1">
-                  Event Title
-                </span>
-              </div>
-              <input
-                value={this.state.title || ""}
-                type="text"
-                className="form-control"
-                onChange={this.handleFieldChange}
-                id="title"
-                placeholder="Event Name"
-              />
-            </div>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="basic-addon1">
-                  Event Date
-                </span>
-              </div>
-              <input
-                value={this.state.date || ""}
-                type="date"
-                className="form-control"
-                onChange={this.handleFieldChange}
-                id="date"
-                placeholder="Date"
-              />
-            </div>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="basic-addon1">
-                  Event Synopsis
-                </span>
-              </div>
-              <input
-                value={this.state.synopsis || ""}
-                type="text"
-                className="form-control"
-                onChange={this.handleFieldChange}
-                id="synopsis"
-                placeholder="Event Synopsis"
-              />
-            </div>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="basic-addon1">
-                  Event Location
-                </span>
-              </div>
-              <input
-                value={this.state.location || ""}
-                type="text"
-                className="form-control"
-                onChange={this.handleFieldChange}
-                id="location"
-                placeholder="Event Location"
-              />
-            </div>
-            <div className="button__holder">
-              <button
-                className="btn"
-                onClick={() => {
-                  this.handleNewClick();
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="btn"
-                onClick={() => {
-                  this.constructNewEvent();
-                  this.handleNewClick();
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-
+          <EventForm
+          handleNewClick={this.handleNewClick}
+          constructNewEvent={this.constructNewEvent}
+          hideNewForm={this.state.hideNewForm}
+          handleFieldChange={this.handleFieldChange}
+          />
+          <h1 className="event__title bryan">Events</h1>
         <section className="events">
           {this.state.events.map(event => (
             <div key={event.id} className="event__card">
