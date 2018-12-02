@@ -89,20 +89,15 @@ export default class EventList extends Component {
     editLocation,
     editId
   ) => {
-    if (this.state.shownForm === null) {
-      this.setState({
-        shownForm: editId,
-        editTitle: editTitle,
-        editDate: editDate,
-        editSynopsis: editSynopsis,
-        editLocation: editLocation,
-        editId: editId
-      });
-    } else {
-      this.setState({
-        shownForm: null
-      });
-    }
+    const currentState = this.state.hideEditForm;
+    this.setState({
+      hideEditForm: !currentState,
+      editTitle: editTitle,
+      editDate: editDate,
+      editSynopsis: editSynopsis,
+      editLocation: editLocation,
+      editId: editId
+    });
   };
 
   // Update state whenever an input field is edited
@@ -167,6 +162,7 @@ export default class EventList extends Component {
                 constructNewEvent={this.constructNewEvent}
                 constructEditedEvent={this.constructEditedEvent}
                 hideNewForm={this.state.hideNewForm}
+                hideEditForm={this.state.hideEditForm}
                 handleEditClick={this.handleEditClick}
               />
             ))}

@@ -3,14 +3,6 @@ import EventEdit from "./EventEdit";
 import "./Event.css";
 
 export default class EventCard extends Component {
-  state = {
-    hideEditForm: true
-  };
-
-  handleEditClick = () => {
-    const currentState = this.state.hideEditForm;
-    this.setState({ hideEditForm: !currentState });
-  };
 
   render() {
     return (
@@ -35,7 +27,7 @@ export default class EventCard extends Component {
               type="button"
               className="card-button btn"
               onClick={() => {
-                this.handleEditClick(
+                this.props.handleEditClick(
                   this.props.event.title,
                   this.props.event.date,
                   this.props.event.synopsis,
@@ -48,7 +40,7 @@ export default class EventCard extends Component {
             </button>
             <button
               type="button"
-              onClick={() => this.deleteEvent(this.props.event.id)}
+              onClick={() => this.props.deleteEvent(this.props.event.id)}
               className="card-button btn"
             >
               Delete
@@ -56,10 +48,10 @@ export default class EventCard extends Component {
           </div>
           <EventEdit
             event={this.props.event}
-            hideEditForm={this.state.hideEditForm}
-            handleEditClick={this.handleEditClick}
+            hideEditForm={this.props.hideEditForm}
+            handleEditClick={this.props.handleEditClick}
             constructEditedEvent={this.props.constructEditedEvent}
-            handleFieldChange={this.handleFieldChange}
+            handleFieldChange={this.props.handleFieldChange}
           />
         </div>
       </div>
