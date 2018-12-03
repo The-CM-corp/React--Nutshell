@@ -36,7 +36,7 @@ export default class NewMessageForm extends Component {
               }}>
               Submit
             </button>
-            
+
           </div>
         </div>
       </div>

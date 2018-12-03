@@ -9,7 +9,6 @@ export default class MessageButtons extends Component {
         <div className="button__holder">
           <button className={this.props.hideEditForm ? "edit__button btn btn_small" : "hide"}
             onClick={() => {
-              // this.props.editMessages(`${this.props.message.id}, ${this.props.message}`)
               this.props.handleEditClick()
               this.props.handleNewEdit(this.props.message.message, this.props.message.id)
             }}
