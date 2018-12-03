@@ -49,7 +49,7 @@ export default class Welcome extends Component {
       }
     })
   }
-handleChangeForm = () => {
+  handleChangeForm = () => {
     const currentState = this.state.hideLoginForm;
     this.setState({ hideLoginForm: !currentState });
   };
@@ -85,9 +85,9 @@ handleChangeForm = () => {
   }
   render() {
     return (
-      <React.Fragment> 
-        <Login handleLogin={this.handleLogin} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm}/>
-        <Register constructNewUser={this.constructNewUser} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleRegister={this.handleRegister}/>
+      <React.Fragment>
+        <Login handleLogin={this.handleLogin} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} />
+        <Register constructNewUser={this.constructNewUser} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleRegister={this.handleRegister} />
       </React.Fragment>
     )
   }

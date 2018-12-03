@@ -17,10 +17,15 @@ code {
 .bryans__class {
   margin: 75px 0px 0px 25px;
 }
+
 .hide {
   display: none;
 }
 
 .register__form button {
   margin: 10px 0;
+}
+
+.oblique {
+  font-style: oblique
 }

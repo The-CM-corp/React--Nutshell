@@ -4,6 +4,7 @@ import APIManager from '../modules/APIManager'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import TodoList from './todo/TodoList'
+import Navbar from './nav/Navbar'
 import './Nutshell.css'
 import MessageList from './message/MessageList';
 import Welcome from './authentication/Welcome';
@@ -16,7 +17,7 @@ export default class ApplicationViews extends Component {
   getAllUsers = () => APIManager.getAllEntries("users")
 
   getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    const currentUser = +sessionStorage.getItem("userId") || +localStorage.getItem("userId")
     return currentUser
 }
 
@@ -49,14 +50,11 @@ export default class ApplicationViews extends Component {
           }
         }} />
         <Route exact path="/events"
-          render={props => {
+          render={(props) => {
             if (this.isAuthenticated()) {
-              return (
-                <EventList getAllUsers={this.getAllUsers}
-                  {...props}
-
-                />
-              );
+              return <EventList {...props}
+                getAllUsers={this.getAllUsers}
+                getCurrentUser={this.getCurrentUser}/>
             } else {
               return <Redirect to="/welcome" />
             }
@@ -65,7 +63,6 @@ export default class ApplicationViews extends Component {
           return (
             <Welcome getAllUsers={this.getAllUsers} />)
         }} />
-
       </React.Fragment>
     )
   }
