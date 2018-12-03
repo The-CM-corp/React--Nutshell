@@ -51,6 +51,7 @@ export default class Welcome extends Component {
             this.setState({
               currentUser: sessionStorage.getItem("userId")
             }, console.log(this.state.currentUser))
+            this.props.history.push("/messages")
 
           } else {
             localStorage.setItem(
@@ -59,6 +60,7 @@ export default class Welcome extends Component {
             this.setState({
               currentUser: localStorage.getItem("userId")
             }, console.log(this.state.currentUser))
+            this.props.history.push("/messages")
           }
         })
     }
@@ -67,6 +69,7 @@ export default class Welcome extends Component {
     const currentState = this.state.hideLoginForm;
     this.setState({ hideLoginForm: !currentState });
   };
+
   // Handle register for new user
   handleRegister = (e) => {
     if (this.state.registerEmail === "" || this.state.registerName === "" || this.state.registerPassword === "") {
@@ -79,6 +82,7 @@ export default class Welcome extends Component {
           } else {
             this.constructNewUser()
             alert("You are now registered! Please log in")
+            this.handleChangeForm()
           }
         })
     }
