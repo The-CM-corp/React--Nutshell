@@ -7,7 +7,7 @@ export default class MessageButtons extends Component {
     if (this.props.message.userId === +sessionStorage.getItem("userId") || this.props.message.userId === +localStorage.getItem("userId")) {
       return (
         <div className="button__holder">
-          <button className={this.props.hideEditForm ? "edit__button btn" : "hide"}
+          <button className={this.props.hideEditForm ? "edit__button btn btn_small" : "hide"}
             onClick={() => {
               // this.props.editMessages(`${this.props.message.id}, ${this.props.message}`)
               this.props.handleEditClick()
@@ -15,7 +15,7 @@ export default class MessageButtons extends Component {
             }}
           >Edit</button>
           <MessageEditForm message={this.props.message} hideEditForm={this.props.hideEditForm} handleFieldChange={this.props.handleFieldChange} constructNewMessage={this.props.constructNewMessage} constructEditMessage={this.props.constructEditMessage} handleEditClick={this.props.handleEditClick} />
-          <button className={this.props.hideEditForm ? "delete__button btn" : "hide"}
+          <button className={this.props.hideEditForm ? "delete__button btn btn_small" : "hide"}
             onClick={() => {
               this.props.deleteAndAddMessage(`${this.props.message.id}`)
               this.props.handleEditClick()

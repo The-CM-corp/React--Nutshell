@@ -1,7 +1,53 @@
 .button__holder button {
-  margin: 5px;
+  margin: 0px 5px;
 }
 
 .card__holder div {
   padding: 10px;
 }
+
+.userMessage {
+  text-align: right;
+  background-color: violet;
+  margin: 0px 0px 0px 38%;
+  /* justify-self: right; */
+  margin-bottom: 10px;
+  height: 25%;
+  width: 60%; 
+  border-radius: 10px;
+}
+
+.userMessage p {
+  text-align: left;
+}
+
+.otherscard {
+  background-color: turquoise;
+  /* margin: auto; */
+  margin-bottom: 10px;
+  height: 25%;
+  width: 60%; 
+  border-radius: 10px;
+}
+.btn_small{
+  font-size: .8em;
+  padding: 3px 5px
+}
+
+.edit__button:hover {
+  background-color: rgb(18, 212, 18);
+
+}
+.delete__button:hover {
+  background-color: red;
+}
+.cancel__button:hover {
+background-color: orange
+}
+.save__button:hover {
+  background-color: dodgerblue;
+}
+.new__button:hover {
+  background-color: blue;
+}
+

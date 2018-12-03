@@ -107,16 +107,18 @@ class MessageList extends Component {
   render() {
     return (
       <React.Fragment>
+      <section className="message__list bryans__class">
+      <h1 className="page__title">Messages</h1>
         <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
           handleFieldChange={this.handleFieldChange} />
-        <section className="message__list bryans__class">
-          <h2 className="page__title">Messages</h2>
+          <hr></hr>
           <div className="card__holder">
             {
-              this.state.messages.map(message =>
+              this.state.messages.map(message => 
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
                   constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
-              ).reverse()}
+              ).reverse()
+               }
           </div>
 
         </section>

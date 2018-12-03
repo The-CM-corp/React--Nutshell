@@ -10,11 +10,12 @@ export default class MessageCard extends Component {
     this.setState({ hideEditForm: !currentState });
   };
 
+// {this.props.events[0].id === this.props.event.id ? "coral" : "other"
 
 
   render() {
     return (
-      <div key={this.props.message.id} className="card message__card">
+      <div key={this.props.message.id} className={this.props.message.userId === +sessionStorage.getItem("userId") || this.props.message.userId === +localStorage.getItem("userId") ? "userMessage message__card" : "otherscard message__card"}>
         <h4 className={this.state.hideEditForm ? "username" : "hide"}>{this.props.message.user.name}</h4>
         <p className={this.state.hideEditForm ? "message__text" : "hide"}>{this.props.message.message}</p>
         <p className={this.state.hideEditForm ? "message__time" : "hide"}>{this.props.message.time}</p>
