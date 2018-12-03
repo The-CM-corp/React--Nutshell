@@ -1,32 +1,24 @@
-.bryan{
-  margin-top: 55px;
-}
 
 .coral {
-  background-color: lightcoral;
   font-weight: 900;
-  margin: auto;
-  margin-bottom: 10px;
-  border-radius: 1%;
-  height: 25%;
-  width: 75%; 
+  background: lightgray;
+  margin: 5px 10px 5px 10px;
+  padding: 20px;
+  border: 1px solid lightskyblue;
+  border-radius: 10px;
 }
 
 .other {
-  background-color: turquoise;
-  margin: auto;
-  margin-bottom: 10px;
-  border-radius: 1%;
-  height: 23%;
-  width: 73%;
+  background: whitesmoke;
+  margin: 5px 20px 5px 20px;
+  padding: 20px;
+  border: 1px solid lightskyblue;
+  border-radius: 10px;
 }
 
-.card {
-  background-color: turquoise;
-  margin: auto;
-  margin-bottom: 10px;
-  height: 25%;
-  width: 75%; 
+#new__event__form{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .event__title {
@@ -35,56 +27,48 @@
 }
 
 .new__button {
-  margin-bottom:10px;
-  margin-left:10px;
-  background-color: lightgray;
-}
-
-.events {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-}
+  margin-left:25px;
+} 
 
 .card-title {
   font-size: 30px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
 
 .card-date {
   font-size: 20px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
 
 .card-location {
   font-size: 20px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
 
 .card-details {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: left;
   flex-direction: column;
-  text-align: center;
+  text-align: left;
 }
 
 .card-button {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  text-align: center;
-  margin-bottom: 10px;
+  align-items: left;
+  text-align: left;
+  margin-right:10px;
   }

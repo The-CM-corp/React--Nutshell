@@ -147,6 +147,7 @@ export default class EventList extends Component {
   render() {
     return (
       <React.Fragment>
+        <h1 className="event__title bryans__class">Events</h1>
         <EventForm
           handleNewClick={this.handleNewClick}
           constructNewEvent={this.constructNewEvent}
@@ -154,7 +155,7 @@ export default class EventList extends Component {
           handleFieldChange={this.handleFieldChange}
         />
         <section className="events">
-          <h1 className="event__title bryan">Events</h1>
+          
           <div className="card__holder">
             {this.state.events.map(event => (
               <EventCard
@@ -173,7 +174,7 @@ export default class EventList extends Component {
               />
             ))}
           </div>
-        </section>
+          </section>
       </React.Fragment>
     );
   }

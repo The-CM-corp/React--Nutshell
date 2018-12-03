@@ -6,7 +6,7 @@ export default class Register extends Component {
     return (
       <div className={this.props.hideLoginForm ? "bryans__class" : "hide"}>
         <h2>Register Here</h2>
-        <form className="register__form" onSubmit={this.props.handleRegister}>
+        <div className="register__form">
           <label htmlFor="inputName">
             Name
                 </label>
@@ -36,10 +36,15 @@ export default class Register extends Component {
             placeholder="Password"
             required="" />
           <br />
-          <button type="submit" onClick={() => this.props.constructNewUser()}>
+          Remember me <input onChange={this.props.handleFieldChange} type="checkbox"
+            id="remember" />
+          <br />
+          <button type="button" onClick={() => {
+            this.props.handleRegister()
+          }}>
             Register
                 </button>
-        </form >
+        </div >
       </div>
     )
   }
