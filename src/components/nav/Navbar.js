@@ -9,29 +9,27 @@ import "./Navbar.css"
 class NavBar extends Component {
   isAuthenticated = () => (sessionStorage.getItem("userId") !== null || localStorage.getItem("userId") !== null)
 
+  // getCurrentUser = () => {
+  //   const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+  //   return currentUser
+  // }
+
+  // state = {
+  //   currentUserId: this.getCurrentUser()
+  // }
+
   logoutUser = () => {
     localStorage.removeItem('userId')
     sessionStorage.removeItem('userId')
   }
 
-  state = {
-    user: []
-  }
 
-  getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-    return currentUser
-  }
-
-
-  componentDidMount() {
-    const userId = this.getCurrentUser()
-    APIManager.getEntry("users", userId)
-      .then(user => {
-        this.setState({ user: user })
-        console.log(this.state.user.name)
-      })
-  }
+  // componentDidMount() {
+  //   APIManager.getEntry("users", this.state.currentUserId)
+  //   .then((user) => {
+  //     this.setState({user: user})
+  //   })
+  // }
 
   noNavonLogin = () => {
     if (this.isAuthenticated()) {
