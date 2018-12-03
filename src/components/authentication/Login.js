@@ -8,7 +8,7 @@ export default class Login extends Component {
     return (
       <React.Fragment>
         <div className={this.props.hideLoginForm ? "hide" : "bryans__class"}>
-          <form onSubmit={this.props.handleLogin}>
+          <div>
             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label htmlFor="inputEmail">
               Email address
@@ -31,10 +31,10 @@ export default class Login extends Component {
             Remember me <input onChange={this.props.handleFieldChange} type="checkbox"
               id="remember" />
             <br />
-            <button type="submit">
+            <button type="submit" onClick={() => {this.props.handleLogin()}}>
               Sign in
                 </button>
-          </form>
+          </div>
           <h2 className="nav-link" onClick={() => this.props.handleChangeForm()} >New here? Create an account</h2>
         </div>
       </React.Fragment>

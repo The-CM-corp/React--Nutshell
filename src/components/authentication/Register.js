@@ -36,7 +36,12 @@ export default class Register extends Component {
             placeholder="Password"
             required="" />
           <br />
-          <button type="button" onClick={() => this.props.handleRegister()}>
+          Remember me <input onChange={this.props.handleFieldChange} type="checkbox"
+            id="remember" />
+          <br />
+          <button type="button" onClick={() => {
+            this.props.handleRegister()
+          }}>
             Register
                 </button>
         </div >

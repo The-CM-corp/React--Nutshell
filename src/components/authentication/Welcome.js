@@ -35,28 +35,33 @@ export default class Welcome extends Component {
 
   // Handle for Login (existing user)
   handleLogin = (e) => {
-    APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}&password=${this.state.loginPassword
-      }`)
-      .then(returns => {
-        if (returns.length < 1) {
-          alert("That email doesn't exist or your password doesn't match. Please try again")
-        } else if (this.state.remember === "") {
-          sessionStorage.setItem(
-            "userId", returns[0].id
-          )
-          this.setState({
-            currentUser: sessionStorage.getItem("userId")
-          }, console.log(this.state.currentUser))
+    if (this.state.loginEmail === "" || this.state.loginPassword === "") {
+      alert("No fields should be left blank")
+    } else {
+      APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}&password=${this.state.loginPassword
+        }`)
+        .then(returns => {
 
-        } else {
-          localStorage.setItem(
-            "userId", returns[0].id
-          )
-          this.setState({
-            currentUser: localStorage.getItem("userId")
-          }, console.log(this.state.currentUser))
-        }
-      })
+          if (returns.length < 1) {
+            alert("That email doesn't exist or your password doesn't match. Please try again")
+          } else if (this.state.remember === "") {
+            sessionStorage.setItem(
+              "userId", returns[0].id
+            )
+            this.setState({
+              currentUser: sessionStorage.getItem("userId")
+            }, console.log(this.state.currentUser))
+
+          } else {
+            localStorage.setItem(
+              "userId", returns[0].id
+            )
+            this.setState({
+              currentUser: localStorage.getItem("userId")
+            }, console.log(this.state.currentUser))
+          }
+        })
+    }
   }
   handleChangeForm = () => {
     const currentState = this.state.hideLoginForm;
@@ -64,15 +69,19 @@ export default class Welcome extends Component {
   };
   // Handle register for new user
   handleRegister = (e) => {
-    APIManager.getAllEntries("users", `/?email=${this.state.registerEmail}`)
-      .then((returns) => {
-        if (returns.length > 0) {
-          alert("Tht email is already. Please use another email")
-        } else {
-          this.constructNewUser()
-          alert("You are now registered")
-        }
-      })
+    if (this.state.registerEmail === "" || this.state.registerName === "" || this.state.registerPassword === "") {
+      alert("No fields should be left blank")
+    } else {
+      APIManager.getAllEntries("users", `/?email=${this.state.registerEmail}`)
+        .then((returns) => {
+          if (returns.length > 0) {
+            alert("Tht email is already. Please use another email")
+          } else {
+            this.constructNewUser()
+            alert("You are now registered! Please log in")
+          }
+        })
+    }
   }
 
   //registion functions, cunstructing a new user and posting it to the database
