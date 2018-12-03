@@ -73,7 +73,6 @@ class TodoList extends Component {
 
   // contruct objects and pass to fetch calls
   constructNewTodo = evt => {
-    evt.preventDefault()
     const todo = {
       task: this.state.task,
       date: this.state.date,
