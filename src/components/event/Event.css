@@ -1,9 +1,43 @@
 .bryan{
-  margin-top: 50px;
+  margin-top: 55px;
+}
+
+.coral {
+  background-color: lightcoral;
+  font-weight: 900;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 1%;
+  height: 25%;
+  width: 75%; 
+}
+
+.other {
+  background-color: turquoise;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 1%;
+  height: 23%;
+  width: 73%;
+}
+
+.card {
+  background-color: turquoise;
+  margin: auto;
+  margin-bottom: 10px;
+  height: 25%;
+  width: 75%; 
 }
 
 .event__title {
-  text-align: center;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
+.new__button {
+  margin-bottom:10px;
+  margin-left:10px;
+  background-color: lightgray;
 }
 
 .events {
@@ -12,16 +46,26 @@
   flex-direction: column;
 }
 
-.card {
-  background-color: turquoise;
-  margin: auto;
-  margin-bottom: 10px;
-  height: 25%;
-  width: 75%;
-  
+.card-title {
+  font-size: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 }
 
-.card-title {
+.card-date {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card-location {
+  font-size: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -42,4 +86,5 @@
   flex-direction: row;
   justify-content: space-around;
   text-align: center;
+  margin-bottom: 10px;
   }
