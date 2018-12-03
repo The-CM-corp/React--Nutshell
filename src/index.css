@@ -22,6 +22,10 @@ code {
   display: none;
 }
 
+.register__form button {
+  margin: 10px 0;
+}
+
 .oblique {
   font-style: oblique
 }

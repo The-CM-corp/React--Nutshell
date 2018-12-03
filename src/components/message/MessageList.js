@@ -21,14 +21,14 @@ class MessageList extends Component {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
@@ -39,7 +39,7 @@ class MessageList extends Component {
   editMessages = (id, message) => {
     const newState = {}
     return APIManager.editEntry("messages", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
@@ -116,7 +116,7 @@ class MessageList extends Component {
               this.state.messages.map(message =>
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
                   constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
-              )}
+              ).reverse()}
           </div>
 
         </section>
