@@ -1,13 +1,13 @@
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react'
 import APIManager from '../modules/APIManager'
-import Login from './authentication/Login'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import TodoList from './todo/TodoList'
 import Navbar from './nav/Navbar'
 import './Nutshell.css'
 import MessageList from './message/MessageList';
+import Welcome from './authentication/Welcome';
 
 
 export default class ApplicationViews extends Component {
@@ -29,7 +29,7 @@ export default class ApplicationViews extends Component {
           if (this.isAuthenticated()) {
             return <NewsList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
-            return <Redirect to="/login" />
+            return <Redirect to="/welcome" />
           }
         }} />
 
@@ -39,14 +39,14 @@ export default class ApplicationViews extends Component {
               getAllUsers={this.getAllUsers}
             />
           } else {
-            return <Redirect to="/login" />
+            return <Redirect to="/welcome" />
           }
         }} />
         <Route exact path="/todos" render={(props) => {
           if (this.isAuthenticated()) {
             return <TodoList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
-            return <Redirect to="/login" />
+            return <Redirect to="/welcome" />
           }
         }} />
         <Route exact path="/events"
@@ -56,12 +56,12 @@ export default class ApplicationViews extends Component {
                 getAllUsers={this.getAllUsers}
                 getCurrentUser={this.getCurrentUser}/>
             } else {
-              return <Redirect to="/login" />
+              return <Redirect to="/welcome" />
             }
           }} />
-        <Route path="/login" render={props => {
+        <Route path="/welcome" render={props => {
           return (
-            <Login getAllUsers={this.getAllUsers} />)
+            <Welcome getAllUsers={this.getAllUsers} />)
         }} />
       </React.Fragment>
     )
