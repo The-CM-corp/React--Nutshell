@@ -13,16 +13,16 @@ export default class Welcome extends Component {
     registerEmail: "",
     registerPassword: "",
     registerName: "",
-    users: [],
+    // users: [],
     hideLoginForm: false,
   }
 
   componentDidMount() {
     const newState = {}
 
-    this.props.getAllUsers()
-      .then((users) => newState.users = users)
-      .then(() => this.setState(newState))
+    // this.props.getAllUsers()
+    //   .then((users) => newState.users = users)
+    //   .then(() => this.setState(newState))
   }
 
   // Update state whenever an input field is edited
@@ -34,20 +34,21 @@ export default class Welcome extends Component {
 
   // Handle for Login (existing user)
   handleLogin = (e) => {
-    e.preventDefault()
-    this.state.users.forEach(user => {
-      if (user.email === this.state.loginEmail) {
-        if (this.state.remember === "") {
+    APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}&password=${this.state.loginPassword
+      }`)
+      .then(returns => {
+        if (returns.length < 1) {
+          alert("That email doesn't exist or your password doesn't match. Please try again")
+        } else if (this.state.remember === "") {
           sessionStorage.setItem(
-            "userId", user.id
+            "userId", returns[0].id
           )
         } else {
           localStorage.setItem(
-            "userId", user.id
+            "userId", returns[0].id
           )
         }
-      }
-    })
+      })
   }
   handleChangeForm = () => {
     const currentState = this.state.hideLoginForm;
@@ -55,18 +56,15 @@ export default class Welcome extends Component {
   };
   // Handle register for new user
   handleRegister = (e) => {
-    e.preventDefault()
-    this.state.users.forEach(user => {
-      if (user.email === this.state.registerEmail) {
-        alert("This email is already taken")
-      } else if (user.email === "") {
-        alert("Please fill out all required forms")
-      } else if (user.name === "") {
-        alert("Please fill out all required forms")
-      } else if (user.password === "") {
-        alert("Please fill out all required forms")
-      }
-    })
+    APIManager.getAllEntries("users", `/?email=${this.state.registerEmail}`)
+      .then((returns) => {
+        if (returns.length > 0) {
+          alert("Tht email is already. Please use another email")
+        } else {
+          this.constructNewUser()
+          alert("You are now registered")
+        }
+      })
   }
 
   //registion functions, cunstructing a new user and posting it to the database
@@ -77,7 +75,8 @@ export default class Welcome extends Component {
       email: this.state.registerEmail,
     }
     this.registerNewUser(user)
-    console.log(user)
+      .then(() => console.log(user))
+
   }
 
   registerNewUser = user => {
