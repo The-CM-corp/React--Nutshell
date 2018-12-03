@@ -73,13 +73,17 @@ class TodoList extends Component {
 
   // contruct objects and pass to fetch calls
   constructNewTodo = evt => {
-    const todo = {
-      task: this.state.task,
-      date: this.state.date,
-      completed: this.state.completed,
-      user_id: this.state.currentUserId
+    if (this.state.task === "" || this.state.date === "") {
+      alert("No fields should be left blank")
+    } else {
+      const todo = {
+        task: this.state.task,
+        date: this.state.date,
+        completed: this.state.completed,
+        user_id: this.state.currentUserId
+      }
+      this.addTodo(todo)
     }
-    this.addTodo(todo)
   }
 
   constructEditedTodo = (id) => {
@@ -123,14 +127,14 @@ class TodoList extends Component {
       <React.Fragment>
         <section className="todos">
           <h1>To Do List</h1>
-          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm}/>
+          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
           <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
             this.toggleNewForm()
           }}>Add New Task</button>
           {
             this.state.todos.map(todo =>
 
-              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props}/>
+              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props} />
             )
           }
         </section>
