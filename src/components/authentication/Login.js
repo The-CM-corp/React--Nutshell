@@ -8,7 +8,7 @@ export default class Login extends Component {
     return (
       <React.Fragment>
         <div className={this.props.hideLoginForm ? "hide" : "bryans__class"}>
-          <div>
+          <div className="login__form">
             <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label htmlFor="inputEmail">
               Email address
@@ -35,7 +35,9 @@ export default class Login extends Component {
               Sign in
                 </button>
           </div>
-          <h2 className="nav-link" onClick={() => this.props.handleChangeForm()} >New here? Create an account</h2>
+          <div className="text__center">
+          <button  className="register__link" onClick={() => this.props.handleChangeForm()}>New here? Create an account</button>
+          </div>
         </div>
       </React.Fragment>
     )

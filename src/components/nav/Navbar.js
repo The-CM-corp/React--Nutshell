@@ -57,10 +57,10 @@ class NavBar extends Component {
           </nav>
         </div>
       )
-    } else {  
+    } else {
       return(
-        <div>
-          <h1 className="welcome__title">Welcome To Nutshell</h1>
+        <div className="welcome__div">
+          <h1>nutshell v.2.0</h1>
         </div>
       )
     }
