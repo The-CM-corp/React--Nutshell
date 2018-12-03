@@ -135,29 +135,29 @@ Open **database.json** and copy the following into the file to create a database
       "id": 25
     }],
 "messages": [
-    {
-      "userId": 1,
-      "time": "11-08-2018 17:46",
-      "message": "How about that Amazon news???",
-      "id": 8
+     {
+      "userId": 4,
+      "time": "2018-12-01T17:04:53.698Z",
+      "message": "Seriously!!! It's like super cold. I thought it was supposed to be warm down south!",
+      "id": 16
     },
     {
       "userId": 3,
-      "time": "11-09-2018 07:46",
-      "message": "Did you guys see the last episode of This Is Us?  I can't believe what happened!",
-      "id": 9
+      "time": "2018-12-02T20:22:50.937Z",
+      "message": "Just finished updating the database!",
+      "id": 17
     },
     {
       "userId": 2,
-      "time": "11-08-2018 12:46",
-      "message": "Windows 7 Rules!",
-      "id": 11
+      "time": "2018-12-02T16:14:40.156Z",
+      "message": "I can't believe how much we've learned in a two months!",
+      "id": 18
     },
     {
-      "userId": 2,
-      "time": "11-10-2018 08:13",
-      "message": "Come to me for help with github.",
-      "id": 12
+      "userId": 1,
+      "time": "2018-12-03T13:33:48.382Z",
+      "message": "I am proud of each and every one of you. Except Bryan. I'm really disappointed in you.",
+      "id": 19
     }],
 "friends": [
     {
