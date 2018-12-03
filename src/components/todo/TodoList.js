@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "./Todo.css"
 import APIManager from "../../modules/APIManager"
+import TodoCard from "./TodoCard"
+import TodoFormNew from "./TodoFormNew"
 
 class TodoList extends Component {
 
@@ -9,45 +11,46 @@ class TodoList extends Component {
     todos: [],
     task: "",
     date: "",
+    shownForm: null,
     completed: false,
     hideNewForm: true,
-    currentUserId: sessionStorage.getItem("userId") || localStorage.getItem("userId"),
+    hideEditForm: true,
+    currentUserId: this.props.getCurrentUser(),
     editTask: "",
     editDate: ""
   }
 
   componentDidMount() {
-    APIManager.getAllEntries("todos", `?user_id=${this.state.currentUserId}`)
-      .then((todos) => this.setState({ todos: todos }))
+    this.getUserTodos()
   }
 
 
 
+  // Functions to handle API fetches and setting state after
+  getUserTodos = () => {
+    APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
+      .then((todos) => this.setState({ todos: todos }))
+  }
+
   deleteTodo = (id) => {
     APIManager.deleteEntry("todos", id)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
+      .then(() => this.getUserTodos())
   }
 
   editTodo = (id, editedTodo) => {
     APIManager.editEntry("todos", id, editedTodo)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
+      .then(() => this.getUserTodos())
   }
 
   addTodo = (newTodo) => {
     APIManager.addEntry("todos", newTodo)
-      .then(() => APIManager.getAllEntries("todos"))
-      .then(todos => this.setState({ todos: todos }))
+      .then(() => this.getUserTodos())
   }
 
-  handleNewClick = () => {
-    const currentState = this.state.hideNewForm;
-    this.setState({ hideNewForm: !currentState });
-  };
+
 
   // Update state whenever an input field is edited
-  handleFieldChange = evt => {
+  handleFieldChangeNew = evt => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
@@ -57,33 +60,16 @@ class TodoList extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id.split("-")[0]] = evt.target.value
     this.setState(stateToChange)
-    console.log(this.state.editDate)
   }
 
-  handleFieldChangeCheckbox = evt => {
-    this.setState({ completed: evt.target.checked })
+  handleFieldChangeCheckbox = (evt, id) => {
+    this.setState({ completed: evt.target.checked }, () => {
+      let editedCompletion = this.constructEditedCompletion()
+      this.editTodo(id, editedCompletion)
+    })
   }
 
-  updateCompletion = evt => {
-    const completionId = evt.target.id.split("-")[1]
-    let updatedCompletion = {
-      completed: this.state.completed
-    }
-    this.editTodo(completionId, updatedCompletion)
-  }
-
-  constructEditedTodo = evt => {
-    let editedId = evt.target.id.split("-")[1]
-
-    let editedTodo = {
-      task: this.state.editTask,
-      date: this.state.editDate,
-      completed: this.state.completed
-    }
-    this.editTodo(editedId, editedTodo)
-  }
-
-
+  // contruct objects and pass to fetch calls
   constructNewTodo = evt => {
     evt.preventDefault()
     const todo = {
@@ -95,59 +81,55 @@ class TodoList extends Component {
     this.addTodo(todo)
   }
 
+  constructEditedTodo = (id) => {
+    let editedTodo = {
+      task: this.state.editTask,
+      date: this.state.editDate,
+      completed: this.state.completed,
+      user_id: this.state.currentUserId
+    }
+    this.editTodo(id, editedTodo)
+  }
+
+  constructEditedCompletion = () => {
+    return {
+      completed: this.state.completed
+    }
+  }
+
+  // Show and Hide Functions
+  toggleEditForm = (id) => {
+    if (this.state.shownForm === null) {
+      this.setState({
+        shownForm: id,
+      });
+    } else {
+      this.setState({
+        shownForm: null,
+      });
+    }
+  }
+
+  toggleNewForm = () => {
+    const currentState = this.state.hideNewForm;
+    this.setState({
+      hideNewForm: !currentState,
+    });
+  }
 
   render() {
     return (
       <React.Fragment>
         <section className="todos">
           <h1>To Do List</h1>
-          <div id="todo__form__container" className={this.state.hideNewForm ? "hideForm" : null}>
-            <form>
-              <input type="text" id="task" placeholder="Task Name" onChange={(event) => {
-                this.handleFieldChange(event)
-              }} />
-              <input type="date" id="date" placeholder="Expected Completion" onChange={(event) => {
-                this.handleFieldChange(event)
-              }} />
-              <button type="submit" onClick={(evt) => {
-                this.constructNewTodo(evt)
-                this.handleNewClick()
-              }}>Save</button>
-              <button type="button" className={this.state.hideNewForm ? "hideForm" : null} onClick={() => {
-                this.handleNewClick()
-              }}>Cancel</button>
-            </form>
-          </div>
+          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm}/>
           <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
-            this.handleNewClick()
+            this.toggleNewForm()
           }}>Add New Task</button>
           {
             this.state.todos.map(todo =>
-              <div key={todo.id} className="todo__card">
-                <h3 id={`task-${todo.id}`}>{todo.task}</h3>
-                <p id={`editDate-${todo.id}`} onChange={(evt) => {
-                  this.handleFieldChange(evt).then(() => this.updateCompletion(evt))
-                }
-                }>Expected Completion Date: {todo.date}</p>
-                <label>Completed</label>
-                <input id={`completed-${todo.id}`} type="checkbox" onClick={(evt) => {
-                  this.handleFieldChangeCheckbox(evt)
-                }}></input>
-                <button type="button" onClick={() => {
-                  this.deleteTodo(todo.id)
-                }}>DELETE</button>
-                <button type="button" id={`edit-${todo.id}`} onClick={() => {
-                  this.handleNewClick()
-                }}>EDIT</button>
-                <div id={`editForm-${todo.id}`} className={this.state.hideNewForm ? "hideForm" : null}>
-                  <input type="text" id={`editTask-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
-                  <input type="date" id={`editDate-${todo.id}`} onChange={(evt) => this.handleFieldChangeEdit(evt)} />
 
-                  <button type="button" id={`saveNew-${todo.id}`} onClick={(evt) =>
-                    this.constructEditedTodo(evt)
-                  }>SAVE CHANGES</button>
-                </div>
-              </div>
+              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props}/>
             )
           }
         </section>
