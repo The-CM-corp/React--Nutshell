@@ -16,7 +16,7 @@ export default class ApplicationViews extends Component {
   getAllUsers = () => APIManager.getAllEntries("users")
 
   getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    const currentUser = +sessionStorage.getItem("userId") || +localStorage.getItem("userId")
     return currentUser
 }
 

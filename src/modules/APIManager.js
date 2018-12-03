@@ -5,7 +5,7 @@ const APIManager = {
 
   getEntry(resource, id, ...search) {
     return fetch(`${remoteURL}/${resource}/${id}${search}`)
-    .then(data => {data.json()})
+    .then(data => data.json())
   },
 
   getAllEntries(resource, ...search) {
@@ -35,7 +35,7 @@ const APIManager = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(editedThing)
-    }).then(data => data.json())
+    })
   }
 }
 
