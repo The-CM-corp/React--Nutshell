@@ -1,6 +1,4 @@
 import React, { Component } from "react"
-import { Link, Route, Redirect } from "react-router-dom"
-import Register from "./Register"
 
 export default class Login extends Component {
 

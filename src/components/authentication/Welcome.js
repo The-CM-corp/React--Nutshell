@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 import Register from "./Register"
 import Login from "./Login"
-import { Route } from "react-router-dom"
 
 export default class Welcome extends Component {
   // Set initial state
