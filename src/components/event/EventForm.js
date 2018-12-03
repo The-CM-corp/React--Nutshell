@@ -1,102 +1,103 @@
-// import React, { Component } from "react";
-// import "./Event.css";
-
-//  export default class EventForm extends Component {
-//   // Set initial state
-//   state = {
-//     title: "",
-//     date: "",
-//     synopsis: "",
-//     location: ""
-//   };
-
-//   // Update state whenever an input field is edited
-//   handleFieldChange = evt => {
-//     const stateToChange = {};
-//     stateToChange[evt.target.id] = evt.target.value;
-//     this.setState(stateToChange);
-//   };
-
-//   constructNewEvent = evt => {
-//     evt.preventDefault();
-//       const event = {
-//         title: this.state.title,
-//         date: this.state.date,
-//         synopsis: this.state.synopsis,
-//         location: this.state.location
-//       };
-
-//       // Create the event and redirect user to event list
-//       this.props
-//         .addEvent(event)
-//       }
-  
-
-//   render() {
-//     return (
-//       <React.Fragment>
-        
-//           <form className="eventForm bryan">
-//           <div className="form-group">
-//             <label htmlFor="eventTitle">Event Title</label>
-//             <input
-//               type="text"
-//               className="form-control"
-//               onChange={this.handleFieldChange}
-//               id="title"
-//               placeholder="Event Name"
-             
-//             />
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="date">Date</label>
-//             <input
-//               type="date"
-//               className="form-control"
-//               onChange={this.handleFieldChange}
-//               id="date"
-//               placeholder="Date"
-             
-//             />
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="eventSynopsis">Event Synopsis</label>
-//             <input
-//               type="text"
-//               className="form-control"
-//               onChange={this.handleFieldChange}
-//               id="synopsis"
-//               placeholder="Event Synopsis"
-              
-//             />
-//           </div>
-//           <div className="form-group">
-//             <label htmlFor="eventLocation">Event Location</label>
-//             <input
-//               type="text"
-//               className="form-control"
-//               onChange={this.handleFieldChange}
-//               id="location"
-//               placeholder="Event Location"
-             
-//             />
-//           </div>
-//           <button
-//             type="submit"
-//             onClick={this.constructNewEvent}
-//             className="btn"
-//           >
-//             Add Event
-//           </button>
-//         </form>
-//       </React.Fragment>
-//     );
-//   }
-//  }
+import React, { Component } from "react";
+import "./Event.css";
 
 
+export default class EventForm extends Component {
 
-
-
-
- 
+render() {
+  return(
+<React.Fragment> 
+  <div className="new__event bryan">
+  <button
+    className={this.props.hideNewForm ? "btn new__button" : "hide"}
+    id="new__button"
+    onClick={() => {
+      this.props.handleNewClick();
+    }}>
+    Add Event
+  </button>
+  <div className={this.props.hideNewForm ? "hide" : null}
+            id="new__event__form">
+    <div className="input-group mb-3 bryan">
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon1">
+          Event Title
+        </span>
+      </div>
+        <input
+          value={this.props.title}
+          type="text"
+          className="form-control"
+          onChange={this.props.handleFieldChange}
+          id="title"
+          placeholder="Event Name"
+        />
+      </div>
+    <div className="input-group mb-3">
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon1">
+           Event Date
+        </span>
+      </div>
+        <input
+          value={this.props.date}
+          type="date"
+          className="form-control"
+          onChange={this.props.handleFieldChange}
+          id="date"
+          placeholder="Date"
+        />
+    </div>
+    <div className="input-group mb-3">
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon1">
+            Event Synopsis
+        </span>
+      </div>
+      <input
+        value={this.props.synopsis}
+        type="text"
+        className="form-control"
+        onChange={this.props.handleFieldChange}
+        id="synopsis"
+        placeholder="Event Synopsis"
+      />
+    </div>
+    <div className="input-group mb-3">
+      <div className="input-group-prepend">
+        <span className="input-group-text" id="basic-addon1">
+          Event Location
+        </span>
+      </div>
+        <input
+          value={this.props.location}
+          type="text"
+          className="form-control"
+          onChange={this.props.handleFieldChange}
+          id="location"
+          placeholder="Event Location"
+        />
+    </div>
+    <div className="button__holder">
+      <button className="btn"
+        onClick={() => {
+        this.props.handleNewClick();
+          }}>
+          Cancel
+      </button>
+      <button
+        type="submit"
+        className="btn"
+        onClick={() => {
+        this.props.constructNewEvent();
+        this.props.handleNewClick();
+          }}>
+          Submit
+      </button>
+    </div>
+  </div>
+  </div>
+</React.Fragment>
+    )
+  }
+}

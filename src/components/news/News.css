@@ -1,18 +1,29 @@
 .news_card {
   background: whitesmoke;
-  margin: 5px 5px 10px 0px;
-  padding: 5px;
+  margin: 5px 20px 20px 0px;
+  padding: 20px;
+  border: 1px solid lightskyblue;
+  border-radius: 10px;
 }
 
+.btn_small{
+  font-size: .8em;
+  padding: 3px 5px
+}
 .btn_mod {
   background: cornflowerblue;
   margin-right: 10px;
 }
 
 .btn_mod:hover {
-  background: red;
+  background: rgb(18, 212, 18);
 }
 
-.hide {
-  display: none;
+.btn_delete {
+  background: rgb(147, 157, 167);
+  margin-right: 10px;
+}
+
+.btn_delete:hover {
+  background: red;
 }

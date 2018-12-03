@@ -17,6 +17,11 @@ code {
 .bryans__class {
   margin: 75px 0px 0px 25px;
 }
+
 .hide {
   display: none;
+}
+
+.oblique {
+  font-style: oblique
 }
