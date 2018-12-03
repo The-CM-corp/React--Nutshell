@@ -6,7 +6,7 @@ class TodoFormNew extends Component {
   return (
     <div id="todo__form__container" className={this.props.hideNewForm ? "hideForm" : null}>
       <form>
-        <input type="text" id="task" placeholder="Task Name" defaultValue="" onChange={(event) => {
+        <input type="text" id="task" placeholder="Task Name" onChange={(event) => {
           this.props.handleFieldChangeNew(event)
         }} />
         <input type="date" id="date" placeholder="Expected Completion" onChange={(event) => {

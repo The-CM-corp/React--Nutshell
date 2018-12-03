@@ -25,6 +25,7 @@ class TodoList extends Component {
   }
 
 
+
   // Functions to handle API fetches and setting state after
   getUserTodos = () => {
     APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
@@ -116,23 +117,19 @@ class TodoList extends Component {
     });
   }
 
-
-
-
-
   render() {
     return (
       <React.Fragment>
         <section className="todos">
           <h1>To Do List</h1>
-          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
+          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm}/>
           <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
             this.toggleNewForm()
           }}>Add New Task</button>
           {
             this.state.todos.map(todo =>
 
-              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} />
+              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props}/>
             )
           }
         </section>

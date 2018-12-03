@@ -19,7 +19,7 @@ class TodoCard extends Component {
         <button type="button" id={`edit-${this.props.todo.id}`} onClick={() => {
           this.props.toggleEditForm(this.props.todo.id)
         }}>EDIT</button>
-        <TodoFormEdit todo={this.props.todo} shownForm={this.props.shownForm} hideEditForm={this.props.hideEditForm} toggleEditForm={this.props.toggleEditForm} handleFieldChangeEdit={this.props.handleFieldChangeEdit}/>
+        <TodoFormEdit todo={this.props.todo} shownForm={this.props.shownForm} hideEditForm={this.props.hideEditForm} toggleEditForm={this.props.toggleEditForm} handleFieldChangeEdit={this.props.handleFieldChangeEdit} editTodo={this.props.editTodo} contructEditedTodo={this.props.contructEditedTodo} {...this.props}/>
       </div>
     )
   }
