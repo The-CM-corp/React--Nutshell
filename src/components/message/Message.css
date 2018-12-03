@@ -8,7 +8,7 @@
 
 .userMessage {
   text-align: right;
-  background-color: violet;
+  background-color: 	#6bb1ff;
   margin: 0px 0px 0px 38%;
   /* justify-self: right; */
   margin-bottom: 10px;
@@ -22,7 +22,7 @@
 }
 
 .otherscard {
-  background-color: turquoise;
+  background-color: #d0e0fd ;
   /* margin: auto; */
   margin-bottom: 10px;
   height: 25%;
