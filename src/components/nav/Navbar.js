@@ -1,16 +1,38 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
+import APIManager from '../../modules/APIManager'
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./Navbar.css"
 
 
 
 class NavBar extends Component {
 
+    state = {
+        user: []
+    }
+
+    getCurrentUser = () => {
+        const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+        return currentUser
+      }
+
+
+    componentDidMount() {
+        const userId = this.getCurrentUser()
+        APIManager.getEntry("users", userId)
+            .then( user => {
+            this.setState({ user: user })
+            console.log(this.state.user.name)
+        })
+    }
 
 
     render() {
         return (
-            <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
+            <div>
+            <h2>welcome: {this.state.user.name}</h2>
+            <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
                 <ul className="nav nav-pills">
                     <li className="nav-item">
                         <Link className="nav-link" to="/messages">Messages</Link>
@@ -26,6 +48,7 @@ class NavBar extends Component {
                     </li>
                 </ul>
             </nav>
+            </div>
         )
     }
 }
