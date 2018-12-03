@@ -175,6 +175,21 @@ Be sure to run the following in order to view Nutshell in your browser: ```npm s
 Open [http://localhost:3000]( http://localhost:3000) to view it in the browser.
 In another window of your terminal traverse into ```src/api``` and run: ```json-server -p 5002 -w nutshell.json```
 
+# We covered many topics in the creation of Nutshell, some of which include:
+1. React
+1. Functions
+1. Stand-Up meetings
+1. ERD Diagrams
+1. Databases/API
+1. Objects
+1. CSS
+1. Handling user events
+1. Factory functions
+1. Data entry/editing
+1. CRUD functionality
+1. Modular code 
+1. Github
+
 # Enjoy Nutshell
 This project was bootstrapped with [Create React App]( https://github.com/facebook/create-react-app).
 ### Contributors
