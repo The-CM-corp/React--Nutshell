@@ -35,7 +35,7 @@ class NavBar extends Component {
     if (this.isAuthenticated()) {
       return (
         <div>
-          <h2>welcome: {this.state.user.name}</h2>
+          <h2>welcome: {this.props.userName}</h2>
           <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
             <ul className="nav nav-pills">
               <li className="nav-item">
