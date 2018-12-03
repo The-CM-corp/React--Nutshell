@@ -25,7 +25,7 @@ export default class EventCard extends Component {
           <div className="card-button">
             <button
               type="button"
-              className="card-button btn"
+              className="btn btn_mod btn_small"
               onClick={() => {
                 this.props.handleEditClick(
                   this.props.event.title,
@@ -41,7 +41,7 @@ export default class EventCard extends Component {
             <button
               type="button"
               onClick={() => this.props.deleteEvent(this.props.event.id)}
-              className="card-button btn"
+              className="btn btn_delete btn_small"
             >
               Delete
             </button>

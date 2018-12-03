@@ -7,17 +7,19 @@ export default class EventForm extends Component {
 render() {
   return(
 <React.Fragment> 
-  <div className="new__event bryan">
+  
+  <div className="new__event">
   <button
-    className={this.props.hideNewForm ? "btn new__button" : "hide"}
+    className={this.props.hideNewForm ? "btn btn_mod new__button" : "hide"}
     id="new__button"
     onClick={() => {
       this.props.handleNewClick();
     }}>
-    Add Event
+    Add New Event
   </button>
   <div className={this.props.hideNewForm ? "hide" : null}
             id="new__event__form">
+    <hr></hr>
     <div className="input-group mb-3 bryan">
       <div className="input-group-prepend">
         <span className="input-group-text" id="basic-addon1">
@@ -79,7 +81,7 @@ render() {
         />
     </div>
     <div className="button__holder">
-      <button className="btn"
+      <button className="btn btn_mod btn_small"
         onClick={() => {
         this.props.handleNewClick();
           }}>
@@ -87,7 +89,7 @@ render() {
       </button>
       <button
         type="submit"
-        className="btn"
+        className="btn btn_mod btn_small"
         onClick={() => {
         this.props.constructNewEvent();
         this.props.handleNewClick();
@@ -97,6 +99,7 @@ render() {
     </div>
   </div>
   </div>
+  <hr></hr>
 </React.Fragment>
     )
   }
