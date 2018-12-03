@@ -61,7 +61,7 @@ export default class ApplicationViews extends Component {
           }} />
         <Route path="/welcome" render={props => {
           return (
-            <Welcome getAllUsers={this.getAllUsers} />)
+            <Welcome getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />)
         }} />
       </React.Fragment>
     )

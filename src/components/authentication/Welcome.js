@@ -15,15 +15,16 @@ export default class Welcome extends Component {
     registerName: "",
     // users: [],
     hideLoginForm: false,
+    currentUser: ""
   }
 
-  componentDidMount() {
-    const newState = {}
+  // componentDidMount() {
+  //   const newState = {}
 
-    // this.props.getAllUsers()
-    //   .then((users) => newState.users = users)
-    //   .then(() => this.setState(newState))
-  }
+  //   // this.props.getAllUsers()
+  //   //   .then((users) => newState.users = users)
+  //   //   .then(() => this.setState(newState))
+  // }
 
   // Update state whenever an input field is edited
   handleFieldChange = (evt) => {
@@ -43,10 +44,17 @@ export default class Welcome extends Component {
           sessionStorage.setItem(
             "userId", returns[0].id
           )
+          this.setState({
+            currentUser: sessionStorage.getItem("userId")
+          }, console.log(this.state.currentUser))
+
         } else {
           localStorage.setItem(
             "userId", returns[0].id
           )
+          this.setState({
+            currentUser: localStorage.getItem("userId")
+          }, console.log(this.state.currentUser))
         }
       })
   }
