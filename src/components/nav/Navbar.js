@@ -6,7 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 class NavBar extends Component {
 
-
+  logoutUser = () => {
+    localStorage.removeItem('userId')
+    sessionStorage.removeItem('userId')
+  }
 
     render() {
         return (
@@ -23,6 +26,9 @@ class NavBar extends Component {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/todos">Todo</Link>
+                    </li>
+                    <li>
+                    <Link className="nav-link" to="/welcome" onClick={()=>this.logoutUser()}>Logout</Link>
                     </li>
                 </ul>
             </nav>
