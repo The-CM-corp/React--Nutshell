@@ -17,7 +17,7 @@ export default class ApplicationViews extends Component {
   getAllUsers = () => APIManager.getAllEntries("users")
 
   getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    const currentUser = +sessionStorage.getItem("userId") || +localStorage.getItem("userId")
     return currentUser
 }
 
@@ -50,14 +50,11 @@ export default class ApplicationViews extends Component {
           }
         }} />
         <Route exact path="/events"
-          render={props => {
+          render={(props) => {
             if (this.isAuthenticated()) {
-              return (
-                <EventList getAllUsers={this.getAllUsers}
-                  {...props}
-
-                />
-              );
+              return <EventList {...props}
+                getAllUsers={this.getAllUsers}
+                getCurrentUser={this.getCurrentUser}/>
             } else {
               return <Redirect to="/login" />
             }
