@@ -18,13 +18,6 @@ export default class Welcome extends Component {
     currentUser: ""
   }
 
-  // componentDidMount() {
-  //   const newState = {}
-
-  //   // this.props.getAllUsers()
-  //   //   .then((users) => newState.users = users)
-  //   //   .then(() => this.setState(newState))
-  // }
 
   // Update state whenever an input field is edited
   handleFieldChange = (evt) => {
