@@ -64,6 +64,12 @@ class TodoList extends Component {
     this.setState(stateToChange)
   }
 
+  handleEditClick = (inputTaskId, inputDateId) => {
+    let taskValue = document.getElementById(inputTaskId).value
+    let dateValue = document.getElementById(inputDateId).value
+    this.setState({editTask: taskValue, editDate: dateValue})
+  }
+
   handleFieldChangeCheckbox = (evt, id) => {
     this.setState({ completed: evt.target.checked }, () => {
       let editedCompletion = this.constructEditedCompletion()
@@ -134,7 +140,7 @@ class TodoList extends Component {
           {
             this.state.todos.map(todo =>
 
-              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props} />
+              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} handleEditClick={this.handleEditClick} {...this.props} />
             )
           }
         </section>

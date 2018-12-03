@@ -18,6 +18,7 @@ class TodoCard extends Component {
         }}>DELETE</button>
         <button type="button" id={`edit-${this.props.todo.id}`} onClick={() => {
           this.props.toggleEditForm(this.props.todo.id)
+          this.props.handleEditClick(`editTask-${this.props.todo.id}`, `editDate-${this.props.todo.id}`)
         }}>EDIT</button>
         <TodoFormEdit todo={this.props.todo} shownForm={this.props.shownForm} hideEditForm={this.props.hideEditForm} toggleEditForm={this.props.toggleEditForm} handleFieldChangeEdit={this.props.handleFieldChangeEdit} editTodo={this.props.editTodo} contructEditedTodo={this.props.contructEditedTodo} {...this.props}/>
       </div>
@@ -26,3 +27,4 @@ class TodoCard extends Component {
 }
 
 export default TodoCard
+
