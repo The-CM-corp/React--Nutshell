@@ -21,25 +21,24 @@ class MessageList extends Component {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
 
   deleteAndAddMessage = id => {
     return APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => this.setState({
         messages: messages
       })
       )
-
   }
 
   editMessages = (id, message) => {
     const newState = {}
     return APIManager.editEntry("messages", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time","&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }
@@ -88,35 +87,46 @@ class MessageList extends Component {
       time: this.timestamp(),
       message: this.state.message,
     }
-    this.addNewMessage(message)
-    console.log(message)
+    //basic form validation, will not let an new message be blank or one space
+    if (this.state.message === "" || this.state.message === " ") {
+      alert("Please enter a message")
+    } else {
+      this.addNewMessage(message)
+      console.log(message)
+    }
   }
 
   constructEditMessage = () => {
-
     const editMessage = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       time: this.timestamp(),
       message: this.state.editMessage,
       id: this.state.editId,
     }
-    console.log("my new message", editMessage.id)
-    this.editMessages(editMessage.id, editMessage)
+    //basic form validation, will not let an edited message be blank or one space
+    if (this.state.editMessage === "" || this.state.editMessage === " ") {
+      alert("Please enter a message")
+    } else {
+      console.log("my new message", editMessage.id)
+      this.editMessages(editMessage.id, editMessage)
+    }
   }
 
   render() {
     return (
       <React.Fragment>
-        <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
-          handleFieldChange={this.handleFieldChange} />
         <section className="message__list bryans__class">
-          <h2 className="page__title">Messages</h2>
+          <h1 className="page__title">Messages</h1>
+          <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
+            handleFieldChange={this.handleFieldChange} />
+          <hr></hr>
           <div className="card__holder">
             {
               this.state.messages.map(message =>
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
                   constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
-              ).reverse()}
+              ).reverse()
+            }
           </div>
 
         </section>
