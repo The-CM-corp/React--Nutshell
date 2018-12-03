@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TodoFormEdit from "./TodoFormEdit"
 import "./Todo.css"
+import Moment from 'react-moment';
+
 
 class TodoCard extends Component {
 
@@ -8,7 +10,7 @@ class TodoCard extends Component {
     return (
       <div className="todo-card" key={this.props.todo.id}>
         <h3 id={`task-${this.props.todo.id}`}>{this.props.todo.task}</h3>
-        <p id={`date-${this.props.todo.id}`}>Expected Completion Date: {this.props.todo.date}</p>
+        <p id={`date-${this.props.todo.id}`}>Expected Completion Date: <Moment format="MM/DD/YY">{this.props.todo.date}</Moment></p>
         <label>Completed</label>
         <input id={`completed-${this.props.todo.id}`} type="checkbox" onClick={(evt) => {
           this.props.handleFieldChangeCheckbox(evt, this.props.todo.id)
