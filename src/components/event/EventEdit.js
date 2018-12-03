@@ -5,23 +5,29 @@ export default class EventEdit extends Component {
   render() {
     return (
       <React.Fragment>
+        
         <div
           className={`${this.props.shownForm === this.props.event.id?null: 'hide'}`}
           id="new__event__form"
         >
-          <div className="form-group">
-            <label htmlFor="eventTitle">Event Title</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={this.props.handleFieldChange}
-              id="editTitle"
-              placeholder="Event Name"
-              defaultValue={this.props.event.title}
-            />
+        <hr></hr>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="basic-addon1">
+            Event Title
+            </span>
+              <input
+                type="text"
+                className="form-control"
+                onChange={this.props.handleFieldChange}
+                id="editTitle"
+                placeholder="Event Name"
+                defaultValue={this.props.event.title}
+              />
           </div>
-          <div className="form-group">
-            <label htmlFor="date">Date</label>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="basic-addon1">
+            Date
+            </span>
             <input
               type="date"
               className="form-control"
@@ -31,8 +37,10 @@ export default class EventEdit extends Component {
               defaultValue={this.props.event.date}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="eventSynopsis">Event Synopsis</label>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="basic-addon1">
+            Event Synopsis
+            </span>
             <input
               type="text"
               className="form-control"
@@ -42,8 +50,10 @@ export default class EventEdit extends Component {
               defaultValue={this.props.event.synopsis}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="eventLocation">Event Location</label>
+          <div className="input-group mb-3">
+            <span className="input-group-text" id="basic-addon1">
+            Event Location
+            </span>
             <input
               type="text"
               className="form-control"
@@ -65,7 +75,7 @@ export default class EventEdit extends Component {
           </div>
           <div className="button__holder">
             <button
-              className="btn"
+              className="btn btn_mod btn_small"
               onClick={() => {
                 this.props.handleEditClick();
               }}
@@ -78,7 +88,7 @@ export default class EventEdit extends Component {
                 this.props.constructEditedEvent();
                 this.props.handleEditClick();
               }}
-              className="btn"
+              className="btn btn_mod btn_small"
             >
               Submit
             </button>
