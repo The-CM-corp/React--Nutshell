@@ -13,7 +13,6 @@ export default class Welcome extends Component {
     registerEmail: "",
     registerPassword: "",
     registerName: "",
-    // users: [],
     hideLoginForm: false,
     currentUser: ""
   }

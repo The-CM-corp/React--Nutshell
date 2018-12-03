@@ -8,35 +8,33 @@ import "./Navbar.css"
 
 class NavBar extends Component {
 
+  // getCurrentUser = () => {
+  //   const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+  //   return currentUser
+  // }
+
+  // state = {
+  //   currentUserId: this.getCurrentUser()
+  // }
+
   logoutUser = () => {
     localStorage.removeItem('userId')
     sessionStorage.removeItem('userId')
   }
 
-  state = {
-    user: []
-  }
 
-  getCurrentUser = () => {
-    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-    return currentUser
-  }
-
-
-  componentDidMount() {
-    const userId = this.getCurrentUser()
-    APIManager.getEntry("users", userId)
-      .then(user => {
-        this.setState({ user: user })
-        console.log(this.state.user.name)
-      })
-  }
+  // componentDidMount() {
+  //   APIManager.getEntry("users", this.state.currentUserId)
+  //   .then((user) => {
+  //     this.setState({user: user})
+  //   })
+  // }
 
 
   render() {
     return (
       <div>
-        <h2>welcome: {this.state.user.name}</h2>
+        <h2>welcome: {this.props.userName}</h2>
         <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
           <ul className="nav nav-pills">
             <li className="nav-item">
