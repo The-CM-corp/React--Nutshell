@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import APIManager from '../../modules/APIManager'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Navbar.css"
 
@@ -9,27 +8,10 @@ import "./Navbar.css"
 class NavBar extends Component {
   isAuthenticated = () => (sessionStorage.getItem("userId") !== null || localStorage.getItem("userId") !== null)
 
-  // getCurrentUser = () => {
-  //   const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-  //   return currentUser
-  // }
-
-  // state = {
-  //   currentUserId: this.getCurrentUser()
-  // }
-
   logoutUser = () => {
     localStorage.removeItem('userId')
     sessionStorage.removeItem('userId')
   }
-
-
-  // componentDidMount() {
-  //   APIManager.getEntry("users", this.state.currentUserId)
-  //   .then((user) => {
-  //     this.setState({user: user})
-  //   })
-  // }
 
   noNavonLogin = () => {
     if (this.isAuthenticated()) {

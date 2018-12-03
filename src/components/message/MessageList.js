@@ -70,18 +70,6 @@ class MessageList extends Component {
     console.log(stateToChange)
   }
 
-  timestamp = (time) => {
-    // let currentDate = new Date()
-    let currentDate = time
-    let date = currentDate.getDate()
-    let month = currentDate.getMonth()
-    let year = currentDate.getFullYear()
-    let hour = currentDate.getHours()
-    let min = ('0' + currentDate.getMinutes()).slice(-2)
-    console.log(currentDate)
-    return `${month + 1}-${date}-${year} ${hour}:${min}`
-  }
-
   constructNewMessage = () => {
     const message = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
@@ -125,7 +113,7 @@ class MessageList extends Component {
             {
               this.state.messages.map(message =>
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
-                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} timestamp={this.timestamp} />
+                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit}/>
               ).reverse()
             }
           </div>
