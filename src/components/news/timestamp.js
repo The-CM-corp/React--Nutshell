@@ -5,7 +5,6 @@ const timestamp = () => {
     let year = currentDate.getFullYear()
     let hour = currentDate.getHours()
     let min = ('0' + currentDate.getMinutes()).slice(-2)
-    console.log(currentDate)
     return `${month+1}-${date}-${year} ${hour}:${min}`
 }
 

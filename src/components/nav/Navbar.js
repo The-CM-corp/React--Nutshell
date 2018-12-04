@@ -39,7 +39,7 @@ class NavBar extends Component {
         </div>
       )
     } else {
-      return(
+      return (
         <div>
           <h1 className="welcome__title">Welcome To Nutshell</h1>
         </div>
