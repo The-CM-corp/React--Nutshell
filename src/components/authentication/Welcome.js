@@ -28,7 +28,8 @@ export default class Welcome extends Component {
   handleLogin = (e) => {
     if (this.state.loginEmail === "" || this.state.loginPassword === "") {
       alert("No fields should be left blank")
-    } else {
+    }
+    else {
       APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}&password=${this.state.loginPassword
         }`)
         .then(returns => {
@@ -63,9 +64,10 @@ export default class Welcome extends Component {
 
   // Handle register for new user
   handleRegister = (e) => {
+
     if (this.state.registerEmail === "" || this.state.registerName === "" || this.state.registerPassword === "") {
       alert("No fields should be left blank")
-    } else {
+    } else if (this.state.registerEmail.includes("@")) {
       APIManager.getAllEntries("users", `/?email=${this.state.registerEmail}`)
         .then((returns) => {
           if (returns.length > 0) {
@@ -76,6 +78,8 @@ export default class Welcome extends Component {
             this.handleChangeForm()
           }
         })
+    } else {
+      alert("Please enter a valid email")
     }
   }
 
