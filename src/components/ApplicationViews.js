@@ -32,7 +32,7 @@ export default class ApplicationViews extends Component {
           }
         }} />
 
-        <Route exact path="/messages" render={(props) => {
+        <Route exact path="/" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               getAllUsers={this.getAllUsers}

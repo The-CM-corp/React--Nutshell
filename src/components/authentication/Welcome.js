@@ -42,7 +42,7 @@ export default class Welcome extends Component {
             this.setState({
               currentUser: sessionStorage.getItem("userId")
             }, console.log(this.state.currentUser))
-            this.props.history.push("/messages")
+            this.props.history.push("/")
 
           } else {
             localStorage.setItem(
@@ -51,7 +51,7 @@ export default class Welcome extends Component {
             this.setState({
               currentUser: localStorage.getItem("userId")
             }, console.log(this.state.currentUser))
-            this.props.history.push("/messages")
+            this.props.history.push("/")
           }
         })
     }
