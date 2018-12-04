@@ -116,7 +116,7 @@ class MessageList extends Component {
     return (
       <React.Fragment>
         <section className="message__list bryans__class">
-          <h1 className="page__title">{this.state.userName}'s Messages</h1>
+          <h1 className="page__title">{this.state.userName}&#39;s Messages</h1>
           <NewMessageForm handleNewClick={this.handleNewClick} constructNewMessage={this.constructNewMessage} hideNewForm={this.state.hideNewForm}
             handleFieldChange={this.handleFieldChange} />
           <hr></hr>
