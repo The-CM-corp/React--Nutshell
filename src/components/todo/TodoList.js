@@ -48,6 +48,7 @@ class TodoList extends Component {
   editTodo = (id, editedTodo) => {
     APIManager.editEntry("todos", id, editedTodo)
       .then(() => this.getUserTodos())
+      .then(() => this.setState({completed: false}))
   }
 
   addTodo = (newTodo) => {
