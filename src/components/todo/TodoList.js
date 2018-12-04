@@ -17,15 +17,25 @@ class TodoList extends Component {
     hideNewForm: true,
     hideEditForm: true,
     currentUserId: this.props.getCurrentUser(),
+    userName: "",
     editTask: "",
     editDate: ""
   }
 
   componentDidMount() {
     this.getUserTodos()
+    this.getUserName()
+    console.log(this.state.userName)
   }
 
   // Functions to handle API fetches and setting state after
+
+  getUserName = () => {
+    APIManager.getEntry("users", this.state.currentUserId)
+      .then((user) => {
+        this.setState({ userName: user.name })
+      })
+  }
   getUserTodos = () => {
     APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
       .then((todos) => this.setState({ todos: todos }))
@@ -62,7 +72,7 @@ class TodoList extends Component {
   handleEditClick = (inputTaskId, inputDateId) => {
     let taskValue = document.getElementById(inputTaskId).value
     let dateValue = document.getElementById(inputDateId).value
-    this.setState({editTask: taskValue, editDate: dateValue})
+    this.setState({ editTask: taskValue, editDate: dateValue })
   }
 
   handleFieldChangeCheckbox = (evt, id) => {
@@ -126,6 +136,7 @@ class TodoList extends Component {
   render() {
     return (
       <React.Fragment>
+        <h2 className="welcome__name">Welcome, {this.state.userName}</h2>
         <section className="todos">
           <h1>To Do List</h1>
           <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
