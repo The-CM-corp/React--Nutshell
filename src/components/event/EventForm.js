@@ -20,7 +20,7 @@ render() {
   <div className={this.props.hideNewForm ? "hide" : null}
             id="new__event__form">
     <hr></hr>
-    <div className="input-group mb-3 bryan">
+    <div className="input-group mb-3">
       <div className="input-group-prepend">
         <span className="input-group-text" id="basic-addon1">
           Event Title
@@ -81,7 +81,7 @@ render() {
         />
     </div>
     <div className="button__holder">
-      <button className="btn btn_mod btn_small"
+      <button className="btn btn_delete btn_small"
         onClick={() => {
         this.props.handleNewClick();
           }}>

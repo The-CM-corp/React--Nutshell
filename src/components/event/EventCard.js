@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import EventEdit from "./EventEdit";
+import Moment from 'react-moment';
 import "./Event.css";
 
 export default class EventCard extends Component {
@@ -11,7 +12,11 @@ export default class EventCard extends Component {
           className={this.props.events[0].id === this.props.event.id ? "coral" : "other"}
         >
           <p className="card-title">{this.props.event.title}</p>
-          <p className="card-date">{this.props.event.date}</p>
+          <p className="card-date">
+          <Moment format="MMMM Do YYYY">
+          {this.props.event.date}
+          </Moment>
+          </p>
           <p className="card-location">
             Location:
             <br />
