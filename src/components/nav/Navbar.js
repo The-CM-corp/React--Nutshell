@@ -13,35 +13,38 @@ class NavBar extends Component {
     sessionStorage.removeItem('userId')
   }
 
+
+
   noNavonLogin = () => {
     if (this.isAuthenticated()) {
       return (
-        <div>
+        <div className="nav_bkg">
+          <h2 className="nav_title">Welcome to Nutshell v.2.0 <img src="nutshell.png" width="40px" alt="this is a nutshell"></img></h2>
           <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
-            <ul className="nav nav-pills">
+            <ul className="nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/">Messages</Link>
+                <Link className="nav-link nav_link_colors" to="/">Messages</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/events">Events</Link>
+                <Link className="nav-link nav_link_colors" to="/events">Events</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/news">News</Link>
+                <Link className="nav-link nav_link_colors" to="/news">News</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/todos">Todo</Link>
+                <Link className="nav-link nav_link_colors" to="/todos">To Do</Link>
               </li>
               <li>
-                <Link className="nav-link" to="/welcome" onClick={() => this.logoutUser()}>Logout</Link>
+                <Link className="nav-link nav_link_colors" to="/welcome" onClick={() => this.logoutUser()}>Logout</Link>
               </li>
             </ul>
           </nav>
         </div>
       )
     } else {
-      return (
-        <div>
-          <h1 className="welcome__title">Welcome To Nutshell</h1>
+      return(
+        <div className="welcome__div">
+          <h1>Nutshell v.2.0</h1>
         </div>
       )
     }

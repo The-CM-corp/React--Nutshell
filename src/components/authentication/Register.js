@@ -5,43 +5,42 @@ export default class Register extends Component {
   render() {
     return (
       <div className={this.props.hideLoginForm ? "bryans__class" : "hide"}>
-        <h2>Register Here</h2>
-        <div className="register__form">
-          <label htmlFor="inputName">
+        <div className="login__form">
+          <h2>Register Here</h2>
+          <label className="formLabel" htmlFor="inputName">
             Name
-                </label>
-          <br />
-          <input onChange={this.props.handleFieldChange} type="text"
+          </label>
+          <input className="formInput" onChange={this.props.handleFieldChange} type="text"
             id="registerName"
             placeholder="Display Name"
             required="" autoFocus="" />
-          <br />
 
-          <label htmlFor="inputEmail">
+          <label className="formLabel" htmlFor="inputEmail">
             Email address
-                </label>
-          <br />
-          <input onChange={this.props.handleFieldChange} type="email"
+          </label>
+          <input className="formInput" onChange={this.props.handleFieldChange} type="email"
             id="registerEmail"
             placeholder="Email address"
             required="" autoFocus="" />
-          <br />
 
-          <label htmlFor="inputPassword">
+          <label className="formLabel" htmlFor="inputPassword">
             Password
-                </label>
-          <br />
-          <input onChange={this.props.handleFieldChange} type="password"
+          </label>
+          <input className="formInput" onChange={this.props.handleFieldChange} type="password"
             id="registerPassword"
             placeholder="Password"
             required="" />
-          <br />
-          <button type="button" onClick={() => {
+
+          <button type="button" className="btn btn_mod" onClick={() => {
             this.props.handleRegister()
           }}>
             Register
-                </button>
-        </div >
+          </button>
+        </div>
+
+        <div className="text__center">
+          <button className="register__link" onClick={() => this.props.handleChangeForm()}>Already have an account? Sign In</button>
+        </div>
       </div>
     )
   }
