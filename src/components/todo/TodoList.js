@@ -4,7 +4,6 @@ import APIManager from "../../modules/APIManager"
 import TodoCard from "./TodoCard"
 import TodoFormNew from "./TodoFormNew"
 
-// TODO format date, fix to use enter key, clear input fields, fix OnChange issue, validation forms can't be blank
 
 class TodoList extends Component {
 
@@ -26,8 +25,6 @@ class TodoList extends Component {
     this.getUserTodos()
   }
 
-
-
   // Functions to handle API fetches and setting state after
   getUserTodos = () => {
     APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
@@ -48,8 +45,6 @@ class TodoList extends Component {
     APIManager.addEntry("todos", newTodo)
       .then(() => this.getUserTodos())
   }
-
-
 
   // Update state whenever an input field is edited
   handleFieldChangeNew = evt => {

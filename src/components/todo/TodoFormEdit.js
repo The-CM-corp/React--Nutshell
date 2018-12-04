@@ -14,7 +14,7 @@ class TodoFormEdit extends Component {
           this.props.handleFieldChangeEdit(evt)
         }} />
 
-        <button type="button" id={`saveNew-${this.props.todo.id}`} onClick={(evt) => {
+        <button type="button" className="btn_small" id={`saveNew-${this.props.todo.id}`} onClick={(evt) => {
           this.props.toggleEditForm()
           this.props.constructEditedTodo(this.props.todo.id)
         }}>SAVE CHANGES</button>

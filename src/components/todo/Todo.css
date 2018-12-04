@@ -3,16 +3,32 @@
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 
-.todo__card {
+.todo-card {
   flex-basis: 1;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid gray;
+  padding: 15px;
+  /* padding-bottom: 15px; */
+  background-color: #d0e0fd ;
+  margin-bottom: 10px;
+  width: 75%;
+  border-radius: 10px;
 }
 
 .hideForm {
   display: none;
+}
+
+.btn_small {
+  font-size: .8em;
+  padding: 4px 6px;
+  color: white;
+  background-color: rgb(97, 96, 96);
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.checkbox {
+  margin: 2px;
 }
