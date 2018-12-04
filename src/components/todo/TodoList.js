@@ -4,7 +4,6 @@ import APIManager from "../../modules/APIManager"
 import TodoCard from "./TodoCard"
 import TodoFormNew from "./TodoFormNew"
 
-// TODO format date, fix to use enter key, clear input fields, fix OnChange issue, validation forms can't be blank
 
 class TodoList extends Component {
 
@@ -18,17 +17,24 @@ class TodoList extends Component {
     hideNewForm: true,
     hideEditForm: true,
     currentUserId: this.props.getCurrentUser(),
+    userName: "",
     editTask: "",
     editDate: ""
   }
 
   componentDidMount() {
     this.getUserTodos()
+    this.getUserName()
   }
 
-
-
   // Functions to handle API fetches and setting state after
+
+  getUserName = () => {
+    APIManager.getEntry("users", this.state.currentUserId)
+      .then((user) => {
+        this.setState({ userName: user.name })
+      })
+  }
   getUserTodos = () => {
     APIManager.getAllEntries("todos", `?completed=false&user_id=${this.state.currentUserId}`)
       .then((todos) => this.setState({ todos: todos }))
@@ -49,8 +55,6 @@ class TodoList extends Component {
       .then(() => this.getUserTodos())
   }
 
-
-
   // Update state whenever an input field is edited
   handleFieldChangeNew = evt => {
     const stateToChange = {}
@@ -64,6 +68,12 @@ class TodoList extends Component {
     this.setState(stateToChange)
   }
 
+  handleEditClick = (inputTaskId, inputDateId) => {
+    let taskValue = document.getElementById(inputTaskId).value
+    let dateValue = document.getElementById(inputDateId).value
+    this.setState({ editTask: taskValue, editDate: dateValue })
+  }
+
   handleFieldChangeCheckbox = (evt, id) => {
     this.setState({ completed: evt.target.checked }, () => {
       let editedCompletion = this.constructEditedCompletion()
@@ -73,13 +83,17 @@ class TodoList extends Component {
 
   // contruct objects and pass to fetch calls
   constructNewTodo = evt => {
-    const todo = {
-      task: this.state.task,
-      date: this.state.date,
-      completed: this.state.completed,
-      user_id: this.state.currentUserId
+    if (this.state.task === "" || this.state.date === "") {
+      alert("No fields should be left blank")
+    } else {
+      const todo = {
+        task: this.state.task,
+        date: this.state.date,
+        completed: this.state.completed,
+        user_id: this.state.currentUserId
+      }
+      this.addTodo(todo)
     }
-    this.addTodo(todo)
   }
 
   constructEditedTodo = (id) => {
@@ -122,15 +136,15 @@ class TodoList extends Component {
     return (
       <React.Fragment>
         <section className="todos">
-          <h1>To Do List</h1>
-          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm}/>
-          <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
+          <h1>{this.state.userName}&#39;s To Do List</h1>
+          <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
+          <button className="btn_large" id="addNewTodoBtn" type="button" onClick={() => {
             this.toggleNewForm()
           }}>Add New Task</button>
           {
             this.state.todos.map(todo =>
 
-              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} {...this.props}/>
+              <TodoCard key={todo.id} todo={todo} handleFieldChangeCheckbox={this.handleFieldChangeCheckbox} handleFieldChangeEdit={this.handleFieldChangeEdit} editTodo={this.editTodo} deleteTodo={this.deleteTodo} toggleEditForm={this.toggleEditForm} shownForm={this.state.shownForm} hideEditForm={this.state.hideEditForm} constructEditedTodo={this.constructEditedTodo} handleEditClick={this.handleEditClick} {...this.props} />
             )
           }
         </section>

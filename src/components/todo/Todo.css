@@ -1,18 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+
 .todos {
   margin-top: 50px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
 }
 
-.todo__card {
+.todo-card {
   flex-basis: 1;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid gray;
+  padding: 15px;
+  /* padding-bottom: 15px; */
+  background-color: #d0e0fd ;
+  margin-bottom: 10px;
+  width: 55%;
+  border-radius: 10px;
 }
 
 .hideForm {
   display: none;
 }
+
+.btn_small {
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+  font-size: .8em;
+  padding: 4px 6px;
+  color: white;
+  background-color: rgb(97, 96, 96);
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.btn_large {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  font-size: 1em;
+  background-color: cornflowerblue;;
+  padding: 6px 8px;
+  border-radius: 7px;
+  margin: 10px 0px 20px 10px;
+}
+
+.btn_large:hover {
+  background: rgb(18, 212, 18);
+}
+
+.btn_small:hover {
+  background: rgb(18, 212, 18);
+}
+
+.btn_delete:hover {
+  background: red;
+}
+
+.checkbox {
+  margin-left: 10px;
+}
+
+.input {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
