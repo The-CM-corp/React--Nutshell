@@ -153,8 +153,7 @@ export default class EventList extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2 className="welcome__name">Welcome, {this.state.userName}</h2>
-        <h1 className="event__title bryans__class">Events</h1>
+        <h1 className="event__title bryans__class">{this.state.userName}'s Events</h1>
         <EventForm
           handleNewClick={this.handleNewClick}
           constructNewEvent={this.constructNewEvent}

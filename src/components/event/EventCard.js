@@ -12,7 +12,6 @@ export default class EventCard extends Component {
           className={this.props.events[0].id === this.props.event.id ? "coral" : "other"}
         >
           <p className="card-title">{this.props.event.title}</p>
-          {/* <p className="card-date">{this.props.event.date}</p> */}
           <p className="card-date">
           <Moment format="MMMM Do YYYY">
           {this.props.event.date}
