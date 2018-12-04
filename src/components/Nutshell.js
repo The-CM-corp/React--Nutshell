@@ -1,11 +1,7 @@
-import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
 import Navbar from "./nav/Navbar"
 import ApplicationViews from "./ApplicationViews"
 import APIManager from "../modules/APIManager"
-import Login from './authentication/Login'
-
-// import "./Nutshell.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 
@@ -17,7 +13,6 @@ export default class Nutshell extends Component {
     const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
     return currentUser
   }
-
 
   state = {
     currentUserId: this.getCurrentUserId(),

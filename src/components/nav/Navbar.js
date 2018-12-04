@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
-import APIManager from '../../modules/APIManager'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Navbar.css"
 
@@ -22,7 +21,7 @@ class NavBar extends Component {
           <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
             <ul className="nav">
               <li className="nav-item">
-                <Link className="nav-link nav_link_colors" to="/messages">Messages</Link>
+                <Link className="nav-link nav_link_colors" to="/">Messages</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link nav_link_colors" to="/events">Events</Link>

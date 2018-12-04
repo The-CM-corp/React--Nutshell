@@ -4,7 +4,6 @@ import APIManager from '../modules/APIManager'
 import NewsList from './news/NewsList'
 import EventList from './event/EventList'
 import TodoList from './todo/TodoList'
-import Navbar from './nav/Navbar'
 import './Nutshell.css'
 import MessageList from './message/MessageList';
 import Welcome from './authentication/Welcome';
@@ -33,7 +32,7 @@ export default class ApplicationViews extends Component {
           }
         }} />
 
-        <Route exact path="/messages" render={(props) => {
+        <Route exact path="/" render={(props) => {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               getAllUsers={this.getAllUsers}
