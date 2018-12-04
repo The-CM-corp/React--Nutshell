@@ -25,7 +25,6 @@ class TodoList extends Component {
   componentDidMount() {
     this.getUserTodos()
     this.getUserName()
-    console.log(this.state.userName)
   }
 
   // Functions to handle API fetches and setting state after
