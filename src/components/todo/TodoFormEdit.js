@@ -8,9 +8,9 @@ class TodoFormEdit extends Component {
     return (
       <div className={`${this.props.shownForm === this.props.todo.id ? null : 'hideForm'}`}>
 
-        <input type="text" id={`editTask-${this.props.todo.id}`} defaultValue={this.props.todo.task} onChange={(evt) => { this.props.handleFieldChangeEdit(evt) }} />
+        <input className="input" type="text" id={`editTask-${this.props.todo.id}`} defaultValue={this.props.todo.task} onChange={(evt) => { this.props.handleFieldChangeEdit(evt) }} />
 
-        <input type="date" id={`editDate-${this.props.todo.id}`} defaultValue={this.props.todo.date} onChange={(evt) => {
+        <input type="date" className="input" id={`editDate-${this.props.todo.id}`} defaultValue={this.props.todo.date} onChange={(evt) => {
           this.props.handleFieldChangeEdit(evt)
         }} />
 

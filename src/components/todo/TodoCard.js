@@ -15,6 +15,7 @@ class TodoCard extends Component {
         <input id={`completed-${this.props.todo.id}`} type="checkbox" className="checkbox" onClick={(evt) => {
           this.props.handleFieldChangeCheckbox(evt, this.props.todo.id)
         }} />
+        <br></br>
         <button type="button" className="btn_small" onClick={() => {
           this.props.deleteTodo(this.props.todo.id)
         }}>DELETE</button>

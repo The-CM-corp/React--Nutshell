@@ -129,7 +129,7 @@ class TodoList extends Component {
         <section className="todos">
           <h1>To Do List</h1>
           <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
-          <button className="add-new-btn" id="addNewTodoBtn" type="button" onClick={() => {
+          <button className="btn_large" id="addNewTodoBtn" type="button" onClick={() => {
             this.toggleNewForm()
           }}>Add New Task</button>
           {
