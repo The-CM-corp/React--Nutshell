@@ -15,7 +15,7 @@ code {
 
 
 .bryans__class {
-  margin: 75px 0px 0px 25px;
+  margin: 20px 0px 0px 25px;
 }
 
 .hide {
@@ -28,4 +28,57 @@ code {
 
 .oblique {
   font-style: oblique
+}
+
+.welcome__div {
+  background: rgb(71, 71, 71);
+  text-align: center;
+  color: whitesmoke;
+  text-shadow: 0px 0px 10px rgb(0, 0, 0);
+  padding: 20px;
+
+}
+
+.login__form {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  background: whitesmoke;
+  border: 1px solid lightskyblue;
+  border-radius: 10px;
+  margin-bottom: 20px
+}
+
+.register__link {
+  width: 300px;
+  margin: auto;
+  color: rgb(71, 71, 71);
+  border-radius: 10px;
+  background: whitesmoke;
+  border: 1px solid lightskyblue;
+  font-weight: bold
+}
+
+.register__link:hover {
+  color: white;
+  background: rgb(71, 71, 71);
+}
+
+.text__center {
+  text-align: center
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 0px;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+.formInput {
+  margin-bottom: 15px;
+}
+
+.float_left {
+  float: left;
 }
