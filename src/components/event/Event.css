@@ -21,6 +21,10 @@
   margin-right: 20px;
 }
 
+.welcome__name{
+  margin-left: 20px;
+}
+
 .event__title {
   margin-left: 10px;
   margin-top: 0px;

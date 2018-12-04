@@ -18,11 +18,17 @@ export default class EventList extends Component {
     editDate: "",
     editSynopsis: "",
     editLocation: "",
-    editId: ""
+    editId: "",
+    userName:""
   };
 
   componentDidMount() {
     const newState = {};
+    APIManager.getEntry("users", this.state.currentUserId)
+      .then((user) => {
+        this.setState({ userName: user.name })
+      })
+
     APIManager.getAllEntries(
       "events",
       `?user_id=${this.state.currentUserId}&_sort=date&_order=asc`
@@ -147,6 +153,7 @@ export default class EventList extends Component {
   render() {
     return (
       <React.Fragment>
+        <h2 className="welcome__name">Welcome, {this.state.userName}</h2>
         <h1 className="event__title bryans__class">Events</h1>
         <EventForm
           handleNewClick={this.handleNewClick}
