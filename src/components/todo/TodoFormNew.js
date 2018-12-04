@@ -16,7 +16,7 @@ class TodoFormNew extends Component {
           this.props.constructNewTodo(evt)
           this.props.toggleNewForm()
         }}>Save</button>
-        <button type="button" className="btn_large" onClick={() => {
+        <button type="button" className="btn_large btn_delete" onClick={() => {
           this.props.toggleNewForm()
         }}>Cancel</button>
       </div>

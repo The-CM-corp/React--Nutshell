@@ -2,8 +2,6 @@
   box-sizing: border-box;
 }
 
-
-
 .todos {
   margin-top: 50px;
   margin-left: 20px;
@@ -45,11 +43,22 @@
   display: inline-block;
   border: none;
   font-size: 1em;
-  color: white;
-  background-color: rgb(97, 96, 96);
+  background-color: cornflowerblue;;
   padding: 6px 8px;
   border-radius: 7px;
   margin: 10px 0px 20px 10px;
+}
+
+.btn_large:hover {
+  background: rgb(18, 212, 18);
+}
+
+.btn_small:hover {
+  background: rgb(18, 212, 18);
+}
+
+.btn_delete:hover {
+  background: red;
 }
 
 .checkbox {
