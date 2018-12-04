@@ -11,31 +11,32 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 export default class Nutshell extends Component {
 
-    isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
+  isAuthenticated = () => (sessionStorage.getItem("credentials") !== null || localStorage.getItem("credentials") !== null)
 
-    getCurrentUserId = () => {
-      const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
-      return currentUser
-    }
+  getCurrentUserId = () => {
+    const currentUser = sessionStorage.getItem("userId") || localStorage.getItem("userId")
+    return currentUser
+  }
 
-    state = {
-      currentUserId: this.getCurrentUserId(),
-      userName: ""
-    }
 
-    componentDidMount() {
-      APIManager.getEntry("users", this.state.currentUserId)
+  state = {
+    currentUserId: this.getCurrentUserId(),
+    userName: ""
+  }
+
+  componentDidMount() {
+    APIManager.getEntry("users", this.state.currentUserId)
       .then((user) => {
-        this.setState({userName: user.name})
+        this.setState({ userName: user.name })
       })
-    }
+  }
 
-    render() {
-        return (
-                            <React.Fragment>
-                                <Navbar userName={this.state.userName}/>
-                                <ApplicationViews />
-                            </React.Fragment>
-        )
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <Navbar userName={this.state.userName} />
+        <ApplicationViews />
+      </React.Fragment>
+    )
+  }
 }

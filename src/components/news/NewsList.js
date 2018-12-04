@@ -18,6 +18,7 @@ export default class NewsList extends Component {
         editSynopsis: "",
         editUrl: "",
         editId: "",
+        editImage: "",
     }
 
 
@@ -65,12 +66,13 @@ export default class NewsList extends Component {
     }
 
     // Updates state in edit form
-    handleNewClick = (editTitle, editSynopsis, editUrl, editId) => {
+    handleNewClick = (editTitle, editSynopsis, editUrl, editId, editImage) => {
         this.setState({
             editTitle: editTitle,
             editSynopsis: editSynopsis,
             editUrl: editUrl,
-            editId: editId
+            editId: editId,
+            editImage: editImage,
         });
     };
 
@@ -87,12 +89,14 @@ export default class NewsList extends Component {
             title: this.state.title,
             synopsis: this.state.synopsis,
             url: this.state.url,
+            image: this.state.image,
             timestamp: timestamp(),
             user_id: this.state.currentUserId
         }
         // Basic form validation
         if (this.state.title === undefined || this.state.title === "" ||
             this.state.synopsis === undefined || this.state.synopsis === "" ||
+            this.state.image === undefined || this.state.image === "" ||
             this.state.url === undefined || this.state.url === "") {
             alert("You must complete all fields to add new article")
         } else {
@@ -101,7 +105,8 @@ export default class NewsList extends Component {
                 .then(this.setState({
                     title: "",
                     synopsis: "",
-                    url: ""
+                    url: "",
+                    image: ""
                 }))
                 .then(this.toggleAddForm())
         }
@@ -114,12 +119,14 @@ export default class NewsList extends Component {
             title: this.state.editTitle,
             synopsis: this.state.editSynopsis,
             url: this.state.editUrl,
+            image: this.state.editImage,
             timestamp: timestamp(),
             id: this.state.editId
         }
         // Basic form validation
         if (editedNews.title === undefined || editedNews.title === "" ||
             editedNews.synopsis === undefined || editedNews.synopsis === "" ||
+            editedNews.image === undefined || editedNews.image === "" ||
             editedNews.url === undefined || editedNews.url === "") {
             alert("You must complete all fields to edit this article")
         } else {
@@ -159,6 +166,12 @@ export default class NewsList extends Component {
                                 </div>
                                 <input id="url" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Link URL" aria-label="url" aria-describedby="basic-addon1" value={this.state.url || ''} />
                             </div>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="basic-addon1">Image URL</span>
+                                </div>
+                                <input id="image" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Image URL" aria-label="image" aria-describedby="basic-addon1" value={this.state.image || ''} />
+                            </div>
                             <button className="btn btn_mod" onClick={() => {this.constructNewNews()}}> Submit</button>
                             <button className="btn btn_delete" onClick={() => this.toggleAddForm()}> Cancel</button>
                         </div>
@@ -168,12 +181,13 @@ export default class NewsList extends Component {
                                 this.state.news.map(newsArticle =>
                                     <div className="news_card" key={newsArticle.id}>
                                         <h2>{newsArticle.title}</h2>
+                                        <a href={`http://${newsArticle.url}`} target="new"><img src={newsArticle.image} className="news_image" alt={newsArticle.title}></img></a>
                                         <p>{newsArticle.synopsis}</p>
                                         <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
                                         <p className="oblique">{newsArticle.timestamp}</p>
                                         <div id="editDeleteBtns">
                                             <button className="btn btn_mod btn_small" onClick={() => {
-                                                this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id)
+                                                this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id, newsArticle.image)
                                                 this.toggleEditForm(newsArticle.id)
                                             }}>Edit</button>
                                             <button className="btn btn_delete btn_small" onClick={() => this.deleteNews(newsArticle.id)}>Delete</button>
@@ -187,6 +201,10 @@ export default class NewsList extends Component {
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Synopsis</span></div>
                                                 <textarea id="editSynopsis" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Edit Synopsis" aria-label="editSynopsis" aria-describedby="basic-addon1" defaultValue={newsArticle.synopsis} />
+                                            </div>
+                                            <div className="input-group mb-3">
+                                                <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Image URL</span></div>
+                                                <input id="editImage" type="text" className="form-control" onChange={this.handleFieldChange} placeholder="Edit Image URL" aria-label="image" aria-describedby="basic-addon1" defaultValue={newsArticle.image} />
                                             </div>
                                             <div className="input-group mb-3">
                                                 <div className="input-group-prepend"><span className="input-group-text" id="basic-addon1">Link URL</span></div>
