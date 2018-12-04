@@ -75,7 +75,7 @@ export default class EventEdit extends Component {
           </div>
           <div className="button__holder">
             <button
-              className="btn btn_mod btn_small"
+              className="btn btn_delete btn_small"
               onClick={() => {
                 this.props.handleEditClick();
               }}
