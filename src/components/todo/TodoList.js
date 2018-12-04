@@ -136,7 +136,7 @@ class TodoList extends Component {
     return (
       <React.Fragment>
         <section className="todos">
-          <h1>{this.state.userName}'s To Do List</h1>
+          <h1>{this.state.userName}&#39;s To Do List</h1>
           <TodoFormNew hideNewForm={this.state.hideNewForm} handleFieldChangeNew={this.handleFieldChangeNew} constructNewTodo={this.constructNewTodo} toggleNewForm={this.toggleNewForm} />
           <button className="btn_large" id="addNewTodoBtn" type="button" onClick={() => {
             this.toggleNewForm()
