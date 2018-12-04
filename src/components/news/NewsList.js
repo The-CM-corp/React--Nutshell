@@ -3,6 +3,8 @@ import APIManager from '../../modules/APIManager'
 import timestamp from './timestamp'
 import "./News.css"
 import "bootstrap/dist/css/bootstrap.min.css"
+import Moment from 'react-moment'
+import 'moment-timezone'
 
 export default class NewsList extends Component {
 
@@ -190,7 +192,7 @@ export default class NewsList extends Component {
                                         <a href={`http://${newsArticle.url}`} target="new"><img src={newsArticle.image} className="news_image" alt={newsArticle.title}></img></a>
                                         <p>{newsArticle.synopsis}</p>
                                         <p><a href={`http://${newsArticle.url}`} target="new">{newsArticle.url}</a></p>
-                                        <p className="oblique">{newsArticle.timestamp}</p>
+                                        <p className="oblique"> posted: <Moment format= "MM/DD/YYYY hh:mm a" >{newsArticle.timestamp}</Moment></p>
                                         <div id="editDeleteBtns">
                                             <button className="btn btn_mod btn_small" onClick={() => {
                                                 this.handleNewClick(newsArticle.title, newsArticle.synopsis, newsArticle.url, newsArticle.id, newsArticle.image)
