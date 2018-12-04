@@ -70,21 +70,10 @@ class MessageList extends Component {
     console.log(stateToChange)
   }
 
-  timestamp = () => {
-    let currentDate = new Date()
-    let date = currentDate.getDate()
-    let month = currentDate.getMonth()
-    let year = currentDate.getFullYear()
-    let hour = currentDate.getHours()
-    let min = ('0' + currentDate.getMinutes()).slice(-2)
-    console.log(currentDate)
-    return `${month + 1}-${date}-${year} ${hour}:${min}`
-  }
-
   constructNewMessage = () => {
     const message = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
-      time: this.timestamp(),
+      time: new Date(),
       message: this.state.message,
     }
     //basic form validation, will not let an new message be blank or one space
@@ -99,7 +88,7 @@ class MessageList extends Component {
   constructEditMessage = () => {
     const editMessage = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
-      time: this.timestamp(),
+      time: new Date(),
       message: this.state.editMessage,
       id: this.state.editId,
     }
@@ -124,7 +113,7 @@ class MessageList extends Component {
             {
               this.state.messages.map(message =>
                 <MessageCard key={message.id} message={message} editMessages={this.editMessages} deleteAndAddMessage={this.deleteAndAddMessage} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage}
-                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit} />
+                  constructEditMessage={this.constructEditMessage} handleNewEdit={this.handleNewEdit}/>
               ).reverse()
             }
           </div>
