@@ -6,7 +6,7 @@ export default class Register extends Component {
     return (
       <div className={this.props.hideLoginForm ? "bryans__class" : "hide"}>
         <div className="login__form">
-        <h2>Register Here</h2>
+          <h2>Register Here</h2>
           <label className="formLabel" htmlFor="inputName">
             Name
           </label>
@@ -32,9 +32,14 @@ export default class Register extends Component {
             required="" />
 
           <button type="button" className="btn btn_mod" onClick={() => {
-            this.props.handleRegister()}}>
+            this.props.handleRegister()
+          }}>
             Register
           </button>
+        </div>
+
+        <div className="text__center">
+          <button className="register__link" onClick={() => this.props.handleChangeForm()}>Already have an account? Sign In</button>
         </div>
       </div>
     )
