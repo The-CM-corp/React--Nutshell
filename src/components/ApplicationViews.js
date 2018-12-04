@@ -18,7 +18,7 @@ export default class ApplicationViews extends Component {
   getCurrentUser = () => {
     const currentUser = +sessionStorage.getItem("userId") || +localStorage.getItem("userId")
     return currentUser
-}
+  }
 
 
   render() {
@@ -26,7 +26,7 @@ export default class ApplicationViews extends Component {
       <React.Fragment>
         <Route exact path="/news" render={(props) => {
           if (this.isAuthenticated()) {
-            return <NewsList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
+            return <NewsList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
@@ -36,6 +36,7 @@ export default class ApplicationViews extends Component {
           if (this.isAuthenticated()) {
             return <MessageList {...props}
               getAllUsers={this.getAllUsers}
+              getCurrentUser={this.getCurrentUser}
             />
           } else {
             return <Redirect to="/welcome" />
@@ -43,7 +44,7 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/todos" render={(props) => {
           if (this.isAuthenticated()) {
-            return <TodoList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
+            return <TodoList getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
@@ -53,14 +54,14 @@ export default class ApplicationViews extends Component {
             if (this.isAuthenticated()) {
               return <EventList {...props}
                 getAllUsers={this.getAllUsers}
-                getCurrentUser={this.getCurrentUser}/>
+                getCurrentUser={this.getCurrentUser} />
             } else {
               return <Redirect to="/welcome" />
             }
           }} />
         <Route path="/welcome" render={props => {
           return (
-            <Welcome getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} {...props}/>)
+            <Welcome getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} {...props} />)
         }} />
       </React.Fragment>
     )

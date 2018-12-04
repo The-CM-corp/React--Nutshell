@@ -31,21 +31,14 @@
   font-size: .8em;
   padding: 3px 5px
 }
-
 .edit__button:hover {
   background-color: rgb(18, 212, 18);
-
 }
 .delete__button:hover {
   background-color: red;
 }
-.cancel__button:hover {
-background-color: orange
-}
 .save__button:hover {
-  background-color: dodgerblue;
+  background-color: rgb(18, 212, 18);
 }
-.new__button:hover {
-  background-color: blue;
-}
+
 

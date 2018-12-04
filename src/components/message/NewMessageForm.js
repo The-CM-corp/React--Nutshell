@@ -5,8 +5,8 @@ export default class NewMessageForm extends Component {
     return (
       <div className="new__message">
         <button type="button"
-          className={this.props.hideNewForm ? "btn new__button" : 'hide'}
-          id="new__button"
+          className={this.props.hideNewForm ? "btn btn_mod" : 'hide'}
+          id="new__button "
           onClick={() => {
             this.props.handleNewClick()
           }}
@@ -22,14 +22,14 @@ export default class NewMessageForm extends Component {
           </div>
           <div className="button__holder">
             <button
-              className="btn cancel__button"
+              className="btn cancel__button btn_delete"
               onClick={() => {
                 this.props.handleNewClick()
               }}>
               Cancel
             </button>
             <button
-              className="btn save__button"
+              className="btn btn_mod"
               onClick={() => {
                 this.props.constructNewMessage()
                 this.props.handleNewClick()
