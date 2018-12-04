@@ -19,6 +19,7 @@ export default class NewsList extends Component {
         editUrl: "",
         editId: "",
         editImage: "",
+        userName: ""
     }
 
 
@@ -26,6 +27,11 @@ export default class NewsList extends Component {
         APIManager.getAllEntries("news", `?user_id=${this.state.currentUserId}&_sort=timestamp&_order=desc`)
             .then((news) => {
                 this.setState({ news: news })
+            })
+
+        APIManager.getEntry("users", this.state.currentUserId)
+            .then((user) => {
+            this.setState({ userName: user.name })
             })
     }
 
@@ -142,7 +148,7 @@ export default class NewsList extends Component {
             <section className="bryans__class">
                 {
                     <article>
-                        <h1>News</h1>
+                        <h1>{this.state.userName}'s News</h1>
                         <div className={this.state.hideAddForm ? 'hide' : null}>
                             <button className="btn btn_mod" onClick={() => this.toggleAddForm()}>Add News Article</button>
                         </div>
